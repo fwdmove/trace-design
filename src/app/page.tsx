@@ -22,12 +22,12 @@ const work: WorkItem[] = [
     alt: 'Website design displayed on a laptop',
   },
   {
-    id: '02', name: 'Keel', type: 'Brand + Web', year: '2024',
+    id: '02', name: 'Keel', type: 'Full Site Build', year: '2024',
     img: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&h=750&fit=crop&q=80&auto=format',
     alt: 'Brand and web design work',
   },
   {
-    id: '03', name: 'Forma', type: 'UI Design', year: '2023',
+    id: '03', name: 'Forma', type: 'Landing Page', year: '2023',
     img: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&h=750&fit=crop&q=80&auto=format',
     alt: 'UI design on screen',
   },
@@ -40,12 +40,12 @@ const work: WorkItem[] = [
 
 const marqueeItems: string[] = [
   'Web Design',
-  'Custom Development',
-  'Brand Identity',
-  'UI Design',
+  'Frontend Development',
   'Landing Pages',
+  'Full Site Builds',
+  'Next.js',
+  'React',
   'Design Systems',
-  'Web Apps',
   'Custom Code',
 ]
 
@@ -53,22 +53,22 @@ const capabilities: Capability[] = [
   {
     number: '01',
     title: 'Web Design',
-    desc: 'Custom websites designed from scratch — strategy, wireframes, visual design, and every pixel in between.',
+    desc: 'Figma-based design from scratch — layout, typography, and visual direction that\'s sharp enough to stand on its own.',
   },
   {
     number: '02',
     title: 'Frontend Development',
-    desc: 'Production-ready, hand-coded websites. Fast, responsive, pixel-perfect, and built for long-term maintainability.',
+    desc: 'Hand-coded in Next.js and React. Fast, responsive, accessible, and built so it\'s easy to maintain.',
   },
   {
     number: '03',
-    title: 'Brand Identity',
-    desc: 'Logo, colour, typography, and brand guidelines — the visual foundation your site and business needs.',
+    title: 'Landing Pages',
+    desc: 'High-converting pages built for launches, campaigns, and lead generation. Fast to ship, built to perform.',
   },
   {
     number: '04',
-    title: 'UI Design',
-    desc: 'Interface design for web apps and digital products. Clean, functional, and built to scale.',
+    title: 'Full Site Builds',
+    desc: 'Design and development end-to-end. From first wireframe to production deploy — everything handled under one roof.',
   },
 ]
 
@@ -97,7 +97,7 @@ export default function Home() {
         <section id="hero" className="hero-section">
           <div className="hero-inner">
             <div className="hero-top">
-              <p className="eyebrow reveal">Web Design Studio — Est. 2019</p>
+              <p className="eyebrow reveal">Web Studio — Est. 2019</p>
               <h1 className="hero-headline reveal delay-1">
                 Websites that<br />
                 don&apos;t blend in.
@@ -106,8 +106,9 @@ export default function Home() {
 
             <div className="hero-bottom">
               <p className="hero-sub reveal delay-2">
-                Trace Design builds sharp, high-performance websites for brands
-                that want to stand out. Strategy, design, and custom code — under one roof.
+                Trace Design builds fast, custom-coded websites for founders
+                and businesses that need to launch and convert. Design and development
+                under one roof — no templates, no shortcuts.
               </p>
               <div className="hero-actions reveal delay-3">
                 <a href="#work"    className="cta-primary">View Work →</a>
@@ -176,12 +177,12 @@ export default function Home() {
                     <span className="stat-label">Founded</span>
                   </div>
                   <div className="stat reveal delay-2">
-                    <span className="stat-num">42+</span>
-                    <span className="stat-label">Projects</span>
+                    <span className="stat-num">Next.js</span>
+                    <span className="stat-label">Stack</span>
                   </div>
                   <div className="stat reveal delay-3">
-                    <span className="stat-num">30+</span>
-                    <span className="stat-label">Clients</span>
+                    <span className="stat-num">Custom</span>
+                    <span className="stat-label">Every Build</span>
                   </div>
                 </div>
               </div>
@@ -191,11 +192,11 @@ export default function Home() {
                   &ldquo;Most websites are forgettable. We build the ones that aren&apos;t.&rdquo;
                 </blockquote>
                 <p className="studio-body reveal delay-2">
-                  Trace Design is a web design studio. We work with startups,
-                  founders, and growing brands who need a website that actually
-                  performs — not just looks good in a mockup. Every project is
-                  handled with the same care and attention to detail, from the
-                  first strategy call to the final launch.
+                  Trace Design is a web studio specialising in custom-coded sites
+                  and landing pages. We work with founders, product teams, and growing
+                  businesses who need a site that&apos;s fast, well-built, and actually
+                  converts. Every project is handled from first concept to final deploy
+                  — no templates, no hand-offs, no surprises.
                 </p>
               </div>
             </div>
@@ -239,10 +240,6 @@ export default function Home() {
                   hello@tracedesign.co
                 </a>
                 <p className="contact-note">Available for select projects in 2026</p>
-                <div className="contact-socials">
-                  <a href="#" className="social-link">Instagram ↗</a>
-                  <a href="#" className="social-link">LinkedIn ↗</a>
-                </div>
               </div>
             </div>
           </div>
