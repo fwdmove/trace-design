@@ -32,7 +32,7 @@ const work: WorkItem[] = [
     alt: 'UI design on screen',
   },
   {
-    id: '04', name: 'Passage', type: 'Webflow Build', year: '2023',
+    id: '04', name: 'Passage', type: 'Custom Build', year: '2023',
     img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=750&fit=crop&q=80&auto=format',
     alt: 'Clean website on MacBook',
   },
@@ -40,13 +40,13 @@ const work: WorkItem[] = [
 
 const marqueeItems: string[] = [
   'Web Design',
-  'Webflow Development',
+  'Custom Development',
   'Brand Identity',
   'UI Design',
   'Landing Pages',
   'Design Systems',
   'Web Apps',
-  'No-Code Builds',
+  'Custom Code',
 ]
 
 const capabilities: Capability[] = [
@@ -57,8 +57,8 @@ const capabilities: Capability[] = [
   },
   {
     number: '02',
-    title: 'Webflow Development',
-    desc: 'Production-ready Webflow builds. Fast, responsive, CMS-powered, and easy for your team to manage.',
+    title: 'Frontend Development',
+    desc: 'Production-ready, hand-coded websites. Fast, responsive, pixel-perfect, and built for long-term maintainability.',
   },
   {
     number: '03',
@@ -107,7 +107,7 @@ export default function Home() {
             <div className="hero-bottom">
               <p className="hero-sub reveal delay-2">
                 Trace Design builds sharp, high-performance websites for brands
-                that want to stand out. Strategy, design, and Webflow — under one roof.
+                that want to stand out. Strategy, design, and custom code — under one roof.
               </p>
               <div className="hero-actions reveal delay-3">
                 <a href="#work"    className="cta-primary">View Work →</a>
@@ -180,7 +180,7 @@ export default function Home() {
                     <span className="stat-label">Projects</span>
                   </div>
                   <div className="stat reveal delay-3">
-                    <span className="stat-num">WW</span>
+                    <span className="stat-num">30+</span>
                     <span className="stat-label">Clients</span>
                   </div>
                 </div>
@@ -238,7 +238,7 @@ export default function Home() {
                 <a href="mailto:hello@tracedesign.co" className="contact-email">
                   hello@tracedesign.co
                 </a>
-                <p className="contact-note">Available for select projects in 2025</p>
+                <p className="contact-note">Available for select projects in 2026</p>
                 <div className="contact-socials">
                   <a href="#" className="social-link">Instagram ↗</a>
                   <a href="#" className="social-link">LinkedIn ↗</a>
@@ -253,7 +253,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="container footer-inner">
           <span className="footer-wordmark">TRACE DESIGN</span>
-          <span className="footer-copy">© 2025 — All rights reserved</span>
+          <span className="footer-copy">© 2026 — All rights reserved</span>
           <span className="footer-location">Based worldwide.</span>
         </div>
       </footer>
