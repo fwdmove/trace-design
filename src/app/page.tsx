@@ -53,7 +53,7 @@ const capabilities: Capability[] = [
   {
     number: '01',
     title: 'Web Design',
-    desc: 'Figma-based design from scratch — layout, typography, and visual direction that\'s sharp enough to stand on its own.',
+    desc: 'Designed from scratch — layout, typography, and visual direction that\'s sharp enough to stand on its own.',
   },
   {
     number: '02',
