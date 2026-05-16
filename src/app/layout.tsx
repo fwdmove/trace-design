@@ -1,6 +1,14 @@
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans, Geist } from 'next/font/google'
+import { Plus_Jakarta_Sans, Geist, Instrument_Serif } from 'next/font/google'
 import './globals.css'
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-heading',
+  display: 'swap',
+})
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -16,14 +24,14 @@ const geist = Geist({
 })
 
 export const metadata: Metadata = {
-  title: 'Trace Design — Web Design Studio',
+  title: 'Trace Design — Web Studio',
   description:
-    'Trace Design is a web design studio building sharp, high-performance websites and digital experiences for ambitious brands.',
+    'Trace Design is a web studio building fast, custom-coded websites and landing pages for founders and growing businesses.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${plusJakarta.variable} ${geist.variable}`}>
+    <html lang="en" className={`${instrumentSerif.variable} ${plusJakarta.variable} ${geist.variable}`}>
       <body>{children}</body>
     </html>
   )

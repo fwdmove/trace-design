@@ -151,6 +151,9 @@ export default function Home() {
                   <div className="work-thumb">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={item.img} alt={item.alt} loading="lazy" decoding="async" />
+                    <div className="work-overlay">
+                      <span className="work-overlay-label">View Project ↗</span>
+                    </div>
                   </div>
                   <div className="work-meta">
                     <div className="work-meta-row">
