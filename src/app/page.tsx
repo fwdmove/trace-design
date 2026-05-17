@@ -1,75 +1,65 @@
 import SiteScripts from './components/SiteScripts'
+import WorkShowcase from './components/WorkShowcase'
 
-interface WorkItem {
-  id: string
-  name: string
-  type: string
-  year: string
-  img: string
-  alt: string
-}
-
-interface Capability {
-  number: string
-  title: string
-  desc: string
-}
-
-const work: WorkItem[] = [
+const work = [
   {
     id: '01', name: 'Veldt', type: 'Web Design', year: '2024',
-    img: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&h=750&fit=crop&q=80&auto=format',
-    alt: 'Website design displayed on a laptop',
+    color: '#0d1a10',
+    description: 'Brand site for a wellness studio',
   },
   {
     id: '02', name: 'Keel', type: 'Full Site Build', year: '2024',
-    img: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&h=750&fit=crop&q=80&auto=format',
-    alt: 'Brand and web design work',
+    color: '#0d0d1a',
+    description: 'Full site build for a clothing label',
   },
   {
     id: '03', name: 'Forma', type: 'Landing Page', year: '2023',
-    img: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&h=750&fit=crop&q=80&auto=format',
-    alt: 'UI design on screen',
+    color: '#1a0e08',
+    description: 'Landing page for a creative consultancy',
   },
   {
     id: '04', name: 'Passage', type: 'Custom Build', year: '2023',
-    img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=750&fit=crop&q=80&auto=format',
-    alt: 'Clean website on MacBook',
+    color: '#0f0f0f',
+    description: 'Custom site for a furniture brand',
   },
 ]
 
-const marqueeItems: string[] = [
-  'Web Design',
-  'Frontend Development',
-  'Landing Pages',
-  'Full Site Builds',
-  'Next.js',
-  'React',
-  'Design Systems',
-  'Custom Code',
-]
-
-const capabilities: Capability[] = [
+const capabilities = [
   {
     number: '01',
     title: 'Web Design',
-    desc: 'Designed from scratch — layout, typography, and visual direction that\'s sharp enough to stand on its own.',
+    desc: 'Custom website design shaped around your business. From first concept through final visual direction.',
+    includes: ['Visual direction', 'Layout systems', 'Typography', 'Component library', 'Art direction'],
   },
   {
     number: '02',
-    title: 'Frontend Development',
-    desc: 'Hand-coded in Next.js and React. Fast, responsive, accessible, and built so it\'s easy to maintain.',
+    title: 'Landing Pages',
+    desc: 'Single-page sites designed to turn visitors into customers, ready to launch in weeks.',
+    includes: ['Conversion strategy', 'Copy direction', 'Design', 'Build', 'A/B-ready'],
   },
   {
     number: '03',
-    title: 'Landing Pages',
-    desc: 'High-converting pages built for launches, campaigns, and lead generation. Fast to ship, built to perform.',
+    title: 'Web Development',
+    desc: 'Sites built to look right and work right across every device, easy to update as you grow.',
+    includes: ['Frontend build', 'CMS integration', 'Animation', 'Performance', 'Hosting setup'],
   },
   {
     number: '04',
     title: 'Full Site Builds',
-    desc: 'Design and development end-to-end. From first wireframe to production deploy — everything handled under one roof.',
+    desc: 'End-to-end. We handle the design, the build, and the launch — no hand-offs.',
+    includes: ['Discovery', 'Design', 'Build', 'Content', 'Launch & handover'],
   },
+]
+
+const marqueeItems = [
+  'Web Design',
+  'Web Development',
+  'Branding',
+  'Landing Pages',
+  'E-commerce',
+  'Marketing Sites',
+  'Portfolios',
+  'Redesigns',
 ]
 
 const marqueeLoop = [...marqueeItems, ...marqueeItems]
@@ -95,30 +85,99 @@ export default function Home() {
       <main>
         {/* ════════ HERO ════════ */}
         <section id="hero" className="hero-section">
-          <div className="hero-inner">
+          <div className="hero-text">
             <div className="hero-top">
-              <p className="eyebrow reveal">Web Studio — Est. 2019</p>
-              <h1 className="hero-headline reveal delay-1">
-                Websites that<br />
-                don&apos;t blend in.
+              <p className="eyebrow">A web studio — Est. 2019</p>
+              <h1 className="hero-headline">
+                <span className="hero-line"><span className="hero-line-inner">Web</span></span>
+                <span className="hero-line"><span className="hero-line-inner">design,</span></span>
+                <span className="hero-line"><span className="hero-line-inner"><em>considered.</em></span></span>
               </h1>
             </div>
-
             <div className="hero-bottom">
-              <p className="hero-sub reveal delay-2">
-                Trace Design builds fast, custom-coded websites for founders
-                and businesses that need to launch and convert. Design and development
-                under one roof — no templates, no shortcuts.
+              <p className="hero-sub">
+                Trace Design is a web studio. We design and build custom websites —
+                every project handled end-to-end, from first sketch through launch.
               </p>
-              <div className="hero-actions reveal delay-3">
-                <a href="#work"    className="cta-primary">View Work →</a>
+              <div className="hero-actions">
+                <a href="#work"    className="cta-primary">See the Work</a>
                 <a href="#contact" className="cta-ghost">Start a Project</a>
               </div>
-              <div className="hero-scroll-hint reveal delay-4" aria-hidden="true">
-                <span>Scroll</span>
-                <span className="scroll-line" />
-              </div>
             </div>
+          </div>
+
+          <div className="hero-image">
+            <svg
+              className="hero-art"
+              viewBox="0 0 720 900"
+              role="img"
+              aria-labelledby="hero-art-title"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title id="hero-art-title">Playful custom website illustration</title>
+              <rect width="720" height="900" fill="white" />
+
+              <g className="hero-art-burst" fill="none" strokeLinecap="round">
+                <path d="M346 118V76" stroke="#ffd84d" strokeWidth="14" />
+                <path d="M408 138L438 102" stroke="#38bdf8" strokeWidth="14" />
+                <path d="M442 196L486 186" stroke="#24c18a" strokeWidth="14" />
+                <path d="M282 144L250 108" stroke="#ff8a4c" strokeWidth="14" />
+                <path d="M246 204L202 194" stroke="#6c63ff" strokeWidth="14" />
+              </g>
+
+              <g className="hero-art-shape hero-art-shape-sun">
+                <path d="M452 82C528 118 548 206 502 264C456 322 360 306 330 234C300 162 376 46 452 82Z" fill="#ffd84d" />
+              </g>
+
+              <g className="hero-art-card hero-art-card-back">
+                <rect x="128" y="182" width="442" height="292" rx="28" fill="#6c63ff" />
+                <rect x="158" y="220" width="184" height="28" rx="14" fill="white" opacity="0.95" />
+                <rect x="158" y="278" width="100" height="100" rx="22" fill="#24c18a" />
+                <rect x="286" y="278" width="226" height="28" rx="14" fill="white" opacity="0.92" />
+                <rect x="286" y="326" width="166" height="18" rx="9" fill="white" opacity="0.6" />
+                <rect x="286" y="358" width="208" height="18" rx="9" fill="white" opacity="0.6" />
+              </g>
+
+              <g className="hero-art-card hero-art-card-main">
+                <rect x="84" y="260" width="472" height="338" rx="30" fill="white" stroke="#0a0a0a" strokeWidth="4" />
+                <path d="M84 326H556" stroke="#0a0a0a" strokeWidth="4" />
+                <circle cx="124" cy="293" r="10" fill="#ff5f57" />
+                <circle cx="156" cy="293" r="10" fill="#ffbd2e" />
+                <circle cx="188" cy="293" r="10" fill="#28c840" />
+                <path d="M128 390H374" stroke="#0a0a0a" strokeWidth="22" strokeLinecap="round" />
+                <path d="M128 440H470" stroke="#0a0a0a" strokeWidth="22" strokeLinecap="round" />
+                <path d="M128 500H294" stroke="#e8450a" strokeWidth="22" strokeLinecap="round" />
+                <rect x="382" y="488" width="100" height="64" rx="18" fill="#38bdf8" stroke="#0a0a0a" strokeWidth="4" />
+                <path d="M398 520H466" stroke="white" strokeWidth="10" strokeLinecap="round" />
+              </g>
+
+              <g className="hero-art-card hero-art-card-phone">
+                <rect x="414" y="486" width="170" height="290" rx="32" fill="#fff7dc" stroke="#0a0a0a" strokeWidth="4" />
+                <rect x="454" y="526" width="92" height="14" rx="7" fill="#0a0a0a" />
+                <rect x="452" y="570" width="96" height="96" rx="26" fill="#ff8a4c" />
+                <path d="M468 704H532" stroke="#0a0a0a" strokeWidth="12" strokeLinecap="round" />
+                <path d="M458 734H542" stroke="#0a0a0a" strokeWidth="6" strokeLinecap="round" />
+              </g>
+
+              <g className="hero-art-card hero-art-card-note">
+                <rect x="92" y="586" width="230" height="164" rx="28" fill="#24c18a" stroke="#0a0a0a" strokeWidth="4" />
+                <path d="M128 634H252" stroke="#0a0a0a" strokeWidth="14" strokeLinecap="round" />
+                <path d="M128 674H276" stroke="white" strokeWidth="12" strokeLinecap="round" />
+                <path d="M128 710H216" stroke="white" strokeWidth="12" strokeLinecap="round" />
+              </g>
+
+              <g className="hero-art-cursor">
+                <path d="M566 386L638 558L576 528L542 602L504 584L538 512L478 532L566 386Z" fill="white" stroke="#0a0a0a" strokeWidth="4" strokeLinejoin="round" />
+                <path d="M576 528L542 602" stroke="#e8450a" strokeWidth="6" strokeLinecap="round" />
+              </g>
+
+              <g className="hero-art-scribble" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M160 146C196 116 238 114 274 142C306 166 352 158 378 126" stroke="#e8450a" strokeWidth="8" />
+                <path d="M138 792C192 824 264 824 318 790" stroke="#6c63ff" strokeWidth="8" />
+                <path d="M520 804C554 798 586 778 608 748" stroke="#24c18a" strokeWidth="8" />
+              </g>
+
+            </svg>
           </div>
         </section>
 
@@ -128,7 +187,7 @@ export default function Home() {
             {marqueeLoop.map((item, i) => (
               <span key={i} className="marquee-chunk">
                 <span className="marquee-item">{item}</span>
-                <span className="marquee-sep">·</span>
+                <span className="marquee-sep">◆</span>
               </span>
             ))}
           </div>
@@ -137,32 +196,55 @@ export default function Home() {
         {/* ════════ WORK ════════ */}
         <section id="work" className="section">
           <div className="container">
-            <header className="section-header reveal">
+            <div className="work-header reveal">
               <div>
                 <p className="section-label">Selected Work</p>
-                <h2 className="section-heading">Recent Projects</h2>
+                <h2 className="section-heading">
+                  Recent <em>projects</em>.
+                </h2>
               </div>
-              <a href="#" className="view-all-link">View All →</a>
-            </header>
+              <a href="#" className="view-all-link">Full archive →</a>
+            </div>
 
-            <div className="work-grid">
-              {work.map((item) => (
-                <article key={item.id} className="work-item reveal">
-                  <div className="work-thumb">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={item.img} alt={item.alt} loading="lazy" decoding="async" />
-                    <div className="work-overlay">
-                      <span className="work-overlay-label">View Project ↗</span>
-                    </div>
+            <WorkShowcase projects={work} />
+          </div>
+        </section>
+
+        {/* ════════ ACCENT BAND ════════ */}
+        <div className="accent-band">
+          <div className="container accent-band-inner">
+            <p className="accent-band-text">
+              Working on a new website? <em>Let&apos;s talk.</em>
+            </p>
+            <a href="#contact" className="accent-band-cta">Get in Touch →</a>
+          </div>
+        </div>
+
+        {/* ════════ SERVICES ════════ */}
+        <section id="services" className="section">
+          <div className="container">
+            <div className="services-header reveal">
+              <p className="section-label">What We Do</p>
+              <h2 className="section-heading">Services.</h2>
+            </div>
+
+            <div className="services-bento">
+              {capabilities.map((cap) => (
+                <div key={cap.number} className="service-card reveal" data-number={cap.number}>
+                  <div className="service-top">
+                    <span className="cap-number">{cap.number}</span>
+                    <span className="service-arrow" aria-hidden="true">↗</span>
                   </div>
-                  <div className="work-meta">
-                    <div className="work-meta-row">
-                      <span className="work-number">{item.id}</span>
-                      <span className="work-type">{item.type} · {item.year}</span>
-                    </div>
-                    <h3 className="work-name">{item.name}</h3>
+                  <div className="service-bottom">
+                    <h3 className="cap-title">{cap.title}</h3>
+                    <p className="cap-desc">{cap.desc}</p>
+                    <ul className="cap-includes">
+                      {cap.includes.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
                   </div>
-                </article>
+                </div>
               ))}
             </div>
           </div>
@@ -171,59 +253,41 @@ export default function Home() {
         {/* ════════ STUDIO ════════ */}
         <section id="studio" className="section">
           <div className="container">
-            <div className="studio-layout">
-              <div className="studio-left reveal">
-                <p className="section-label">Studio</p>
-                <div className="studio-stats">
-                  <div className="stat reveal delay-1">
-                    <span className="stat-num">2019</span>
-                    <span className="stat-label">Founded</span>
-                  </div>
-                  <div className="stat reveal delay-2">
-                    <span className="stat-num">Next.js</span>
-                    <span className="stat-label">Stack</span>
-                  </div>
-                  <div className="stat reveal delay-3">
-                    <span className="stat-num">Custom</span>
-                    <span className="stat-label">Every Build</span>
-                  </div>
-                </div>
-              </div>
+            <p className="section-label reveal" style={{ marginBottom: '2rem' }}>Studio</p>
 
-              <div className="studio-right">
-                <blockquote className="studio-quote reveal delay-1">
-                  &ldquo;Most websites are forgettable. We build the ones that aren&apos;t.&rdquo;
+            <div className="studio-grid reveal delay-1">
+              <div className="studio-left">
+                <blockquote className="studio-quote">
+                  Custom websites, <em>designed and built</em> end-to-end for clients who care about the result.
                 </blockquote>
-                <p className="studio-body reveal delay-2">
-                  Trace Design is a web studio specialising in custom-coded sites
-                  and landing pages. We work with founders, product teams, and growing
-                  businesses who need a site that&apos;s fast, well-built, and actually
-                  converts. Every project is handled from first concept to final deploy
-                  — no templates, no hand-offs, no surprises.
+              </div>
+              <div className="studio-right">
+                <p className="studio-body">
+                  Trace Design has been designing and building custom websites since 2019.
+                  Concept, design, development, and launch — every project handled in-house,
+                  from the first conversation to the live site.
+                </p>
+                <p className="studio-body">
+                  We take on a short list of projects at a time so each one gets the
+                  attention it needs. If you&apos;re looking for a website that feels
+                  considered, we&apos;d love to hear from you.
                 </p>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* ════════ SERVICES ════════ */}
-        <section id="services" className="section">
-          <div className="container">
-            <header className="section-header reveal">
-              <p className="section-label">What We Do</p>
-            </header>
-
-            <div className="capabilities-list">
-              {capabilities.map((cap) => (
-                <div key={cap.number} className="capability-item reveal">
-                  <span className="cap-number">{cap.number}</span>
-                  <div className="cap-body">
-                    <h3 className="cap-title">{cap.title}</h3>
-                    <p className="cap-desc">{cap.desc}</p>
-                  </div>
-                  <span className="cap-arrow" aria-hidden="true">↗</span>
-                </div>
-              ))}
+            <div className="studio-stats">
+              <div className="stat reveal">
+                <span className="stat-num" data-count="7" data-suffix=" yrs">7 yrs</span>
+                <span className="stat-label">In Business</span>
+              </div>
+              <div className="stat reveal delay-1">
+                <span className="stat-num" data-count="30" data-suffix="+">30+</span>
+                <span className="stat-label">Sites Shipped</span>
+              </div>
+              <div className="stat reveal delay-2">
+                <span className="stat-num">100%</span>
+                <span className="stat-label">Custom Built</span>
+              </div>
             </div>
           </div>
         </section>
@@ -234,15 +298,14 @@ export default function Home() {
             <div className="contact-layout">
               <h2 className="contact-headline reveal">
                 Let&apos;s build<br />
-                your next<br />
+                your <em>next</em><br />
                 website.
               </h2>
-
               <div className="contact-details reveal delay-2">
                 <a href="mailto:hello@tracedesign.co" className="contact-email">
                   hello@tracedesign.co
                 </a>
-                <p className="contact-note">Available for select projects in 2026</p>
+                <p className="contact-note">Booking projects for Spring 2026</p>
               </div>
             </div>
           </div>
@@ -253,8 +316,8 @@ export default function Home() {
       <footer className="site-footer">
         <div className="container footer-inner">
           <span className="footer-wordmark">TRACE DESIGN</span>
-          <span className="footer-copy">© 2026 — All rights reserved</span>
-          <span className="footer-location">Based worldwide.</span>
+          <span className="footer-copy">© 2026 — Trace Design</span>
+          <span className="footer-location">Working worldwide.</span>
         </div>
       </footer>
     </>
