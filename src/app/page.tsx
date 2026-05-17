@@ -118,15 +118,13 @@ export default function Home() {
               <rect width="720" height="900" fill="white" />
 
               <g className="hero-art-burst" fill="none" strokeLinecap="round">
-                <path d="M346 118V76" stroke="#ffd84d" strokeWidth="14" />
                 <path d="M408 138L438 102" stroke="#38bdf8" strokeWidth="14" />
                 <path d="M442 196L486 186" stroke="#24c18a" strokeWidth="14" />
-                <path d="M282 144L250 108" stroke="#ff8a4c" strokeWidth="14" />
                 <path d="M246 204L202 194" stroke="#6c63ff" strokeWidth="14" />
               </g>
 
               <g className="hero-art-shape hero-art-shape-sun">
-                <path d="M452 82C528 118 548 206 502 264C456 322 360 306 330 234C300 162 376 46 452 82Z" fill="#ffd84d" />
+                <path d="M430 132H640L602 296H392Z" fill="#ffd84d" />
               </g>
 
               <g className="hero-art-card hero-art-card-back">
@@ -172,7 +170,6 @@ export default function Home() {
               </g>
 
               <g className="hero-art-scribble" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M160 146C196 116 238 114 274 142C306 166 352 158 378 126" stroke="#e8450a" strokeWidth="8" />
                 <path d="M138 792C192 824 264 824 318 790" stroke="#6c63ff" strokeWidth="8" />
                 <path d="M520 804C554 798 586 778 608 748" stroke="#24c18a" strokeWidth="8" />
               </g>
