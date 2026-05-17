@@ -212,7 +212,6 @@ export default function Home() {
                   Recent <em>projects</em>
                 </h2>
               </div>
-              <a href="#" className="view-all-link">Full archive →</a>
             </div>
 
             <WorkShowcase projects={work} />
