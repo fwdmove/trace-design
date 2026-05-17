@@ -20,7 +20,7 @@ export default function SiteScripts() {
           }
         })
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.14, rootMargin: '0px 0px -90px 0px' }
     )
     document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
 

@@ -3,24 +3,36 @@ import WorkShowcase from './components/WorkShowcase'
 
 const work = [
   {
-    id: '01', name: 'Veldt', type: 'Web Design', year: '2024',
+    id: '01', name: 'Wolf River Woodworks', type: 'Full Site Build', year: '2026',
     color: '#0d1a10',
-    description: 'Brand site for a wellness studio',
+    description: 'Custom site for a Memphis woodworking studio',
+    image: '/website-screenshots/woodwork.png',
+    alt: 'Wolf River Woodworks website homepage screenshot',
+    url: 'https://wr-woodworks.vercel.app',
   },
   {
-    id: '02', name: 'Keel', type: 'Full Site Build', year: '2024',
+    id: '02', name: 'Get Build Leads', type: 'Landing Page', year: '2026',
     color: '#0d0d1a',
-    description: 'Full site build for a clothing label',
+    description: 'Lead-generation page for contractor marketing',
+    image: '/website-screenshots/getbuilds.png?v=20260517',
+    alt: 'Get Build Leads website homepage screenshot',
+    url: 'https://www.getbuildleads.com',
   },
   {
-    id: '03', name: 'Forma', type: 'Landing Page', year: '2023',
+    id: '03', name: 'Tea Room Charm', type: 'Web Design', year: '2026',
     color: '#1a0e08',
-    description: 'Landing page for a creative consultancy',
+    description: 'Warm hospitality site for a tea room concept',
+    image: '/website-screenshots/tea-room.png',
+    alt: 'Tea Room Charm website homepage screenshot',
+    url: 'https://tea-room-charm.vercel.app',
   },
   {
-    id: '04', name: 'Passage', type: 'Custom Build', year: '2023',
+    id: '04', name: 'Wash Works USA', type: 'Business Website', year: '2026',
     color: '#0f0f0f',
-    description: 'Custom site for a furniture brand',
+    description: 'Service-business site for a car wash brand',
+    image: '/website-screenshots/washworks.png',
+    alt: 'Wash Works USA website homepage screenshot',
+    url: 'https://www.washworksusa.com',
   },
 ]
 
@@ -91,7 +103,7 @@ export default function Home() {
               <h1 className="hero-headline">
                 <span className="hero-line"><span className="hero-line-inner">Websites</span></span>
                 <span className="hero-line"><span className="hero-line-inner">that don&apos;t</span></span>
-                <span className="hero-line"><span className="hero-line-inner"><em>blend in.</em></span></span>
+                <span className="hero-line"><span className="hero-line-inner"><em>blend in</em></span></span>
               </h1>
             </div>
             <div className="hero-bottom">
@@ -197,7 +209,7 @@ export default function Home() {
               <div>
                 <p className="section-label">Selected Work</p>
                 <h2 className="section-heading">
-                  Recent <em>projects</em>.
+                  Recent <em>projects</em>
                 </h2>
               </div>
               <a href="#" className="view-all-link">Full archive →</a>
@@ -209,7 +221,7 @@ export default function Home() {
 
         {/* ════════ ACCENT BAND ════════ */}
         <div className="accent-band">
-          <div className="container accent-band-inner">
+          <div className="container accent-band-inner reveal reveal-soft">
             <p className="accent-band-text">
               Working on a new website? <em>Let&apos;s talk.</em>
             </p>
@@ -222,12 +234,12 @@ export default function Home() {
           <div className="container">
             <div className="services-header reveal">
               <p className="section-label">What We Do</p>
-              <h2 className="section-heading">Services.</h2>
+              <h2 className="section-heading">Services</h2>
             </div>
 
-            <div className="services-bento">
+            <div className="services-bento reveal reveal-scale">
               {capabilities.map((cap) => (
-                <div key={cap.number} className="service-card reveal" data-number={cap.number}>
+                <div key={cap.number} className="service-card" data-number={cap.number}>
                   <div className="service-top">
                     <span className="cap-number">{cap.number}</span>
                     <span className="service-arrow" aria-hidden="true">↗</span>
@@ -252,7 +264,7 @@ export default function Home() {
           <div className="container">
             <p className="section-label reveal" style={{ marginBottom: '2rem' }}>Studio</p>
 
-            <div className="studio-grid reveal delay-1">
+            <div className="studio-grid reveal reveal-scale delay-1">
               <div className="studio-left">
                 <blockquote className="studio-quote">
                   Custom websites, <em>designed and built</em> end-to-end for clients who care about the result.

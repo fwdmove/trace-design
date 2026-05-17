@@ -8,6 +8,9 @@ interface Project {
   type: string
   year: string
   color: string
+  image: string
+  alt: string
+  url: string
   description?: string
 }
 
@@ -19,7 +22,7 @@ export default function WorkShowcase({ projects }: Props) {
   const [active, setActive] = useState(0)
 
   return (
-    <div className="work-showcase">
+    <div className="work-showcase reveal reveal-scale">
       {/* Typographic stage panel */}
       <div className="work-stage">
         {projects.map((p, i) => (
@@ -28,7 +31,10 @@ export default function WorkShowcase({ projects }: Props) {
             className={`work-stage-panel ${i === active ? 'is-active' : ''}`}
             style={{ background: p.color }}
           >
-            <span className="work-stage-ghost">{p.name}</span>
+            <a href={p.url} target="_blank" rel="noreferrer" className="work-stage-link">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.image} alt={p.alt} className="work-stage-image" />
+            </a>
           </div>
         ))}
         <div className="work-stage-meta">
@@ -42,12 +48,14 @@ export default function WorkShowcase({ projects }: Props) {
         </div>
       </div>
 
-      {/* Project list */}
+      {/* Project selector */}
       <div className="work-list" onMouseLeave={() => setActive(0)}>
         {projects.map((p, i) => (
           <a
             key={p.id}
-            href="#"
+            href={p.url}
+            target="_blank"
+            rel="noreferrer"
             className={`work-row ${i === active ? 'is-active' : ''}`}
             onMouseEnter={() => setActive(i)}
             onFocus={() => setActive(i)}
@@ -57,6 +65,7 @@ export default function WorkShowcase({ projects }: Props) {
               <span className="work-row-type">{p.type} · {p.year}</span>
             </span>
             <h3 className="work-row-name">{p.name}</h3>
+            {p.description && <span className="work-row-desc">{p.description}</span>}
             <span className="work-row-arrow" aria-hidden="true">→</span>
           </a>
         ))}
