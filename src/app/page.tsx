@@ -89,9 +89,9 @@ export default function Home() {
             <div className="hero-top">
               <p className="eyebrow">A web studio — Est. 2019</p>
               <h1 className="hero-headline">
-                <span className="hero-line"><span className="hero-line-inner">Web</span></span>
-                <span className="hero-line"><span className="hero-line-inner">design,</span></span>
-                <span className="hero-line"><span className="hero-line-inner"><em>considered.</em></span></span>
+                <span className="hero-line"><span className="hero-line-inner">Websites</span></span>
+                <span className="hero-line"><span className="hero-line-inner">that don&apos;t</span></span>
+                <span className="hero-line"><span className="hero-line-inner"><em>blend in.</em></span></span>
               </h1>
             </div>
             <div className="hero-bottom">
