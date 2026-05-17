@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: 'Trace Design — Web Studio',
   description:
     'Trace Design is a web studio building fast, custom-coded websites and landing pages for founders and growing businesses.',
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
