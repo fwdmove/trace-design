@@ -978,6 +978,9 @@ a { text-decoration: none; color: inherit; }
 }
 
 @media (max-width: 640px) {
+  .hero-section { grid-template-rows: auto; }
+  .hero-image { display: none; }
+
   .hero-headline { font-size: clamp(3rem, 14vw, 5rem); }
 
   .work-bento { grid-template-columns: 1fr; }
