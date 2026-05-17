@@ -1,5 +1,6 @@
 import SiteScripts from './components/SiteScripts'
 import WorkShowcase from './components/WorkShowcase'
+import ContactForm from './components/ContactForm'
 
 const work = [
   {
@@ -304,16 +305,15 @@ export default function Home() {
         <section id="contact" className="section contact-section">
           <div className="container">
             <div className="contact-layout">
-              <h2 className="contact-headline reveal">
-                Let&apos;s build<br />
-                your <em>next</em><br />
-                website.
-              </h2>
-              <div className="contact-details reveal delay-2">
-                <a href="mailto:hello@tracedesign.co" className="contact-email">
-                  hello@tracedesign.co
-                </a>
-                <p className="contact-note">Booking projects for Spring 2026</p>
+              <div className="contact-left">
+                <h2 className="contact-headline reveal">
+                  Let&apos;s build<br />
+                  your <em>next</em><br />
+                  website.
+                </h2>
+              </div>
+              <div className="reveal delay-2">
+                <ContactForm />
               </div>
             </div>
           </div>
