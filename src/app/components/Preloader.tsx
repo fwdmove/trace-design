@@ -4,12 +4,14 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { markReady } from '@/lib/motion'
 
-// First-visit intro: a counter runs to 100, then the curtain lifts.
-// Skipped (via the boot script's `seen` class) on repeat visits and for
-// reduced motion; either way it fires the ready signal the page waits on.
+const lines = ['> TRACE DESIGN // BOOT', '> LOADING TYPE ....... OK', '> LOADING WORK ....... OK', '> NO TEMPLATES FOUND . OK']
+
+// First-visit intro: terminal lines type out, a block bar fills, then the
+// screen cuts away. Skipped (via the boot script's `seen` class) on repeat
+// visits and for reduced motion; either way it fires the ready signal.
 export default function Preloader() {
   const root = useRef<HTMLDivElement>(null)
-  const count = useRef<HTMLSpanElement>(null)
+  const bar = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     const html = document.documentElement
@@ -19,7 +21,7 @@ export default function Preloader() {
       return
     }
 
-    const counter = { v: 0 }
+    const state = { v: 0 }
     const tl = gsap.timeline({
       onComplete: () => {
         try { sessionStorage.setItem('trace-seen', '1') } catch {}
@@ -27,33 +29,30 @@ export default function Preloader() {
       },
     })
 
-    tl.from('.preloader-word span', { yPercent: 110, duration: 0.9, ease: 'expo.out', stagger: 0.05 })
-      .to(counter, {
-        v: 100,
-        duration: 1.5,
-        ease: 'power2.inOut',
+    tl.from('.preloader-line', { autoAlpha: 0, duration: 0.01, stagger: 0.28 })
+      .to(state, {
+        v: 20,
+        duration: 1.3,
+        ease: 'steps(20)',
         onUpdate: () => {
-          if (count.current) count.current.textContent = String(Math.round(counter.v)).padStart(3, '0')
+          if (bar.current) {
+            const n = Math.round(state.v)
+            bar.current.textContent = '█'.repeat(n) + '░'.repeat(20 - n) + ` ${String(n * 5).padStart(3, '0')}%`
+          }
         },
       }, 0.1)
-      .to('.preloader-bar', { scaleX: 1, duration: 1.5, ease: 'power2.inOut' }, 0.1)
-      .to('.preloader-word span', { yPercent: -110, duration: 0.6, ease: 'expo.in', stagger: 0.03 })
-      .to(el, { yPercent: -100, duration: 1, ease: 'expo.inOut' }, '-=0.15')
-      .add(markReady, '-=0.55')
+      .to(el, { clipPath: 'inset(0 0 100% 0)', duration: 0.5, ease: 'steps(6)' }, '+=0.15')
+      .add(markReady, '-=0.3')
 
     return () => { tl.kill() }
   }, [])
 
   return (
     <div ref={root} className="preloader" aria-hidden="true">
-      <div className="preloader-word">
-        {'TRACE'.split('').map((c, i) => <span key={i}>{c}</span>)}
+      <div className="preloader-lines">
+        {lines.map((l) => <p className="preloader-line" key={l}>{l}</p>)}
+        <p className="preloader-bar"><span ref={bar}>░░░░░░░░░░░░░░░░░░░░ 000%</span></p>
       </div>
-      <div className="preloader-foot">
-        <span className="mono">Independent web studio</span>
-        <span className="mono"><span ref={count}>000</span></span>
-      </div>
-      <div className="preloader-bar" />
     </div>
   )
 }
