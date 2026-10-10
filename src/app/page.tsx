@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <>
       {/* ═══ HERO ═══ */}
-      <section className="hero" data-hero>
+      <section className="hero" data-hero data-morph="0">
         <div className="wrap hero-inner">
           <div className="hero-meta" data-fade="stagger" data-delay="0.6">
             <span className="label">Independent web studio</span>
@@ -41,10 +41,10 @@ export default function Home() {
             <span className="label">Est. 2019</span>
           </div>
 
-          <div data-hero-drift>
+          <div className="hero-center" data-hero-drift>
             <h1 className="hero-title" data-split="hero">
               Websites that <br />
-              don’t blend <em>in.</em>
+              don’t <span className="outline">blend</span> <em>in.</em>
             </h1>
           </div>
 
@@ -53,6 +53,10 @@ export default function Home() {
               We design and build custom websites for businesses that want to look like the best in their field.
               One studio, from first sketch to launch.
             </p>
+            <div className="scroll-cue" aria-hidden="true">
+              <span className="scroll-cue-line" />
+              <span className="label">Scroll to tune the field</span>
+            </div>
             <div className="hero-actions">
               <Link href="#contact" className="btn btn-accent" data-magnetic>
                 <RollText>Start a project</RollText>
@@ -64,20 +68,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        <div className="reel" data-reel data-fade data-delay="1" aria-hidden="true">
-          <div className="reel-track" data-reel-track>
-            {[...projects, ...projects].map((p, i) => (
-              <div className="reel-item" key={i} style={{ background: p.tone }}>
-                <Image src={p.image} alt="" fill sizes="(max-width: 700px) 70vw, 34vw" priority={i < 3} />
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ═══ INTRO ═══ */}
-      <section className="intro wrap" id="studio">
+      <section className="intro wrap" id="studio" data-morph="1">
         <p className="label" data-fade>(Studio)</p>
         <p className="intro-statement" data-scrub-words>
           Trace is a small studio with a short list of clients. We take on a few projects at a time, so every site is
@@ -93,14 +87,14 @@ export default function Home() {
             <span className="stat-label">Sites shipped</span>
           </div>
           <div className="stat">
-            <span className="stat-num">1</span>
+            <span className="stat-num" data-count="1">1</span>
             <span className="stat-label">Team, end to end</span>
           </div>
         </div>
       </section>
 
       {/* ═══ WORK ═══ */}
-      <section className="work wrap" id="work">
+      <section className="work wrap" id="work" data-morph="2">
         <div className="section-head">
           <h2 className="section-title" data-split>
             Selected <em>work</em>
@@ -108,22 +102,24 @@ export default function Home() {
           <span className="label" data-fade>({String(projects.length).padStart(2, '0')}) Projects</span>
         </div>
 
-        <div className="work-grid">
+        <div className="work-list">
           {projects.map((p) => (
             <article className="work-card" key={p.slug}>
-              <a href={p.url} target="_blank" rel="noreferrer" className="work-link" data-cursor="Visit">
+              <a href={p.url} target="_blank" rel="noreferrer" className="work-link" data-cursor="Visit" data-tilt>
                 <div className="work-frame" data-clip style={{ background: p.tone }}>
                   <div className="work-shot" data-parallax="6">
-                    <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
+                    <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 60vw" />
                   </div>
+                  <span className="work-scan" aria-hidden="true" />
                 </div>
-                <div className="work-meta">
-                  <span className="mono work-index">{p.index}</span>
+                <div className="work-info">
+                  <span className="mono work-index">{p.index} / {String(projects.length).padStart(2, '0')}</span>
                   <h3 className="work-name">{p.name}</h3>
-                  <span className="mono work-type">{p.type}, {p.year}</span>
-                </div>
-                <div className="work-foot">
                   <p className="work-summary">{p.summary}</p>
+                  <div className="work-tags">
+                    <span className="mono">{p.type}</span>
+                    <span className="mono">{p.year}</span>
+                  </div>
                   <span className="work-visit">
                     <RollText>Visit site</RollText>
                     <span aria-hidden="true">↗</span>
@@ -137,7 +133,7 @@ export default function Home() {
       </section>
 
       {/* ═══ SERVICES ═══ */}
-      <section className="services" id="services">
+      <section className="services" id="services" data-morph="3">
         <div className="wrap">
           <div className="section-head">
             <h2 className="section-title" data-split>
@@ -165,7 +161,7 @@ export default function Home() {
 
       {/* ═══ PROCESS ═══ */}
       {/* The pin wraps [data-hscroll] in a spacer, so React owns the outer section. */}
-      <section className="process-wrap" aria-labelledby="process-title">
+      <section className="process-wrap" aria-labelledby="process-title" data-morph="3">
         <div className="process" data-hscroll>
           <div className="process-track" data-hscroll-track>
             <div className="process-intro">
@@ -188,7 +184,7 @@ export default function Home() {
       </section>
 
       {/* ═══ CONTACT ═══ */}
-      <section className="contact" id="contact">
+      <section className="contact" id="contact" data-morph="4">
         <div className="wrap contact-inner">
           <div>
             <p className="label" data-fade>(Contact)</p>

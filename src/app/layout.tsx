@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter_Tight, Instrument_Serif, Geist_Mono } from 'next/font/google'
+import { Inter_Tight, Syne, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import PageMotion from './components/PageMotion'
@@ -7,6 +7,8 @@ import Preloader from './components/Preloader'
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
+import Field from './components/Field'
+import Hud from './components/Hud'
 
 const sans = Inter_Tight({
   subsets: ['latin'],
@@ -14,15 +16,14 @@ const sans = Inter_Tight({
   display: 'swap',
 })
 
-const serif = Instrument_Serif({
+const display = Syne({
   subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
+  weight: ['500', '600', '700', '800'],
+  variable: '--font-display',
   display: 'swap',
 })
 
-const mono = Geist_Mono({
+const mono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   display: 'swap',
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0f0f0e',
+  themeColor: '#040408',
 }
 
 // Runs before paint: marks JS + motion support so content can start hidden
@@ -67,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
+      className={`${sans.variable} ${display.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -76,9 +77,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
         <Preloader />
+        <Field />
         <SmoothScroll />
         <PageMotion />
         <Cursor />
+        <Hud />
         <Nav />
         <main id="main">{children}</main>
         <Footer />
