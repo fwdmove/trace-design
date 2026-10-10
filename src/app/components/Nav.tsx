@@ -46,9 +46,9 @@ export default function Nav() {
     if (open) {
       lenis?.stop()
       document.body.style.overflow = 'hidden'
-      gsap.fromTo(el, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.8, ease: 'expo.inOut' })
-      gsap.fromTo(el.querySelectorAll('.menu-link span'), { yPercent: 110 }, { yPercent: 0, duration: 1, ease: 'expo.out', stagger: 0.06, delay: 0.3 })
-      gsap.fromTo(el.querySelectorAll('.menu-foot > *'), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.06, delay: 0.5 })
+      gsap.fromTo(el, { autoAlpha: 0, backdropFilter: 'blur(0px)' }, { autoAlpha: 1, backdropFilter: 'blur(28px)', duration: 0.7, ease: 'power2.out' })
+      gsap.fromTo(el.querySelectorAll('.menu-link span'), { opacity: 0, y: 30, filter: 'blur(10px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.1, ease: 'power3.out', stagger: 0.07, delay: 0.15 })
+      gsap.fromTo(el.querySelectorAll('.menu-foot > *'), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.06, delay: 0.4 })
       el.querySelector<HTMLElement>('.menu-link')?.focus()
       const onKey = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
@@ -61,15 +61,15 @@ export default function Nav() {
     }
     lenis?.start()
     document.body.style.overflow = ''
-    gsap.to(el, { clipPath: 'inset(0 0 100% 0)', duration: 0.6, ease: 'expo.inOut' })
+    gsap.to(el, { autoAlpha: 0, duration: 0.5, ease: 'power2.inOut' })
   }, [open])
 
   return (
     <>
       <header className={`nav ${hidden && !open ? 'is-hidden' : ''} ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
         <Link href="/" className="nav-mark" aria-label="Trace Design, home">
-          <span className="nav-mark-word">Trace</span>
-          <span className="nav-mark-sub">Design</span>
+          <span className="nav-mark-dot" aria-hidden="true" />
+          <span className="nav-mark-word">trace</span>
         </Link>
 
         <nav className="nav-links" aria-label="Primary">
@@ -106,20 +106,19 @@ export default function Nav() {
         aria-modal="true"
         aria-label="Site menu"
         inert={!open}
-        style={{ clipPath: 'inset(0 0 100% 0)' }}
+        style={{ visibility: 'hidden', opacity: 0 }}
       >
         <nav className="menu-links" aria-label="Menu">
-          {links.map((l, i) => (
+          {links.map((l) => (
             <Link key={l.href} href={l.href} className="menu-link" onClick={() => setOpen(false)}>
               <span>
-                <sup className="mono">0{i + 1}</sup>
                 {l.label}
               </span>
             </Link>
           ))}
         </nav>
         <div className="menu-foot">
-          <p className="mono">Independent web studio, est. 2019</p>
+          <p className="mono">Independent web studio, since 2019</p>
           <p className="mono">Working worldwide</p>
         </div>
       </div>

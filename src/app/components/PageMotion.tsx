@@ -13,15 +13,16 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
  * The site's motion system. Markup opts in with data attributes; this binds
  * the presets on every route, after fonts load and the preloader finishes.
  *
- *   data-split          headline lines rise out of a mask ("hero" = on load)
- *   data-fade           fade + lift on enter ("stagger" = children in turn)
+ *   data-split          headline words float up out of a soft blur ("hero" = on load)
+ *   data-fade           fade, lift and un-blur on enter ("stagger" = children in turn)
  *   data-scrub-words    words brighten as the paragraph scrolls through
- *   data-clip           image frame opens from an inset as it scrolls in
+ *   data-clip           image frame opens from a rounded pebble as it scrolls in
  *   data-parallax       inner image drifts against the scroll
- *   data-reel           endless strip that speeds up and skews with scroll velocity
- *   data-hscroll        pinned horizontal scroll on wide screens
+ *   data-morph          shape slowly changes its outline, like something alive
+ *   data-float          gentle bob, each element on its own rhythm
+ *   data-draw           SVG path draws itself as the section scrolls through
  *   data-count          number counts up on enter
- *   data-rise           characters rise as the element scrolls into view
+ *   data-rise           characters rise out of a blur as the element scrolls in
  *   data-magnetic       element leans toward the pointer
  */
 export default function PageMotion() {
@@ -53,22 +54,22 @@ export default function PageMotion() {
 const show = (el: Element) => gsap.set(el, { visibility: 'visible' })
 
 function setup(cleanups: (() => void)[]) {
-  // Headlines: lines slide up out of a mask.
+  // Headlines: words drift up out of a soft blur.
   gsap.utils.toArray<HTMLElement>('[data-split]').forEach((el) => {
     const onLoad = el.dataset.split === 'hero'
     show(el)
     SplitText.create(el, {
-      type: 'lines',
-      mask: 'lines',
+      type: 'words',
       autoSplit: true,
       onSplit: (self) =>
-        gsap.from(self.lines, {
-          yPercent: 115,
-          rotate: 2,
-          duration: onLoad ? 1.4 : 1.1,
-          ease: 'expo.out',
-          stagger: 0.09,
-          delay: onLoad ? 0.05 : 0,
+        gsap.from(self.words, {
+          y: 40,
+          opacity: 0,
+          filter: 'blur(12px)',
+          duration: onLoad ? 1.8 : 1.4,
+          ease: 'power3.out',
+          stagger: onLoad ? 0.08 : 0.05,
+          delay: onLoad ? 0.1 : 0,
           scrollTrigger: onLoad ? undefined : { trigger: el, start: 'top 88%', once: true },
         }),
     })
@@ -79,12 +80,14 @@ function setup(cleanups: (() => void)[]) {
     show(el)
     const targets = el.dataset.fade === 'stagger' ? el.children : el
     gsap.from(targets, {
-      y: 48,
+      y: 36,
       autoAlpha: 0,
-      duration: 1.1,
+      filter: 'blur(8px)',
+      duration: 1.4,
       ease: 'power3.out',
-      stagger: 0.08,
+      stagger: 0.1,
       delay: Number(el.dataset.delay ?? 0),
+      clearProps: 'filter',
       scrollTrigger: el.closest('[data-hero]') ? undefined : { trigger: el, start: 'top 90%', once: true },
     })
   })
@@ -95,25 +98,25 @@ function setup(cleanups: (() => void)[]) {
     const split = SplitText.create(el, { type: 'words' })
     gsap.fromTo(
       split.words,
-      { opacity: 0.14 },
+      { opacity: 0.18 },
       {
         opacity: 1,
         ease: 'none',
         stagger: 0.1,
-        scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 50%', scrub: true },
+        scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 55%', scrub: 1 },
       },
     )
   })
 
-  // Image frames open up as they enter.
+  // Image frames open from a rounded pebble.
   gsap.utils.toArray<HTMLElement>('[data-clip]').forEach((el) => {
     gsap.fromTo(
       el,
-      { clipPath: 'inset(14% 10% 14% 10% round 28px)' },
+      { clipPath: 'inset(10% 12% 10% 12% round 50%)' },
       {
-        clipPath: 'inset(0% 0% 0% 0% round 6px)',
+        clipPath: 'inset(0% 0% 0% 0% round 0%)',
         ease: 'none',
-        scrollTrigger: { trigger: el, start: 'top 98%', end: 'top 40%', scrub: true },
+        scrollTrigger: { trigger: el, start: 'top 100%', end: 'top 35%', scrub: 1.2 },
       },
     )
   })
@@ -131,59 +134,54 @@ function setup(cleanups: (() => void)[]) {
     )
   })
 
-  // Endless reel, nudged by scroll velocity.
-  gsap.utils.toArray<HTMLElement>('[data-reel]').forEach((el) => {
-    const track = el.querySelector<HTMLElement>('[data-reel-track]')
-    if (!track) return
-    const loop = gsap.to(track, { xPercent: -50, duration: 48, ease: 'none', repeat: -1 })
-    const skew = gsap.quickTo(track, 'skewX', { duration: 0.5, ease: 'power3' })
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top bottom',
-      end: 'bottom top',
-      onUpdate: (self) => {
-        const v = self.getVelocity()
-        const boost = gsap.utils.clamp(1, 7, 1 + Math.abs(v) / 300)
-        gsap.to(loop, { timeScale: boost * (self.direction < 0 ? -1 : 1), duration: 0.25, overwrite: true })
-        gsap.to(loop, { timeScale: self.direction < 0 ? -1 : 1, duration: 1.2, delay: 0.25 })
-        skew(gsap.utils.clamp(-6, 6, v / -260))
+  // Living outlines: border-radius wanders between organic shapes.
+  const r = () => gsap.utils.random(32, 68, 1)
+  const outline = () => `${r()}% ${r()}% ${r()}% ${r()}% / ${r()}% ${r()}% ${r()}% ${r()}%`
+  gsap.utils.toArray<HTMLElement>('[data-morph]').forEach((el) => {
+    const step = () => gsap.to(el, { borderRadius: outline(), duration: gsap.utils.random(5, 8), ease: 'sine.inOut', onComplete: step })
+    gsap.set(el, { borderRadius: outline() })
+    step()
+  })
+
+  // Gentle float, each on its own rhythm.
+  gsap.utils.toArray<HTMLElement>('[data-float]').forEach((el, i) => {
+    const amount = Number(el.dataset.float || 10)
+    gsap.fromTo(el, { y: -amount }, {
+      y: amount,
+      duration: 3.2 + (i % 3) * 0.7,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true,
+      delay: -i * 0.9,
+    })
+  })
+
+  // Paths that draw themselves through a section.
+  gsap.utils.toArray<SVGPathElement>('[data-draw]').forEach((path) => {
+    const len = path.getTotalLength()
+    gsap.set(path, { strokeDasharray: len, strokeDashoffset: len })
+    gsap.to(path, {
+      strokeDashoffset: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: path.closest('section') ?? path,
+        start: 'top 70%',
+        end: 'bottom 70%',
+        scrub: 1.2,
       },
-      onLeave: () => skew(0),
     })
   })
 
   // Hero headline drifts up and softens as you leave the first screen.
   gsap.utils.toArray<HTMLElement>('[data-hero-drift]').forEach((el) => {
     gsap.to(el, {
-      yPercent: -18,
-      opacity: 0.25,
+      yPercent: -14,
+      opacity: 0.2,
+      filter: 'blur(6px)',
       ease: 'none',
       scrollTrigger: { trigger: el, start: 'top top+=80', end: 'bottom top', scrub: true },
     })
   })
-
-  // Pinned horizontal process track on wide screens.
-  const mm = gsap.matchMedia()
-  mm.add('(min-width: 900px)', () => {
-    gsap.utils.toArray<HTMLElement>('[data-hscroll]').forEach((el) => {
-      const track = el.querySelector<HTMLElement>('[data-hscroll-track]')
-      if (!track) return
-      const distance = () => track.scrollWidth - el.clientWidth
-      gsap.to(track, {
-        x: () => -distance(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top top',
-          end: () => `+=${distance()}`,
-          pin: true,
-          scrub: 0.8,
-          invalidateOnRefresh: true,
-        },
-      })
-    })
-  })
-  cleanups.push(() => mm.revert())
 
   // Counters.
   gsap.utils.toArray<HTMLElement>('[data-count]').forEach((el) => {
@@ -192,38 +190,40 @@ function setup(cleanups: (() => void)[]) {
     const state = { v: 0 }
     gsap.to(state, {
       v: target,
-      duration: 1.6,
-      ease: 'power3.out',
+      duration: 2,
+      ease: 'power2.out',
       scrollTrigger: { trigger: el, start: 'top 90%', once: true },
       onUpdate: () => { el.textContent = Math.round(state.v) + suffix },
     })
   })
 
-  // Oversized wordmark rises letter by letter.
+  // Oversized wordmark rises letter by letter out of a blur.
   gsap.utils.toArray<HTMLElement>('[data-rise]').forEach((el) => {
     show(el)
     const split = SplitText.create(el, { type: 'chars' })
     gsap.from(split.chars, {
-      yPercent: 100,
+      yPercent: 60,
+      opacity: 0,
+      filter: 'blur(20px)',
       ease: 'none',
-      stagger: 0.06,
-      scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom bottom', scrub: true },
+      stagger: 0.08,
+      scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom bottom', scrub: 1 },
     })
   })
 
   // Magnetic buttons (fine pointers only).
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     gsap.utils.toArray<HTMLElement>('[data-magnetic]').forEach((el) => {
-      const x = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3' })
-      const y = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3' })
-      const strength = Number(el.dataset.magnetic || 0.35)
+      const x = gsap.quickTo(el, 'x', { duration: 0.8, ease: 'power3' })
+      const y = gsap.quickTo(el, 'y', { duration: 0.8, ease: 'power3' })
+      const strength = Number(el.dataset.magnetic || 0.3)
       const move = (e: PointerEvent) => {
         const r = el.getBoundingClientRect()
         x((e.clientX - r.left - r.width / 2) * strength)
         y((e.clientY - r.top - r.height / 2) * strength)
       }
       const leave = () => {
-        gsap.to(el, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, 0.35)' })
+        gsap.to(el, { x: 0, y: 0, duration: 1.4, ease: 'elastic.out(1, 0.4)' })
       }
       el.addEventListener('pointermove', move)
       el.addEventListener('pointerleave', leave)
