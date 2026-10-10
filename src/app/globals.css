@@ -69,6 +69,11 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 }
 .mono { font-family: var(--mono); font-size: 0.8125rem; letter-spacing: 0.02em; }
 
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
 .skip-link {
   position: fixed; top: 12px; left: 12px; z-index: 200;
   padding: 10px 16px; border-radius: 99px;
@@ -328,7 +333,7 @@ html.js:not(.seen) .preloader { display: flex; }
 
 /* ── Intro ─────────────────────────────────────────────────── */
 .intro { padding-block: var(--section); display: grid; gap: 40px; }
-.intro-statement div, .case-overview div { text-indent: 0; }
+.intro-statement div { text-indent: 0; }
 .intro-statement {
   font-size: clamp(1.75rem, 4.4vw, 4.25rem);
   font-weight: 500;
@@ -351,7 +356,7 @@ html.js:not(.seen) .preloader { display: flex; }
 }
 .stat-label { color: var(--muted); font-size: 0.9375rem; }
 @media (max-width: 700px) {
-  .intro-statement div, .case-overview div { text-indent: 0; }
+  .intro-statement div { text-indent: 0; }
 .intro-statement { text-indent: 0; }
   .stats { grid-template-columns: 1fr; }
   .stat, .stat + .stat { padding: 20px 0; border-left: 0; border-bottom: 1px solid var(--line); }
@@ -402,7 +407,12 @@ html.js:not(.seen) .preloader { display: flex; }
   font-weight: 600; letter-spacing: -0.04em; line-height: 1.05;
 }
 .work-type { color: var(--muted); }
-.work-summary { margin-top: 8px; padding-left: calc(2ch + 16px); color: var(--muted); max-width: 46ch; }
+.work-foot {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  margin-top: 8px; padding-left: calc(2ch + 16px);
+}
+.work-summary { color: var(--muted); max-width: 46ch; }
+.work-visit { display: inline-flex; gap: 6px; font-weight: 500; white-space: nowrap; }
 @media (max-width: 900px) {
   .work-grid { grid-template-columns: 1fr; }
   .work-card:nth-child(3n) { margin-top: 0; }
@@ -561,58 +571,6 @@ html.js:not(.seen) .preloader { display: flex; }
   .footer-top { grid-template-columns: 1fr 1fr; }
   .footer-col-end { justify-self: start; }
 }
-
-/* ── Case study ────────────────────────────────────────────── */
-.case-head { padding-top: clamp(120px, 16vw, 200px); display: grid; gap: 28px; }
-.case-back { justify-self: start; }
-.case-title {
-  font-size: clamp(3rem, 11vw, 12rem);
-  font-weight: 600; letter-spacing: -0.06em; line-height: 0.88;
-}
-.case-facts {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;
-  padding-top: 20px; border-top: 1px solid var(--line);
-}
-.case-facts dd { margin-top: 8px; font-weight: 500; }
-.case-hero { margin-top: clamp(40px, 6vw, 80px); }
-.case-frame, .case-next-frame {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  border-radius: 6px;
-  overflow: hidden;
-}
-.case-shot { position: absolute; inset: -5% 0; }
-.case-shot img { object-fit: cover; object-position: top center; }
-.case-body {
-  padding-block: var(--section);
-  display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 24px 40px;
-}
-.case-overview {
-  font-size: clamp(1.625rem, 3.6vw, 3.5rem);
-  font-weight: 500; letter-spacing: -0.035em; line-height: 1.1;
-  max-width: 24ch;
-}
-.case-scope { grid-column: 2; display: grid; gap: 14px; margin-top: 32px; }
-.case-next { background: var(--ink); color: var(--paper); padding-block: clamp(64px, 9vw, 140px) 0; }
-.case-next .label { color: var(--muted-dark); }
-.case-next-link { display: grid; gap: 20px; }
-.case-next-title {
-  font-size: clamp(2.75rem, 9vw, 10rem);
-  font-weight: 600; letter-spacing: -0.06em; line-height: 0.9;
-  transition: color 0.5s;
-}
-.case-next-link:hover .case-next-title { color: var(--accent); }
-@media (max-width: 800px) {
-  .case-facts { grid-template-columns: 1fr 1fr; }
-  .case-frame, .case-next-frame { aspect-ratio: 4 / 3; }
-  .case-body { grid-template-columns: 1fr; }
-  .case-scope { grid-column: 1; }
-}
-
-/* ── View transitions ──────────────────────────────────────── */
-::view-transition-old(root),
-::view-transition-new(root) { animation-duration: 0.6s; animation-timing-function: var(--ease-in-out); }
-::view-transition-group(*) { animation-duration: 0.9s; animation-timing-function: var(--ease-in-out); }
 
 /* ── Reduced motion ────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

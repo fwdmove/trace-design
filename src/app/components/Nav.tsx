@@ -8,10 +8,10 @@ import { getLenis } from '@/lib/motion'
 import RollText from './RollText'
 
 const links = [
-  { href: '/#work', label: 'Work' },
-  { href: '/#services', label: 'Services' },
-  { href: '/#studio', label: 'Studio' },
-  { href: '/#contact', label: 'Contact' },
+  { href: '#work', label: 'Work' },
+  { href: '#services', label: 'Services' },
+  { href: '#studio', label: 'Studio' },
+  { href: '#contact', label: 'Contact' },
 ]
 
 export default function Nav() {
@@ -81,7 +81,7 @@ export default function Nav() {
         </nav>
 
         <div className="nav-actions">
-          <Link href="/#contact" className="btn btn-small nav-cta" data-magnetic="0.25">
+          <Link href="#contact" className="btn btn-small nav-cta" data-magnetic="0.25">
             <RollText>Start a project</RollText>
           </Link>
           <button

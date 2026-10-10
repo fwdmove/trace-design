@@ -12,10 +12,10 @@ export default function Footer() {
         <div className="footer-col">
           <p className="label">Sitemap</p>
           <ul className="footer-links">
-            <li><Link href="/#work"><RollText>Work</RollText></Link></li>
-            <li><Link href="/#services"><RollText>Services</RollText></Link></li>
-            <li><Link href="/#studio"><RollText>Studio</RollText></Link></li>
-            <li><Link href="/#contact"><RollText>Contact</RollText></Link></li>
+            <li><Link href="#work"><RollText>Work</RollText></Link></li>
+            <li><Link href="#services"><RollText>Services</RollText></Link></li>
+            <li><Link href="#studio"><RollText>Studio</RollText></Link></li>
+            <li><Link href="#contact"><RollText>Contact</RollText></Link></li>
           </ul>
         </div>
         <div className="footer-col">

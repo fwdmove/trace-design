@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
-import { getLenis, prefersReducedMotion, resolvePendingTransition, whenReady } from '@/lib/motion'
+import { prefersReducedMotion, whenReady } from '@/lib/motion'
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
@@ -28,9 +28,6 @@ export default function PageMotion() {
   const pathname = usePathname()
 
   useEffect(() => {
-    resolvePendingTransition()
-    getLenis()?.scrollTo(0, { immediate: true, force: true })
-
     if (prefersReducedMotion()) return
 
     let ctx: gsap.Context | undefined

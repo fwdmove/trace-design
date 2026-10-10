@@ -1,7 +1,7 @@
 import type Lenis from 'lenis'
 
-// Shared handles for the motion system: the Lenis instance, the preloader
-// "ready" signal, and the pending view transition started by TransitionLink.
+// Shared handles for the motion system: the Lenis instance and the
+// preloader "ready" signal.
 
 let lenis: Lenis | null = null
 export const setLenis = (l: Lenis | null) => { lenis = l }
@@ -28,12 +28,3 @@ export function markReady() {
 export const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-let pendingTransition: (() => void) | null = null
-export function setPendingTransition(resolve: (() => void) | null) {
-  pendingTransition = resolve
-}
-export function resolvePendingTransition() {
-  pendingTransition?.()
-  pendingTransition = null
-}

@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { projects } from '@/content/work'
 import ContactForm from './components/ContactForm'
-import TransitionLink from './components/TransitionLink'
 import RollText from './components/RollText'
 
 const services = [
@@ -112,13 +111,9 @@ export default function Home() {
         <div className="work-grid">
           {projects.map((p) => (
             <article className="work-card" key={p.slug}>
-              <TransitionLink href={`/work/${p.slug}`} className="work-link" data-cursor="View">
+              <a href={p.url} target="_blank" rel="noreferrer" className="work-link" data-cursor="Visit">
                 <div className="work-frame" data-clip style={{ background: p.tone }}>
-                  <div
-                    className="work-shot"
-                    data-parallax="6"
-                    style={{ viewTransitionName: `shot-${p.slug}` }}
-                  >
+                  <div className="work-shot" data-parallax="6">
                     <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
                   </div>
                 </div>
@@ -127,8 +122,15 @@ export default function Home() {
                   <h3 className="work-name">{p.name}</h3>
                   <span className="mono work-type">{p.type}, {p.year}</span>
                 </div>
-                <p className="work-summary">{p.summary}</p>
-              </TransitionLink>
+                <div className="work-foot">
+                  <p className="work-summary">{p.summary}</p>
+                  <span className="work-visit">
+                    <RollText>Visit site</RollText>
+                    <span aria-hidden="true">↗</span>
+                  </span>
+                </div>
+                <span className="sr-only"> (opens the live site in a new tab)</span>
+              </a>
             </article>
           ))}
         </div>
