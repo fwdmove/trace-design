@@ -387,7 +387,7 @@ html.js:not(.seen) .preloader { display: flex; }
 .work-link { display: block; }
 .work-frame {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   border-radius: 6px;
 }
@@ -416,7 +416,7 @@ html.js:not(.seen) .preloader { display: flex; }
 @media (max-width: 900px) {
   .work-grid { grid-template-columns: 1fr; }
   .work-card:nth-child(3n) { margin-top: 0; }
-  .work-card:nth-child(3n + 1) .work-frame, .work-frame { aspect-ratio: 4 / 3; }
+  .work-card:nth-child(3n + 1) .work-frame, .work-frame { aspect-ratio: 16 / 10; }
   .work-meta { grid-template-columns: auto 1fr; }
   .work-type { grid-column: 2; }
 }

@@ -1,8 +1,4 @@
-// The project screenshots are not in the repo yet; until they are committed to
-// public/website-screenshots, they load from the live site. Set
-// NEXT_PUBLIC_SHOT_ORIGIN="" to serve them locally once they land.
-const SHOT_ORIGIN = process.env.NEXT_PUBLIC_SHOT_ORIGIN ?? 'https://www.tracedesign.co'
-const shot = (file: string) => `${SHOT_ORIGIN}/website-screenshots/${file}`
+const shot = (file: string) => `/website-screenshots/${file}`
 
 export interface Project {
   slug: string
@@ -25,7 +21,7 @@ export const projects: Project[] = [
     type: 'Full site build',
     year: '2026',
     url: 'https://wr-woodworks.vercel.app',
-    image: shot('woodwork.png'),
+    image: shot('woodwork.jpg'),
     alt: 'Wolf River Woodworks website homepage',
     tone: '#2a2118',
     summary: 'A custom site for a Memphis woodworking studio.',
@@ -37,7 +33,7 @@ export const projects: Project[] = [
     type: 'Landing page',
     year: '2026',
     url: 'https://www.getbuildleads.com',
-    image: shot('getbuilds.png'),
+    image: shot('getbuilds.jpg'),
     alt: 'Get Build Leads website homepage',
     tone: '#141826',
     summary: 'A lead-generation page for contractor marketing.',
@@ -49,7 +45,7 @@ export const projects: Project[] = [
     type: 'Web design',
     year: '2026',
     url: 'https://tea-room-charm.vercel.app',
-    image: shot('tea-room.png'),
+    image: shot('tea-room.jpg'),
     alt: 'Tea Room Charm website homepage',
     tone: '#2b1a12',
     summary: 'A warm hospitality site for a tea room concept.',
@@ -61,7 +57,7 @@ export const projects: Project[] = [
     type: 'Business website',
     year: '2026',
     url: 'https://www.washworksusa.com',
-    image: shot('washworks.png'),
+    image: shot('washworks.jpg'),
     alt: 'Wash Works USA website homepage',
     tone: '#121314',
     summary: 'A service-business site for a car wash brand.',
