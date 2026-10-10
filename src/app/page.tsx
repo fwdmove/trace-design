@@ -73,7 +73,7 @@ export default function Home() {
                 <span>{p.slug}.site</span>
                 <span className="win-btns" aria-hidden="true"><i /><i /><i /></span>
               </div>
-              <a href={p.url} target="_blank" rel="noreferrer" className="win-shot" data-cursor="Visit">
+              <a href={p.url} target="_blank" rel="noreferrer" className="win-shot">
                 <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 80vw, 26vw" priority={i < 2} />
                 <span className="sr-only"> (opens the live site in a new tab)</span>
               </a>
@@ -155,7 +155,7 @@ export default function Home() {
           <div className="work-grid">
             {projects.map((p) => (
               <article className="card" key={p.slug} data-fade>
-                <a href={p.url} target="_blank" rel="noreferrer" className="card-link" data-cursor="Visit">
+                <a href={p.url} target="_blank" rel="noreferrer" className="card-link">
                   <div className="card-bar">
                     <span>{p.index}</span>
                     <span>{p.type}</span>

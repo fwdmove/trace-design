@@ -110,21 +110,6 @@ html.js [data-rise] { visibility: hidden; }
 html.js:not(.seen) .preloader { display: flex; }
 .preloader-bar { margin-top: 1em; letter-spacing: 0.02em; white-space: pre; }
 
-/* ─── Cursor ──────────────────────────────────────────────── */
-
-.cursor { position: fixed; inset: 0; z-index: 120; pointer-events: none; opacity: 0; mix-blend-mode: difference; }
-.cursor.is-visible { opacity: 1; }
-.cursor-h, .cursor-v { position: absolute; background: #fff; }
-.cursor-h { left: 0; right: 0; height: 1px; top: var(--y); }
-.cursor-v { top: 0; bottom: 0; width: 1px; left: var(--x); }
-.cursor-readout {
-  position: absolute; left: var(--x); top: var(--y);
-  transform: translate(10px, 10px);
-  padding: 2px 6px; background: #fff; color: #000;
-  font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; white-space: nowrap;
-}
-.cursor.is-label .cursor-readout { font-size: 0.875rem; padding: 6px 10px; }
-
 /* ─── Nav ─────────────────────────────────────────────────── */
 
 .nav {
@@ -444,7 +429,6 @@ html.js:not(.seen) .preloader { display: flex; }
   .footer-cell:nth-child(-n + 2) { border-bottom: 2px solid var(--paper); }
   .footer-base { flex-direction: column; gap: 4px; }
 
-  .cursor { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
