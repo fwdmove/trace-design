@@ -12,7 +12,7 @@ export default function SmoothScroll() {
   useEffect(() => {
     if (prefersReducedMotion()) return
 
-    const lenis = new Lenis({ lerp: 0.09, anchors: true })
+    const lenis = new Lenis({ lerp: 0.07, anchors: true })
     setLenis(lenis)
     lenis.on('scroll', ScrollTrigger.update)
 
