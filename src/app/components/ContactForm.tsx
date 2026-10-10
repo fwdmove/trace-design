@@ -27,35 +27,37 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="contact-form-success">
-        <p>Message sent — we&apos;ll be in touch soon.</p>
+      <div className="form-success" role="status">
+        <p className="form-success-title">Thanks. Message received.</p>
+        <p>We&apos;ll be in touch soon.</p>
       </div>
     )
   }
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit} noValidate>
-      <div className="contact-form-row">
-        <div className="contact-form-field">
-          <label className="contact-form-label" htmlFor="cf-name">Name</label>
-          <input className="contact-form-input" id="cf-name" name="name" type="text" required autoComplete="name" placeholder="Your name" />
-        </div>
-        <div className="contact-form-field">
-          <label className="contact-form-label" htmlFor="cf-email">Email</label>
-          <input className="contact-form-input" id="cf-email" name="email" type="email" required autoComplete="email" placeholder="your@email.com" />
-        </div>
+    <form className="form" onSubmit={handleSubmit}>
+      <div className="form-row">
+        <label className="field">
+          <span className="field-label">Your name</span>
+          <input name="name" type="text" required autoComplete="name" placeholder="Jane Smith" />
+        </label>
+        <label className="field">
+          <span className="field-label">Email</span>
+          <input name="email" type="email" required autoComplete="email" placeholder="jane@company.com" />
+        </label>
       </div>
-      <div className="contact-form-field">
-        <label className="contact-form-label" htmlFor="cf-message">Message</label>
-        <textarea className="contact-form-textarea" id="cf-message" name="message" rows={3} required placeholder="Tell us about your project" />
-      </div>
-      <div className="contact-form-footer">
-        <button className="contact-form-submit" type="submit" disabled={status === 'sending'}>
-          {status === 'sending' ? 'Sending…' : 'Send Message'}
+      <label className="field">
+        <span className="field-label">What are you building?</span>
+        <textarea name="message" rows={4} required placeholder="A new site, a redesign, a landing page…" />
+      </label>
+      <div className="form-foot">
+        <button className="btn btn-accent" type="submit" disabled={status === 'sending'} data-magnetic="0.2">
+          <span>{status === 'sending' ? 'Sending…' : 'Send message'}</span>
+          <span className="btn-arrow" aria-hidden="true">→</span>
         </button>
-        {status === 'error' && (
-          <p className="contact-form-error">Something went wrong — try emailing us directly.</p>
-        )}
+        <p className="form-error" role="alert">
+          {status === 'error' ? 'Something went wrong. Please try again in a moment.' : ''}
+        </p>
       </div>
     </form>
   )
