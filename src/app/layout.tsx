@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0f0f0e',
+  themeColor: '#0b0a09',
 }
 
 // Runs before paint: marks JS + motion support so content can start hidden
