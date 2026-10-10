@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { prefersReducedMotion } from '@/lib/motion'
 
-// The soft backdrop behind every section: a few blurred colour blobs that
+// The backdrop behind every section: a few blurred glows that
 // wander and change shape on their own, lean gently toward the pointer, and
 // a fine grain on top so the gradients feel like paper rather than screen.
 export default function Ambient() {

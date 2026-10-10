@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Fraunces, Manrope } from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import PageMotion from './components/PageMotion'
@@ -9,18 +9,15 @@ import Ambient from './components/Ambient'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 
-const sans = Manrope({
+const sans = Geist({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
 })
 
-// Fraunces with its "soft" axis turned up gives the rounded, organic serif.
-const serif = Fraunces({
+const mono = Geist_Mono({
   subsets: ['latin'],
-  style: ['normal', 'italic'],
-  axes: ['SOFT', 'opsz'],
-  variable: '--font-serif',
+  variable: '--font-mono',
   display: 'swap',
 })
 
@@ -52,7 +49,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#f3efe7',
+  themeColor: '#f4f4f2',
 }
 
 // Runs before paint: marks JS + motion support so content can start hidden
@@ -63,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${serif.variable}`}
+      className={`${sans.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>

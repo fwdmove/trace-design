@@ -4,32 +4,22 @@ import { projects } from '@/content/work'
 import ContactForm from './components/ContactForm'
 import RollText from './components/RollText'
 
-// Soft pastel grounds for each project card in this direction.
-const grounds: Record<string, string> = {
-  'wolf-river-woodworks': 'var(--clay)',
-  'get-build-leads': 'var(--sky)',
-  'tea-room-charm': 'var(--butter)',
-  'wash-works-usa': 'var(--sage)',
-}
 
 const services = [
   {
     title: 'Web design',
     desc: 'Visual direction, layout and type shaped around your business, so the site feels like the best in its field.',
     includes: ['Art direction', 'Layout', 'Typography', 'Motion'],
-    tone: 'var(--sage)',
   },
   {
     title: 'Development',
     desc: 'Fast, custom-coded builds that look right on every screen and stay easy to update as you grow.',
     includes: ['Next.js', 'CMS setup', 'Animation', 'Performance'],
-    tone: 'var(--clay)',
   },
   {
     title: 'Landing pages',
     desc: 'Single pages with one job: turn visitors into customers. Strategy, copy direction, design and build.',
     includes: ['Strategy', 'Copy direction', 'Design + build', 'Launch'],
-    tone: 'var(--sky)',
   },
 ]
 
@@ -45,7 +35,7 @@ export default function Home() {
     <>
       {/* ═══ HERO ═══ */}
       <section className="hero" data-hero>
-        <div className="hero-orb" data-morph aria-hidden="true" />
+        <div className="hero-glow" aria-hidden="true" />
         <div className="hero-inner wrap">
           <p className="pill" data-fade data-delay="0.3">
             <span className="pill-dot" aria-hidden="true" />
@@ -54,14 +44,14 @@ export default function Home() {
 
           <div data-hero-drift>
             <h1 className="hero-title" data-split="hero">
-              Websites with a <em>calm,</em> confident presence.
+              Websites that make you <em>the obvious choice.</em>
             </h1>
           </div>
 
           <div className="hero-foot" data-fade="stagger" data-delay="0.9">
             <p className="hero-lede">
-              Trace is an independent studio designing and building custom websites for businesses that want to feel
-              like the best in their field. One small team, from first sketch to launch.
+              Trace is an independent studio designing and building custom websites for businesses that want to stand out
+              in their field, whatever that field is. One small team, from first sketch to launch.
             </p>
             <div className="hero-actions">
               <Link href="#contact" className="btn" data-magnetic>
@@ -77,7 +67,7 @@ export default function Home() {
         <div className="pebbles" aria-hidden="true">
           {projects.slice(0, 3).map((p, i) => (
             <div className={`pebble pebble-${i + 1}`} data-float={8 + i * 4} key={p.slug}>
-              <div className="pebble-inner" data-morph>
+              <div className="pebble-inner">
                 <Image src={p.image} alt="" fill sizes="220px" priority />
               </div>
             </div>
@@ -126,7 +116,6 @@ export default function Home() {
                 rel="noreferrer"
                 className="work-link"
                 data-cursor="Visit"
-                style={{ '--ground': grounds[p.slug] ?? 'var(--sage)' } as React.CSSProperties}
               >
                 <div className="work-frame" data-clip>
                   <div className="work-shot" data-parallax="5">
@@ -149,7 +138,8 @@ export default function Home() {
       </section>
 
       {/* ═══ SERVICES ═══ */}
-      <section className="services wrap" id="services">
+      <section className="services" id="services">
+        <div className="wrap">
         <div className="section-head">
           <p className="label" data-fade>What we do</p>
           <h2 className="section-title" data-split>
@@ -159,8 +149,8 @@ export default function Home() {
 
         <ul className="service-list" data-fade="stagger">
           {services.map((s) => (
-            <li className="service" key={s.title} style={{ '--tone': s.tone } as React.CSSProperties}>
-              <span className="service-blob" data-morph aria-hidden="true" />
+            <li className="service" key={s.title}>
+              <span className="service-glow" aria-hidden="true" />
               <h3 className="service-title">{s.title}</h3>
               <p>{s.desc}</p>
               <ul className="chips">
@@ -169,6 +159,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
+        </div>
       </section>
 
       {/* ═══ PROCESS ═══ */}
@@ -192,7 +183,7 @@ export default function Home() {
           <ol className="process-steps">
             {steps.map((p, i) => (
               <li className="process-step" key={p.step} data-fade>
-                <span className="process-num" data-morph>{i + 1}</span>
+                <span className="process-num">0{i + 1}</span>
                 <div>
                   <h3>{p.step}</h3>
                   <p>{p.desc}</p>
@@ -206,11 +197,11 @@ export default function Home() {
       {/* ═══ CONTACT ═══ */}
       <section className="contact wrap" id="contact">
         <div className="contact-card">
-          <span className="contact-blob" data-morph aria-hidden="true" />
+          <span className="contact-glow" aria-hidden="true" />
           <div className="contact-copy">
             <p className="label" data-fade>Say hello</p>
             <h2 className="contact-title" data-split>
-              Let’s make something <em>lovely</em> together.
+              Let’s build something <em>worth noticing.</em>
             </h2>
             <p className="contact-lede" data-fade>
               Tell us a little about the project. We take on a short list of clients at a time, and reply to every note.
