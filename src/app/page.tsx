@@ -7,7 +7,7 @@ import RollText from './components/RollText'
 const services = [
   {
     title: 'Web design',
-    desc: 'Visual direction, layout and type shaped around your business, so the site looks like the best in its field.',
+    desc: 'Visual direction, layout and type shaped around what you do, so the site looks like the best in its field.',
     includes: ['Art direction', 'Layout systems', 'Typography', 'Motion design'],
   },
   {
@@ -23,7 +23,7 @@ const services = [
 ]
 
 const steps = [
-  { step: 'Discover', desc: 'We learn the business, the audience and what the site has to do. You get a clear plan and scope.' },
+  { step: 'Discover', desc: 'We learn what you do, who it’s for and what the site has to do. You get a clear plan and scope.' },
   { step: 'Design', desc: 'Visual direction first, then every page designed in full, with motion and mobile considered from the start.' },
   { step: 'Build', desc: 'Hand-coded, fast and accessible. What we designed is what ships, down to the last transition.' },
   { step: 'Launch', desc: 'We handle hosting, domains and handover, and stay on hand after go-live.' },
@@ -35,15 +35,6 @@ export default function Home() {
       {/* ═══ HERO ═══ */}
       <section className="hero" data-hero>
         <div className="wrap hero-inner">
-          <div className="hero-meta" data-fade="stagger" data-delay="0.6">
-            <span className="label status">
-              <span className="status-dot" aria-hidden="true" />
-              Taking on new projects
-            </span>
-            <span className="label">Design + development</span>
-            <span className="label">Est. 2019</span>
-          </div>
-
           <div data-hero-drift>
             <h1 className="hero-title" data-split="hero">
               Websites that <br />
@@ -53,8 +44,8 @@ export default function Home() {
 
           <div className="hero-foot" data-fade="stagger" data-delay="0.8">
             <p className="hero-lede">
-              We design and build custom websites for businesses that want to look like the best in their field.
-              One studio, from first sketch to launch.
+              Custom websites for people who care how they look online. Designed, built and launched by one
+              studio, from the first sketch to the day it goes live.
             </p>
             <div className="hero-actions">
               <Link href="#contact" className="btn btn-accent" data-magnetic>
@@ -83,22 +74,15 @@ export default function Home() {
       <section className="intro wrap" id="studio">
         <p className="label" data-fade>(Studio)</p>
         <p className="intro-statement" data-scrub-words>
-          Trace is a small studio with a short list of clients. We take on a few projects at a time, so every site is
-          designed, built and launched by the same hands, and ships looking exactly like the design.
+          Most websites look like they came from the same template. <em>Yours won’t.</em>
         </p>
-        <div className="stats" data-fade="stagger">
-          <div className="stat">
-            <span className="stat-num" data-count="7">7</span>
-            <span className="stat-label">Years in business</span>
-          </div>
-          <div className="stat">
-            <span className="stat-num" data-count="30" data-suffix="+">30+</span>
-            <span className="stat-label">Sites shipped</span>
-          </div>
-          <div className="stat">
-            <span className="stat-num">1</span>
-            <span className="stat-label">Team, end to end</span>
-          </div>
+        <div className="intro-note" data-fade>
+          <p>
+            All it takes to get started is a few lines about what you do. We’ll handle the rest.
+          </p>
+          <Link href="#contact" className="text-link">
+            <RollText>Start a project</RollText>
+          </Link>
         </div>
       </section>
 
@@ -203,7 +187,8 @@ export default function Home() {
               Let’s build your <em>next</em> website.
             </h2>
             <p className="contact-lede" data-fade>
-              Tell us a little about the project. We take on a short list of clients at a time.
+              Tell us what you’re working on and what the site needs to do. We’ll reply with honest thoughts and clear
+              next steps.
             </p>
           </div>
           <div data-fade>

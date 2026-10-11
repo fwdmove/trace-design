@@ -4,7 +4,6 @@ import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import PageMotion from './components/PageMotion'
 import Preloader from './components/Preloader'
-import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 
@@ -78,7 +77,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Preloader />
         <SmoothScroll />
         <PageMotion />
-        <Cursor />
         <Nav />
         <main id="main">{children}</main>
         <Footer />
