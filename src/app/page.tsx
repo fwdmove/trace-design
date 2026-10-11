@@ -74,16 +74,15 @@ export default function Home() {
       <section className="intro wrap" id="studio">
         <p className="label" data-fade>(Studio)</p>
         <p className="intro-statement" data-scrub-words>
-          We make websites for people who are good at what they do. Lately that’s been a woodworker in Memphis, a tea
-          room, a car wash and a crew of <em>contractors.</em>
+          Most small business websites look like they came from the same template. <em>Yours won’t.</em>
         </p>
         <div className="intro-note" data-fade>
           <p>
-            Every site starts with a conversation, not a template. We ask about the business, the customers and what
-            isn’t working, then design and build something that could only be yours.
+            Every page starts from a blank canvas and is coded by hand, so it looks exactly like the design. And we
+            stick around after launch.
           </p>
           <Link href="#contact" className="text-link">
-            <RollText>Tell us about yours</RollText>
+            <RollText>Start a project</RollText>
           </Link>
         </div>
       </section>
