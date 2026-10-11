@@ -1,24 +1,14 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter_Tight, Instrument_Serif, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import PageMotion from './components/PageMotion'
-import Preloader from './components/Preloader'
-import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 
-const sans = Inter_Tight({
+const sans = Geist({
   subsets: ['latin'],
   variable: '--font-sans',
-  display: 'swap',
-})
-
-const serif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
   display: 'swap',
 })
 
@@ -45,40 +35,34 @@ export const metadata: Metadata = {
     type: 'website',
     url: siteUrl,
     siteName: 'Trace Design',
-    title: 'Trace Design | Websites that don’t blend in',
+    title: 'Trace Design | Websites built like great products',
     description,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trace Design | Websites that don’t blend in',
+    title: 'Trace Design | Websites built like great products',
     description,
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0f0f0e',
+  themeColor: '#f4f5f8',
 }
 
 // Runs before paint: marks JS + motion support so content can start hidden
-// for its entrance animation, and skips the preloader after the first visit.
-const bootScript = `try{var d=document.documentElement,r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(r){d.classList.add('seen','reduced')}else{d.classList.add('js');if(sessionStorage.getItem('trace-seen'))d.classList.add('seen')}}catch(e){}`
+// for its entrance animation.
+const bootScript = `try{var d=document.documentElement;if(matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('reduced')}else{d.classList.add('js')}}catch(e){}`
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
-        <Preloader />
         <SmoothScroll />
         <PageMotion />
-        <Cursor />
         <Nav />
         <main id="main">{children}</main>
         <Footer />

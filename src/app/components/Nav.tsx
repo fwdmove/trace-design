@@ -4,33 +4,25 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
-import { getLenis } from '@/lib/motion'
 import RollText from './RollText'
 
 const links = [
+  { href: '#features', label: 'Services' },
+  { href: '#process', label: 'Process' },
   { href: '#work', label: 'Work' },
-  { href: '#services', label: 'Services' },
   { href: '#studio', label: 'Studio' },
-  { href: '#contact', label: 'Contact' },
 ]
 
+// Floating glass bar. On small screens the links drop into a sheet under it.
 export default function Nav() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const [hidden, setHidden] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const menu = useRef<HTMLDivElement>(null)
+  const sheet = useRef<HTMLDivElement>(null)
   const toggle = useRef<HTMLButtonElement>(null)
 
-  // Hide on scroll down, reveal on scroll up.
   useEffect(() => {
-    let last = window.scrollY
-    const onScroll = () => {
-      const y = window.scrollY
-      setScrolled(y > 24)
-      setHidden(y > 240 && y > last)
-      last = y
-    }
+    const onScroll = () => setScrolled(window.scrollY > 24)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -38,18 +30,12 @@ export default function Nav() {
 
   useEffect(() => setOpen(false), [pathname])
 
-  // Full-screen menu: lock scroll, animate links, close on Escape.
   useEffect(() => {
-    const el = menu.current
+    const el = sheet.current
     if (!el) return
-    const lenis = getLenis()
     if (open) {
-      lenis?.stop()
-      document.body.style.overflow = 'hidden'
-      gsap.fromTo(el, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.8, ease: 'expo.inOut' })
-      gsap.fromTo(el.querySelectorAll('.menu-link span'), { yPercent: 110 }, { yPercent: 0, duration: 1, ease: 'expo.out', stagger: 0.06, delay: 0.3 })
-      gsap.fromTo(el.querySelectorAll('.menu-foot > *'), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.06, delay: 0.5 })
-      el.querySelector<HTMLElement>('.menu-link')?.focus()
+      gsap.fromTo(el, { autoAlpha: 0, y: -8, scale: 0.98 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.45, ease: 'expo.out' })
+      gsap.fromTo(el.querySelectorAll('a'), { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.04, delay: 0.05 })
       const onKey = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
           setOpen(false)
@@ -59,21 +45,22 @@ export default function Nav() {
       window.addEventListener('keydown', onKey)
       return () => window.removeEventListener('keydown', onKey)
     }
-    lenis?.start()
-    document.body.style.overflow = ''
-    gsap.to(el, { clipPath: 'inset(0 0 100% 0)', duration: 0.6, ease: 'expo.inOut' })
+    gsap.to(el, { autoAlpha: 0, y: -8, duration: 0.25, ease: 'power2.in' })
   }, [open])
 
   return (
-    <>
-      <header className={`nav ${hidden && !open ? 'is-hidden' : ''} ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
+    <header className={`nav ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
+      <div className="nav-bar">
         <Link href="/" className="nav-mark" aria-label="Trace Design, home">
-          <span className="nav-mark-word">Trace</span>
-          <span className="nav-mark-sub">Design</span>
+          <svg viewBox="0 0 24 24" className="nav-logo" aria-hidden="true">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="6" />
+            <path d="M8 9h8M12 9v7" />
+          </svg>
+          <span>Trace</span>
         </Link>
 
         <nav className="nav-links" aria-label="Primary">
-          {links.slice(0, 3).map((l) => (
+          {links.map((l) => (
             <Link key={l.href} href={l.href} className="nav-link">
               <RollText>{l.label}</RollText>
             </Link>
@@ -81,7 +68,7 @@ export default function Nav() {
         </nav>
 
         <div className="nav-actions">
-          <Link href="#contact" className="btn btn-small nav-cta" data-magnetic="0.25">
+          <Link href="#contact" className="btn btn-primary btn-small nav-cta">
             <RollText>Start a project</RollText>
           </Link>
           <button
@@ -90,39 +77,19 @@ export default function Nav() {
             className="menu-toggle"
             aria-expanded={open}
             aria-controls="site-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
             onClick={() => setOpen((o) => !o)}
           >
-            <span className="menu-toggle-label">{open ? 'Close' : 'Menu'}</span>
             <span className="menu-toggle-icon" aria-hidden="true"><i /><i /></span>
           </button>
         </div>
-      </header>
-
-      <div
-        ref={menu}
-        id="site-menu"
-        className="menu"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Site menu"
-        inert={!open}
-        style={{ clipPath: 'inset(0 0 100% 0)' }}
-      >
-        <nav className="menu-links" aria-label="Menu">
-          {links.map((l, i) => (
-            <Link key={l.href} href={l.href} className="menu-link" onClick={() => setOpen(false)}>
-              <span>
-                <sup className="mono">0{i + 1}</sup>
-                {l.label}
-              </span>
-            </Link>
-          ))}
-        </nav>
-        <div className="menu-foot">
-          <p className="mono">Independent web studio, est. 2019</p>
-          <p className="mono">Working worldwide</p>
-        </div>
       </div>
-    </>
+
+      <div ref={sheet} id="site-menu" className="nav-sheet" inert={!open} style={{ visibility: 'hidden' }}>
+        {[...links, { href: '#contact', label: 'Contact' }].map((l) => (
+          <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</Link>
+        ))}
+      </div>
+    </header>
   )
 }
