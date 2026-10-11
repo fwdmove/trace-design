@@ -1,20 +1,21 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Bricolage_Grotesque, Hanken_Grotesk } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import PageMotion from './components/PageMotion'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 
-const sans = Geist({
+const display = Bricolage_Grotesque({
   subsets: ['latin'],
-  variable: '--font-sans',
+  axes: ['opsz', 'wdth'],
+  variable: '--font-display',
   display: 'swap',
 })
 
-const mono = Geist_Mono({
+const sans = Hanken_Grotesk({
   subsets: ['latin'],
-  variable: '--font-mono',
+  variable: '--font-sans',
   display: 'swap',
 })
 
@@ -35,18 +36,18 @@ export const metadata: Metadata = {
     type: 'website',
     url: siteUrl,
     siteName: 'Trace Design',
-    title: 'Trace Design | Websites built like great products',
+    title: 'Trace Design | Websites that don’t blend in',
     description,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trace Design | Websites built like great products',
+    title: 'Trace Design | Websites that don’t blend in',
     description,
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#f4f5f8',
+  themeColor: '#f7f5f1',
 }
 
 // Runs before paint: marks JS + motion support so content can start hidden
@@ -55,7 +56,7 @@ const bootScript = `try{var d=document.documentElement;if(matchMedia('(prefers-r
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>

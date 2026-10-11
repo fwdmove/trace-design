@@ -15,10 +15,11 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
  *
  *   data-split      headline lines rise out of a mask ("hero" = on load)
  *   data-fade       fade + lift on enter ("stagger" = children in turn)
- *   data-inview     gets .is-in when it scrolls into view (CSS demos key off it)
  *   data-progress   fills --p from 0 to 1 as it scrolls through the viewport
  *   data-count      number counts up on enter
- *   data-draw       SVG strokes draw in as the element scrolls into view
+ *   data-scrub-words  words brighten as the paragraph scrolls through
+ *   data-rise       characters rise as the element scrolls into view
+ *   data-orb        soft shape that trails the pointer and drifts with scroll
  *   data-magnetic   element leans toward the pointer
  */
 export default function PageMotion() {
@@ -26,10 +27,7 @@ export default function PageMotion() {
 
   useEffect(() => {
     const html = document.documentElement
-    if (prefersReducedMotion()) {
-      document.querySelectorAll('[data-inview]').forEach((el) => el.classList.add('is-in'))
-      return
-    }
+    if (prefersReducedMotion()) return
 
     let ctx: gsap.Context | undefined
     let cancelled = false
@@ -92,16 +90,6 @@ function setup(cleanups: (() => void)[]) {
     })
   })
 
-  // In-view flags for CSS-driven demos.
-  gsap.utils.toArray<HTMLElement>('[data-inview]').forEach((el) => {
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 82%',
-      once: true,
-      onEnter: () => el.classList.add('is-in'),
-    })
-  })
-
   // Scroll progress exposed as a CSS variable.
   gsap.utils.toArray<HTMLElement>('[data-progress]').forEach((el) => {
     ScrollTrigger.create({
@@ -127,17 +115,51 @@ function setup(cleanups: (() => void)[]) {
     })
   })
 
-  // Strokes trace themselves in, then fill. Elements with pathLength use a
-  // normalised dash of 1; others (like text) give their dash length in data-len.
-  gsap.utils.toArray<SVGElement>('[data-draw]').forEach((el) => {
-    const strokes = gsap.utils.toArray<SVGElement>(el.querySelectorAll('[pathLength], [data-len]'))
-    const len = (t: SVGElement) => Number(t.dataset.len || 1)
-    strokes.forEach((t) => gsap.set(t, { strokeDasharray: len(t), strokeDashoffset: len(t), fillOpacity: 0 }))
-    gsap.timeline({
-      scrollTrigger: { trigger: el, start: 'top 98%', end: 'max', scrub: 0.6 },
+  // Statement paragraphs light up word by word.
+  gsap.utils.toArray<HTMLElement>('[data-scrub-words]').forEach((el) => {
+    show(el)
+    const split = SplitText.create(el, { type: 'words' })
+    gsap.fromTo(
+      split.words,
+      { opacity: 0.16 },
+      {
+        opacity: 1,
+        ease: 'none',
+        stagger: 0.1,
+        scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 55%', scrub: true },
+      },
+    )
+  })
+
+  // Oversized wordmark rises letter by letter.
+  gsap.utils.toArray<HTMLElement>('[data-rise]').forEach((el) => {
+    show(el)
+    const split = SplitText.create(el, { type: 'chars' })
+    gsap.from(split.chars, {
+      yPercent: 100,
+      ease: 'none',
+      stagger: 0.06,
+      scrollTrigger: { trigger: el, start: 'top bottom', end: 'max', scrub: 0.6 },
     })
-      .to(strokes, { strokeDashoffset: 0, ease: 'none', stagger: 0.08, duration: 1 })
-      .to(strokes, { fillOpacity: 1, ease: 'none', duration: 0.4 })
+  })
+
+  // The hero orb trails the pointer and sinks as the hero scrolls away.
+  gsap.utils.toArray<HTMLElement>('[data-orb]').forEach((el) => {
+    gsap.to(el, {
+      yPercent: 40,
+      scale: 0.85,
+      ease: 'none',
+      scrollTrigger: { trigger: el.closest('[data-hero]') ?? el, start: 'top top', end: 'bottom top', scrub: true },
+    })
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
+    const x = gsap.quickTo(el, 'x', { duration: 2.2, ease: 'power3' })
+    const y = gsap.quickTo(el, 'y', { duration: 2.2, ease: 'power3' })
+    const move = (e: PointerEvent) => {
+      x((e.clientX / window.innerWidth - 0.5) * 120)
+      y((e.clientY / window.innerHeight - 0.5) * 80)
+    }
+    window.addEventListener('pointermove', move)
+    cleanups.push(() => window.removeEventListener('pointermove', move))
   })
 
   // Magnetic buttons (fine pointers only).

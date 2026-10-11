@@ -7,22 +7,30 @@ import gsap from 'gsap'
 import RollText from './RollText'
 
 const links = [
-  { href: '#features', label: 'Services' },
-  { href: '#process', label: 'Process' },
-  { href: '#work', label: 'Work' },
   { href: '#studio', label: 'Studio' },
+  { href: '#services', label: 'Services' },
+  { href: '#work', label: 'Work' },
+  { href: '#process', label: 'Process' },
 ]
 
-// Floating glass bar. On small screens the links drop into a sheet under it.
+// Slim top bar that tucks away on scroll down and returns on scroll up.
+// On small screens the links drop into a sheet under it.
 export default function Nav() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const sheet = useRef<HTMLDivElement>(null)
   const toggle = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    let last = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 24)
+      setHidden(y > 320 && y > last)
+      last = y
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -49,14 +57,11 @@ export default function Nav() {
   }, [open])
 
   return (
-    <header className={`nav ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
+    <header className={`nav ${scrolled ? 'is-scrolled' : ''} ${hidden && !open ? 'is-hidden' : ''} ${open ? 'is-open' : ''}`}>
       <div className="nav-bar">
         <Link href="/" className="nav-mark" aria-label="Trace Design, home">
-          <svg viewBox="0 0 24 24" className="nav-logo" aria-hidden="true">
-            <rect x="2.5" y="2.5" width="19" height="19" rx="6" />
-            <path d="M8 9h8M12 9v7" />
-          </svg>
           <span>Trace</span>
+          <span className="nav-dot" aria-hidden="true" />
         </Link>
 
         <nav className="nav-links" aria-label="Primary">
