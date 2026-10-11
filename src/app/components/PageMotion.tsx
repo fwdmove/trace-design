@@ -21,7 +21,6 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
  *   data-slide          block slides sideways across its scroll
  *   data-wave           hovering ripples a wave through the block's letters
  *   data-marquee        endless band that speeds up with scroll velocity
- *   data-tilt           frame tips up from a 3D lean as it scrolls in
  *   data-split          headline lines rise out of a mask
  *   data-fade           fade + lift on enter ("stagger" = children in turn)
  *   data-scrub-words    words brighten as the paragraph scrolls through
@@ -148,7 +147,7 @@ function setup(cleanups: (() => void)[]) {
         if (busy) return
         busy = true
         gsap.to(letters, {
-          keyframes: { '--w': [860, 240, 860], '--x': [100, 60, 100] },
+          keyframes: { '--w': [860, 240, 860] },
           duration: 0.9,
           ease: 'sine.inOut',
           stagger: 0.03,
@@ -194,21 +193,6 @@ function setup(cleanups: (() => void)[]) {
       },
       onLeave: () => skew(0),
     })
-  })
-
-  // Project frames tip up out of a 3D lean.
-  gsap.utils.toArray<HTMLElement>('[data-tilt]').forEach((el) => {
-    gsap.fromTo(
-      el,
-      { rotateX: 32, scale: 0.84, yPercent: 8 },
-      {
-        rotateX: 0,
-        scale: 1,
-        yPercent: 0,
-        ease: 'none',
-        scrollTrigger: { trigger: el, start: 'top bottom', end: 'top 25%', scrub: true },
-      },
-    )
   })
 
   // Headlines: lines slide up out of a mask.

@@ -1,17 +1,24 @@
+import { Fragment } from 'react'
+
 // Kinetic type: text split into per-character spans that the motion system
 // drives through the display font's weight (--w) and width (--x) axes.
 // Screen readers get the plain text; the letters are hidden from them.
 
 export function Chars({ text }: { text: string }) {
+  // Letters are grouped per word so lines only ever break between words.
+  const words = text.split(' ')
   return (
     <>
-      {Array.from(text).map((ch, i) =>
-        ch === ' ' ? (
-          <span key={i} className="c c-sp"> </span>
-        ) : (
-          <span key={i} className="c">{ch}</span>
-        ),
-      )}
+      {words.map((word, w) => (
+        <Fragment key={w}>
+          {w > 0 && <span className="c c-sp"> </span>}
+          <span className="wd">
+            {Array.from(word).map((ch, i) => (
+              <span key={i} className="c">{ch}</span>
+            ))}
+          </span>
+        </Fragment>
+      ))}
     </>
   )
 }

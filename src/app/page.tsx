@@ -24,13 +24,6 @@ function tone(bg: string, fg: string, ac: string) {
   }
 }
 
-const projectTones = [
-  tone(C.orange, C.ink, C.cream),
-  tone(C.lime, C.ink, C.blue),
-  tone(C.pink, C.ink, C.cream),
-  tone(C.blue, C.cream, C.lime),
-]
-
 const services = [
   {
     title: 'Web design',
@@ -154,8 +147,9 @@ export default function Home() {
       </section>
 
       {/* ═══ WORK ═══ */}
-      <section className="work" id="work" aria-labelledby="work-title">
-        <div className="work-head wrap" {...tone(C.ink, C.cream, C.lime)}>
+      {/* The type leads here; screenshots stay small thumbnails beside each name. */}
+      <section className="work wrap" id="work" aria-labelledby="work-title" {...tone(C.orange, C.ink, C.cream)}>
+        <div className="work-head">
           <p className="label" data-fade>({String(projects.length).padStart(2, '0')}) Selected work</p>
           <h2 className="section-title" id="work-title" data-kin="scroll">
             <span className="sr-only">Recent launches</span>
@@ -164,44 +158,31 @@ export default function Home() {
           </h2>
         </div>
 
-        {projects.map((p, i) => (
-          <article className="proj" key={p.slug} data-wave {...projectTones[i % projectTones.length]}>
-            <div className="wrap">
-              <div className="proj-top">
-                <span className="mono">{p.index}</span>
-                <span className="mono">{p.type}</span>
-                <span className="mono">{p.year}</span>
-              </div>
-              <h3 className="proj-name" data-kin="scroll">
-                <span className="sr-only">{p.name}</span>
-                <FitLine text={p.name.toUpperCase()} vh={0.3} />
-              </h3>
-
-              <div className="proj-stage">
-                <a href={p.url} target="_blank" rel="noreferrer" className="proj-link" data-cursor="Visit" data-tilt>
-                  <div className="proj-frame">
-                    <div className="proj-bar" aria-hidden="true">
-                      <i /><i /><i />
-                      <span className="mono">{host(p.url)}</span>
-                    </div>
-                    <div className="proj-shot" style={{ background: p.tone }}>
-                      <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 78vw" />
-                    </div>
-                  </div>
-                  <span className="sr-only"> (opens the live site in a new tab)</span>
-                </a>
-              </div>
-
-              <div className="proj-foot">
-                <p className="proj-summary">{p.summary}</p>
-                <a href={p.url} target="_blank" rel="noreferrer" className="proj-visit">
-                  <RollText>Visit site</RollText>
-                  <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </div>
-          </article>
-        ))}
+        <ul className="proj-list">
+          {projects.map((p) => (
+            <li key={p.slug} data-fade>
+              <a href={p.url} target="_blank" rel="noreferrer" className="proj" data-wave data-cursor="Visit">
+                <span className="mono proj-index">{p.index}</span>
+                <h3 className="proj-name">
+                  <span className="sr-only">{p.name}</span>
+                  <span aria-hidden="true"><Chars text={p.name} /></span>
+                </h3>
+                <span className="proj-meta mono">
+                  <span>{p.type}</span>
+                  <span>{p.year}</span>
+                </span>
+                <span className="proj-thumb" aria-hidden="true">
+                  <span className="proj-bar"><i /><i /><i /></span>
+                  <span className="proj-shot" style={{ background: p.tone }}>
+                    <Image src={p.image} alt="" fill sizes="240px" />
+                  </span>
+                </span>
+                <span className="proj-arrow" aria-hidden="true">↗</span>
+                <span className="sr-only"> ({p.type}, {host(p.url)}, opens the live site in a new tab)</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* ═══ SERVICES ═══ */}
