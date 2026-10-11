@@ -188,31 +188,6 @@ html.js:not(.seen) .preloader { display: flex; }
   transform: scaleX(0); transform-origin: left;
 }
 
-/* ── Cursor ────────────────────────────────────────────────── */
-.cursor {
-  position: fixed; top: 0; left: 0; z-index: 250;
-  width: 10px; height: 10px; margin: -5px 0 0 -5px;
-  border-radius: 50%;
-  background: var(--accent);
-  pointer-events: none;
-  display: grid; place-items: center;
-  opacity: 0;
-  transition: width 0.5s var(--ease-out), height 0.5s var(--ease-out), margin 0.5s var(--ease-out), opacity 0.3s;
-}
-.cursor.is-visible { opacity: 1; }
-.cursor.is-link { width: 36px; height: 36px; margin: -18px 0 0 -18px; opacity: 0.35; }
-.cursor.is-label { width: 96px; height: 96px; margin: -48px 0 0 -48px; opacity: 1; }
-.cursor-label {
-  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--ink);
-  opacity: 0; transform: scale(0.6);
-  transition: opacity 0.3s, transform 0.5s var(--ease-out);
-}
-.cursor.is-label .cursor-label { opacity: 1; transform: none; }
-@media (hover: hover) and (pointer: fine) {
-  [data-cursor] { cursor: none; }
-}
-
 /* ── Nav ───────────────────────────────────────────────────── */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 120;
@@ -610,5 +585,4 @@ html.js:not(.seen) .preloader { display: flex; }
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
-  .cursor { display: none; }
 }
