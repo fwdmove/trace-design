@@ -18,7 +18,7 @@
   --mono: var(--font-mono), ui-monospace, monospace;
 
   --gutter: clamp(16px, 3.2vw, 44px);
-  --section: clamp(96px, 14vw, 200px);
+  --section: clamp(80px, 10vw, 144px);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
@@ -91,6 +91,9 @@ html.js [data-rise] { visibility: hidden; }
 
 /* SplitText line masks */
 [data-split] .line, [data-split] > div { will-change: transform; }
+/* The masks clip at the line box; tight headline leading would cut off
+   descenders (g, y) and the italic serif, so give each mask some room. */
+[data-split] > div { padding-block: 0.06em 0.14em; margin-block: -0.06em -0.14em; }
 
 /* ── Rolling link text ─────────────────────────────────────── */
 .roll {
@@ -427,7 +430,9 @@ html.js:not(.seen) .preloader { display: flex; }
 
 /* ── Services ──────────────────────────────────────────────── */
 .services {
-  padding-block: var(--section);
+  /* The pinned process section below centers itself in a full screen, which
+     already adds dark space above it, so keep this bottom padding short. */
+  padding-block: var(--section) clamp(24px, 3vw, 48px);
   background: var(--ink); color: var(--paper);
   border-radius: clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px) 0 0;
 }
@@ -476,7 +481,10 @@ html.js:not(.seen) .preloader { display: flex; }
   padding-inline: var(--gutter);
   width: max-content;
   min-height: 100svh;
-  align-items: center;
+  /* Cards sit centered in the pinned screen; the heading lines up with their
+     top edge instead of floating in the middle of a dark band. */
+  align-items: flex-start;
+  padding-top: max(24px, calc((100svh - 1.25 * clamp(300px, 30vw, 460px)) / 2));
 }
 .process-intro { width: min(40vw, 620px); display: grid; gap: 24px; padding-right: 6vw; }
 .process-card {
@@ -496,8 +504,9 @@ html.js:not(.seen) .preloader { display: flex; }
 .process-step { font-size: clamp(1.75rem, 2.6vw, 2.5rem); font-weight: 600; letter-spacing: -0.04em; margin-bottom: 12px; }
 .process-card p { color: inherit; opacity: 0.78; max-width: 32ch; }
 @media (max-width: 899px) {
+  .services { padding-bottom: var(--section); }
   .process { padding-block: 0 var(--section); }
-  .process-track { width: 100%; flex-direction: column; align-items: stretch; min-height: 0; }
+  .process-track { width: 100%; flex-direction: column; align-items: stretch; min-height: 0; padding-top: 0; }
   .process-intro { width: 100%; padding: 0 0 24px; }
   .process-card { width: 100%; aspect-ratio: auto; min-height: 260px; gap: 40px; }
 }
@@ -561,7 +570,7 @@ html.js:not(.seen) .preloader { display: flex; }
 }
 .footer .label { color: var(--muted-dark); margin-bottom: 14px; }
 .footer-top { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-.footer-text { color: #c9c5bd; }
+.footer-text { color: #c9c5bd; max-width: 30ch; }
 .footer-links { display: grid; gap: 4px; }
 .footer-links a { font-weight: 500; }
 .footer-col-end { justify-self: end; align-self: start; }
