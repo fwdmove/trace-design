@@ -20,6 +20,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
  *   data-parallax       inner image drifts against the scroll
  *   data-reel           endless strip that speeds up and skews with scroll velocity
  *   data-hscroll        pinned horizontal scroll on wide screens
+ *   data-stack          sticky panels: each one sinks back as the next slides over
  *   data-count          number counts up on enter
  *   data-rise           characters rise as the element scrolls into view
  *   data-magnetic       element leans toward the pointer
@@ -160,6 +161,18 @@ function setup(cleanups: (() => void)[]) {
         skew(gsap.utils.clamp(-6, 6, v / -260))
       },
       onLeave: () => skew(0),
+    })
+  })
+
+  // Stacked panels: the one underneath sinks back as the next covers it.
+  gsap.utils.toArray<HTMLElement>('[data-stack]').forEach((stack) => {
+    const panels = Array.from(stack.children) as HTMLElement[]
+    panels.slice(0, -1).forEach((panel, i) => {
+      gsap.to(panel, {
+        scale: 0.93,
+        ease: 'none',
+        scrollTrigger: { trigger: panels[i + 1], start: 'top bottom', end: 'top top+=120', scrub: true },
+      })
     })
   })
 
