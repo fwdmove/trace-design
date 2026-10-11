@@ -36,7 +36,10 @@ export default function Home() {
       <section className="hero" data-hero>
         <div className="wrap hero-inner">
           <div className="hero-meta" data-fade="stagger" data-delay="0.6">
-            <span className="label">Independent web studio</span>
+            <span className="label status">
+              <span className="status-dot" aria-hidden="true" />
+              Taking on new projects
+            </span>
             <span className="label">Design + development</span>
             <span className="label">Est. 2019</span>
           </div>
@@ -103,9 +106,9 @@ export default function Home() {
       <section className="work wrap" id="work">
         <div className="section-head">
           <h2 className="section-title" data-split>
-            Selected <em>work</em>
+            Recent sites, <em>live</em> and working.
           </h2>
-          <span className="label" data-fade>({String(projects.length).padStart(2, '0')}) Projects</span>
+          <span className="label" data-fade>(Selected work) {String(projects.length).padStart(2, '0')}</span>
         </div>
 
         <div className="work-grid">
@@ -113,7 +116,11 @@ export default function Home() {
             <article className="work-card" key={p.slug}>
               <a href={p.url} target="_blank" rel="noreferrer" className="work-link" data-cursor="Visit">
                 <div className="work-frame" data-clip style={{ background: p.tone }}>
-                  <div className="work-shot" data-parallax="6">
+                  <div className="work-bar" aria-hidden="true">
+                    <span className="work-dots"><i /><i /><i /></span>
+                    <span className="work-url">{new URL(p.url).host.replace(/^www\./, '')}</span>
+                  </div>
+                  <div className="work-shot">
                     <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
                   </div>
                 </div>
@@ -141,9 +148,9 @@ export default function Home() {
         <div className="wrap">
           <div className="section-head">
             <h2 className="section-title" data-split>
-              What we <em>do</em>
+              Everything a site needs, <em>under one roof.</em>
             </h2>
-            <span className="label" data-fade>Every project, end to end</span>
+            <span className="label" data-fade>(What we do)</span>
           </div>
 
           <ul className="service-list">
@@ -188,8 +195,8 @@ export default function Home() {
       </section>
 
       {/* ═══ CONTACT ═══ */}
-      <section className="contact" id="contact">
-        <div className="wrap contact-inner">
+      <section className="contact wrap" id="contact">
+        <div className="contact-inner">
           <div>
             <p className="label" data-fade>(Contact)</p>
             <h2 className="contact-title" data-split>
