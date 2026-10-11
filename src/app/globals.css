@@ -375,7 +375,8 @@ html.js:not(.seen) .preloader { display: flex; }
   font-size: clamp(1.75rem, 2.8vw, 2.75rem);
   font-weight: 600; letter-spacing: -0.045em; line-height: 1;
 }
-.service-desc { color: var(--muted); max-width: 30ch; text-wrap: balance; font-size: clamp(1.0625rem, 1.3vw, 1.25rem); line-height: 1.4; }
+.service-num { font-family: var(--mono); font-size: 0.8125rem; letter-spacing: 0.06em; color: var(--muted); }
+.service-desc { margin-top: 14px; color: var(--muted); max-width: 30ch; text-wrap: balance; font-size: clamp(1.0625rem, 1.3vw, 1.25rem); line-height: 1.4; }
 .steps {
   margin-top: clamp(24px, 3vw, 40px);
   font-family: var(--serif); font-style: italic;
@@ -408,7 +409,7 @@ html.js:not(.seen) .preloader { display: flex; }
 .contact-title {
   font-size: clamp(3rem, 8.2vw, 9rem);
   font-weight: 600; letter-spacing: -0.06em; line-height: 0.9;
-  margin: 0 0 28px;
+  margin: 24px 0 28px;
 }
 .contact-title em { color: var(--accent); }
 .contact-lede { color: var(--muted-dark); max-width: 36ch; font-size: 1.125rem; }

@@ -71,10 +71,13 @@ export default function Home() {
         </div>
 
         <ul className="service-list">
-          {services.map((s) => (
+          {services.map((s, i) => (
             <li className="service" key={s.title} data-fade>
-              <h3 className="service-title">{s.title}</h3>
-              <p className="service-desc">{s.desc}</p>
+              <span className="service-num">0{i + 1}</span>
+              <div>
+                <h3 className="service-title">{s.title}</h3>
+                <p className="service-desc">{s.desc}</p>
+              </div>
             </li>
           ))}
         </ul>
@@ -85,11 +88,13 @@ export default function Home() {
       <section className="contact wrap" id="contact">
         <div className="contact-inner">
           <div>
+            <p className="label" data-fade>(Contact)</p>
             <h2 className="contact-title" data-split>
-              Let’s <em>talk.</em>
+              Let’s build your <em>next</em> website.
             </h2>
             <p className="contact-lede" data-fade>
-              Tell us what you’re working on. We’ll reply with honest thoughts and clear next steps.
+              Tell us what you’re working on and what the site needs to do. We’ll reply with honest thoughts and clear
+              next steps.
             </p>
           </div>
           <div data-fade>
