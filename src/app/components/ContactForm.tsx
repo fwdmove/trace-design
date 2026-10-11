@@ -51,9 +51,9 @@ export default function ContactForm() {
         <textarea name="message" rows={4} required placeholder="A new site, a redesign, a landing page…" />
       </label>
       <div className="form-foot">
-        <button className="btn btn-accent" type="submit" disabled={status === 'sending'} data-magnetic="0.2">
+        <button className="pill pill-lg pill-light" type="submit" disabled={status === 'sending'}>
           <span>{status === 'sending' ? 'Sending…' : 'Send message'}</span>
-          <span className="btn-arrow" aria-hidden="true">→</span>
+          <span aria-hidden="true">→</span>
         </button>
         <p className="form-error" role="alert">
           {status === 'error' ? 'Something went wrong. Please try again in a moment.' : ''}

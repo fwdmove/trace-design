@@ -4,16 +4,14 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { prefersReducedMotion, setLenis } from '@/lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function SmoothScroll() {
   useEffect(() => {
-    if (prefersReducedMotion()) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const lenis = new Lenis({ lerp: 0.09, anchors: true })
-    setLenis(lenis)
     lenis.on('scroll', ScrollTrigger.update)
 
     const tick = (time: number) => lenis.raf(time * 1000)
@@ -23,7 +21,6 @@ export default function SmoothScroll() {
     return () => {
       gsap.ticker.remove(tick)
       lenis.destroy()
-      setLenis(null)
     }
   }, [])
 

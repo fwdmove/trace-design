@@ -1,35 +1,27 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter_Tight, Instrument_Serif, Geist_Mono } from 'next/font/google'
+import { Bricolage_Grotesque, Newsreader } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
-import PageMotion from './components/PageMotion'
-import Preloader from './components/Preloader'
-import Nav from './components/Nav'
-import Footer from './components/Footer'
+import Motion from './components/Motion'
+import Surface from './components/Surface'
 
-const sans = Inter_Tight({
+const sans = Bricolage_Grotesque({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
 })
 
-const serif = Instrument_Serif({
+const serif = Newsreader({
   subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
+  style: ['italic'],
+  weight: ['300', '400'],
   variable: '--font-serif',
-  display: 'swap',
-})
-
-const mono = Geist_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
   display: 'swap',
 })
 
 const siteUrl = 'https://www.tracedesign.co'
 const description =
-  'Trace Design is an independent web studio. We design and build custom websites and landing pages, end to end.'
+  'Trace Design is an independent web studio. We design and build custom websites and landing pages, start to finish.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -44,42 +36,35 @@ export const metadata: Metadata = {
     type: 'website',
     url: siteUrl,
     siteName: 'Trace Design',
-    title: 'Trace Design | Websites that don’t blend in',
+    title: 'Trace Design | Websites that leave a trace',
     description,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trace Design | Websites that don’t blend in',
+    title: 'Trace Design | Websites that leave a trace',
     description,
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0f0f0e',
+  themeColor: '#efede8',
 }
 
 // Runs before paint: marks JS + motion support so content can start hidden
-// for its entrance animation, and skips the preloader after the first visit.
-const bootScript = `try{var d=document.documentElement,r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(r){d.classList.add('seen','reduced')}else{d.classList.add('js');if(sessionStorage.getItem('trace-seen'))d.classList.add('seen')}}catch(e){}`
+// for its entrance animation.
+const bootScript = `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js')}catch(e){}`
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={`${sans.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>
-        <a href="#main" className="skip-link">Skip to content</a>
-        <Preloader />
+        <Surface />
         <SmoothScroll />
-        <PageMotion />
-        <Nav />
-        <main id="main">{children}</main>
-        <Footer />
+        <Motion />
+        {children}
       </body>
     </html>
   )
