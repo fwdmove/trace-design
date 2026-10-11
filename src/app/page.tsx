@@ -66,15 +66,33 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Project windows you can throw around */}
+          {/* System windows you can throw around */}
           <div className="desk" data-desk aria-hidden="true">
-            {projects.slice(0, 3).map((p, i) => (
-              <Window key={p.slug} title={host(p.url)} className={`desk-win desk-win-${i + 1}`} data-drag>
-                <div className="desk-shot" style={{ background: p.tone }}>
-                  <Image src={p.image} alt="" fill sizes="(max-width: 700px) 60vw, 26vw" priority />
+            <Window title="render_01.obj" className="desk-win desk-win-1" data-drag>
+              <div className="desk-render">
+                <div className="desk-orbit" />
+                <div className="desk-render-star" data-spin>
+                  <ChromeStar id="dr" />
                 </div>
-              </Window>
-            ))}
+                <span className="pixel desk-caption">Chrome · 4K · 60fps</span>
+              </div>
+            </Window>
+            <Window title="services.txt" className="desk-win desk-win-2" data-drag>
+              <ul className="desk-list">
+                {services.map((s, i) => (
+                  <li key={s.title}><span className="pixel">0{i + 1}</span>{s.title}</li>
+                ))}
+              </ul>
+            </Window>
+            <Window title="status.exe" className="desk-win desk-win-3" data-drag>
+              <div className="desk-status">
+                <span className="pixel">Availability</span>
+                <div className="meter meter-live">
+                  {Array.from({ length: 10 }, (_, b) => <i key={b} className={b < 7 ? 'on' : ''} />)}
+                </div>
+                <span className="desk-status-big">Open for work</span>
+              </div>
+            </Window>
             <span className="sticker" data-float>drag me ✦</span>
           </div>
 
@@ -141,32 +159,27 @@ export default function Home() {
           <span className="label" data-scramble>{String(projects.length).padStart(2, '0')} files found</span>
         </div>
 
-        <div className="work-grid">
+        <ul className="work-list">
           {projects.map((p) => (
-            <article className="work-card" key={p.slug} data-fade>
-              <a href={p.url} target="_blank" rel="noreferrer" className="work-link" data-cursor="Open" data-tilt>
-                <Window title={host(p.url)} className="work-win">
+            <li key={p.slug} data-fade>
+              <a href={p.url} target="_blank" rel="noreferrer" className="work-row" data-cursor="Open">
+                <span className="pixel work-index">{p.index}</span>
+                <Window title={host(p.url)} className="work-thumb">
                   <div className="work-frame" style={{ background: p.tone }}>
-                    <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
+                    <Image src={p.image} alt={p.alt} fill sizes="200px" />
                   </div>
                 </Window>
-                <div className="work-meta">
-                  <span className="pixel work-index">{p.index}</span>
-                  <h3 className="work-name">{p.name}</h3>
-                  <span className="pill work-type">{p.type} · {p.year}</span>
-                </div>
-                <div className="work-foot">
-                  <p className="work-summary">{p.summary}</p>
-                  <span className="work-visit">
-                    <RollText>Visit site</RollText>
-                    <span aria-hidden="true">↗</span>
-                  </span>
-                </div>
+                <span className="work-text">
+                  <span className="work-name">{p.name}</span>
+                  <span className="work-summary">{p.summary}</span>
+                </span>
+                <span className="pill work-type">{p.type} · {p.year}</span>
+                <span className="work-visit" aria-hidden="true">↗</span>
                 <span className="sr-only"> (opens the live site in a new tab)</span>
               </a>
-            </article>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       {/* ═══ SERVICES ═══ */}
