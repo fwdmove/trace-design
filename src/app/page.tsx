@@ -51,20 +51,34 @@ export default function Home() {
                 <RollText>Start a project</RollText>
                 <span className="btn-arrow" aria-hidden="true">→</span>
               </Link>
-              <Link href="#work" className="text-link">
-                <RollText>See the work</RollText>
-              </Link>
             </div>
           </div>
         </div>
 
-        <div className="reel" data-reel data-fade data-delay="1" aria-hidden="true">
+        {/* The reel is the work: each site links out, and the strip pauses on hover. */}
+        <div className="reel" id="work" data-reel data-fade data-delay="1">
           <div className="reel-track" data-reel-track>
-            {[...projects, ...projects].map((p, i) => (
-              <div className="reel-item" key={i} style={{ background: p.tone }}>
-                <Image src={p.image} alt="" fill sizes="(max-width: 700px) 70vw, 34vw" priority={i < 3} />
-              </div>
-            ))}
+            {[...projects, ...projects].map((p, i) => {
+              const copy = i >= projects.length
+              return (
+                <a
+                  className="reel-item"
+                  key={i}
+                  href={p.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ background: p.tone }}
+                  aria-hidden={copy || undefined}
+                  tabIndex={copy ? -1 : undefined}
+                >
+                  <Image src={p.image} alt={copy ? '' : p.alt} fill sizes="(max-width: 700px) 70vw, 34vw" priority={i < 3} />
+                  <span className="reel-label">
+                    <span className="reel-name">{p.name}</span>
+                    <span className="reel-type">{p.type} ↗</span>
+                  </span>
+                </a>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -75,47 +89,6 @@ export default function Home() {
         <p className="intro-statement" data-scrub-words>
           Most websites look like they came from the same template. <em>Yours won’t.</em>
         </p>
-      </section>
-
-      {/* ═══ WORK ═══ */}
-      <section className="work wrap" id="work">
-        <div className="section-head">
-          <h2 className="section-title" data-split>
-            Recent sites, <em>live</em> and working.
-          </h2>
-          <span className="label" data-fade>(Selected work) {String(projects.length).padStart(2, '0')}</span>
-        </div>
-
-        <div className="work-grid">
-          {projects.map((p) => (
-            <article className="work-card" key={p.slug}>
-              <a href={p.url} target="_blank" rel="noreferrer" className="work-link" data-cursor="Visit">
-                <div className="work-frame" data-clip style={{ background: p.tone }}>
-                  <div className="work-bar" aria-hidden="true">
-                    <span className="work-dots"><i /><i /><i /></span>
-                    <span className="work-url">{new URL(p.url).host.replace(/^www\./, '')}</span>
-                  </div>
-                  <div className="work-shot">
-                    <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
-                  </div>
-                </div>
-                <div className="work-meta">
-                  <span className="mono work-index">{p.index}</span>
-                  <h3 className="work-name">{p.name}</h3>
-                  <span className="mono work-type">{p.type}, {p.year}</span>
-                </div>
-                <div className="work-foot">
-                  <p className="work-summary">{p.summary}</p>
-                  <span className="work-visit">
-                    <RollText>Visit site</RollText>
-                    <span aria-hidden="true">↗</span>
-                  </span>
-                </div>
-                <span className="sr-only"> (opens the live site in a new tab)</span>
-              </a>
-            </article>
-          ))}
-        </div>
       </section>
 
       {/* ═══ SERVICES ═══ */}
