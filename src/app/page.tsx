@@ -76,9 +76,14 @@ export default function Home() {
         <p className="intro-statement" data-scrub-words>
           Most websites look like they came from the same template. <em>Yours won’t.</em>
         </p>
-        <Link href="#contact" className="text-link intro-link" data-fade>
-          <RollText>Start a project</RollText>
-        </Link>
+        <div className="intro-note" data-fade>
+          <p>
+            Send us the site you have now, or one you wish you had. We’ll tell you exactly what we’d change.
+          </p>
+          <Link href="#contact" className="text-link">
+            <RollText>Send it over</RollText>
+          </Link>
+        </div>
       </section>
 
       {/* ═══ WORK ═══ */}
