@@ -78,10 +78,10 @@ export default function Home() {
         </p>
         <div className="intro-note" data-fade>
           <p>
-            Send us the site you have now, or one you wish you had. We’ll tell you exactly what we’d change.
+            All we need to get started is a few lines about what you do and a link to a site you love.
           </p>
           <Link href="#contact" className="text-link">
-            <RollText>Send it over</RollText>
+            <RollText>Start a project</RollText>
           </Link>
         </div>
       </section>
