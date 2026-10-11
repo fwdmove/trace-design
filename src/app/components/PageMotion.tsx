@@ -137,22 +137,11 @@ function setup(cleanups: (() => void)[]) {
     if (!track) return
     const loop = gsap.to(track, { xPercent: -50, duration: 48, ease: 'none', repeat: -1 })
     const skew = gsap.quickTo(track, 'skewX', { duration: 0.5, ease: 'power3' })
-    // Ease to a stop under the pointer so a site can be clicked.
-    let held = false
-    const hold = () => { held = true; gsap.to(loop, { timeScale: 0, duration: 0.6, overwrite: true }) }
-    const release = () => { held = false; gsap.to(loop, { timeScale: 1, duration: 0.8, overwrite: true }) }
-    el.addEventListener('pointerenter', hold)
-    el.addEventListener('pointerleave', release)
-    cleanups.push(() => {
-      el.removeEventListener('pointerenter', hold)
-      el.removeEventListener('pointerleave', release)
-    })
     ScrollTrigger.create({
       trigger: el,
       start: 'top bottom',
       end: 'bottom top',
       onUpdate: (self) => {
-        if (held) return
         const v = self.getVelocity()
         const boost = gsap.utils.clamp(1, 7, 1 + Math.abs(v) / 300)
         gsap.to(loop, { timeScale: boost * (self.direction < 0 ? -1 : 1), duration: 0.25, overwrite: true })
