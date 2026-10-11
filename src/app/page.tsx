@@ -4,21 +4,47 @@ import { projects } from '@/content/work'
 import ContactForm from './components/ContactForm'
 import RollText from './components/RollText'
 
-const services = [
+// The pieces in Room 01: the studio's own work, shown as typographic art.
+const exhibits = [
   {
+    art: 'Design',
+    tone: 'light',
+    caption: 'Type and layout on screen',
     title: 'Web design',
-    medium: 'Art direction, layout, type, motion',
-    desc: 'Visual direction, layout and type shaped around your business, so the site looks like the best in its field.',
+    meta: 'Art direction, layout, type, motion',
+    text: 'Visual direction, layout and type shaped around your business, so the site looks like the best in its field.',
   },
   {
+    art: 'Build',
+    tone: 'dark',
+    caption: 'Hand-written code',
     title: 'Development',
-    medium: 'Next.js, CMS, animation, performance',
-    desc: 'Fast, custom-coded builds that look right on every screen and stay easy to update as you grow.',
+    meta: 'Next.js, CMS, animation, performance',
+    text: 'Fast, custom-coded builds that look right on every screen and stay easy to update as you grow.',
   },
   {
+    art: 'Convert',
+    tone: 'light',
+    caption: 'One page, one job',
     title: 'Landing pages',
-    medium: 'Strategy, copy direction, design, build',
-    desc: 'Single pages with one job: turn visitors into customers. Planned, designed and built in one go.',
+    meta: 'Strategy, copy direction, design, build',
+    text: 'Single pages with one job: turn visitors into customers. Planned, designed and built in one go.',
+  },
+  {
+    art: '30+',
+    tone: 'dark',
+    caption: 'Sites shipped since 2019',
+    title: 'The body of work',
+    meta: 'Seven years in practice',
+    text: 'Thirty-odd sites for builders, makers, hospitality and service businesses, each one designed from scratch.',
+  },
+  {
+    art: 'One',
+    tone: 'light',
+    caption: 'Studio, sketch to launch',
+    title: 'No hand-offs',
+    meta: 'Design and code by the same hands',
+    text: 'The person who designs your site builds it, so what you approve is exactly what ships.',
   },
 ]
 
@@ -67,64 +93,56 @@ export default function Home() {
           </aside>
         </div>
 
-        <a href="#work" className="hero-enter wrap" data-fade data-delay="1.3">
+        <a href="#services" className="hero-enter wrap" data-fade data-delay="1.3">
           <span className="mono">Enter the gallery</span>
           <span className="hero-enter-line" aria-hidden="true" />
           <span className="mono">Scroll</span>
         </a>
       </section>
 
-      {/* ═══ GALLERY ═══ */}
+      {/* ═══ GALLERY: the studio is the exhibit ═══ */}
       {/* The pin wraps [data-gallery] in a spacer, so React owns the outer section. */}
-      <section className="gallery-wrap" id="work" aria-labelledby="gallery-title">
+      <section className="gallery-wrap" id="services" aria-labelledby="gallery-title">
         <div className="gallery" data-gallery>
           <div className="gallery-head wrap">
             <p className="label">Room 01</p>
-            <h2 className="label gallery-title" id="gallery-title">Selected work</h2>
+            <h2 className="label gallery-title" id="gallery-title">The practice</h2>
             <p className="label gallery-count">
-              <span data-gallery-count>01</span> / {String(projects.length).padStart(2, '0')}
+              <span data-gallery-count>01</span> / {String(exhibits.length).padStart(2, '0')}
             </p>
           </div>
 
           <div className="gallery-track" data-gallery-track>
             <div className="gallery-intro">
-              <p className="gallery-ghost" aria-hidden="true">Selected work</p>
+              <p className="gallery-ghost" aria-hidden="true">The practice</p>
               <h3 className="gallery-lede">
-                Four sites, <em>hung</em> in the order we made them.
+                What we do, <em>hung</em> on the wall.
               </h3>
-              <p className="gallery-note">Each piece links to the live site. Hover a frame to see it in colour.</p>
+              <p className="gallery-note">Five pieces on how Trace works. Keep scrolling, the room moves sideways.</p>
             </div>
 
-            {projects.map((p, i) => (
-              <article className={`piece piece-${i % 4}`} key={p.slug} data-piece>
-                <a
-                  href={p.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="piece-link"
-                  data-cursor="View"
-                >
-                  <div className="piece-frame">
-                    <div className="piece-mat">
-                      <div className="piece-shot">
-                        <div className="piece-shot-inner" data-piece-shot>
-                          <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 90vw, 46vw" />
-                        </div>
-                      </div>
+            {exhibits.map((x, i) => (
+              <article className={`piece piece-${i % 5}`} key={x.title} data-piece>
+                <div className="piece-frame">
+                  <div className="piece-mat">
+                    <div className={`art art-${x.tone}`}>
+                      <span className="art-corner mono">No. {String(i + 1).padStart(2, '0')}</span>
+                      <span
+                        className="art-word"
+                        style={{ fontSize: `${Math.min(30, 80 / x.art.length)}cqi` }}
+                      >
+                        {x.art}
+                      </span>
+                      <span className="art-caption">{x.caption}</span>
                     </div>
                   </div>
-                  <div className="placard piece-placard">
-                    <p className="placard-num mono">{roman[i]}.</p>
-                    <p className="placard-title">{p.name}</p>
-                    <p className="placard-meta">{p.type}, {p.year}</p>
-                    <p className="placard-text">{p.summary}</p>
-                    <span className="placard-visit">
-                      <RollText>View the live site</RollText>
-                      <span aria-hidden="true">↗</span>
-                    </span>
-                  </div>
-                  <span className="sr-only"> (opens the live site in a new tab)</span>
-                </a>
+                </div>
+                <div className="placard piece-placard">
+                  <p className="placard-num mono">{roman[i]}.</p>
+                  <p className="placard-title">{x.title}</p>
+                  <p className="placard-meta">{x.meta}</p>
+                  <p className="placard-text">{x.text}</p>
+                </div>
               </article>
             ))}
 
@@ -170,34 +188,11 @@ export default function Home() {
         </p>
       </section>
 
-      {/* ═══ SERVICES ═══ */}
-      <section className="services wrap" id="services">
-        <div className="section-head">
-          <p className="label" data-fade>Room 02</p>
-          <h2 className="section-title" data-stretch-scroll>
-            The <em>collection</em>
-          </h2>
-        </div>
-
-        <ul className="service-list">
-          {services.map((s, i) => (
-            <li className="service" key={s.title} data-fade>
-              <span className="service-num mono">Plate {roman[i]}</span>
-              <h3 className="service-title">{s.title}</h3>
-              <div className="service-body">
-                <p className="service-medium">{s.medium}</p>
-                <p>{s.desc}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
-
       {/* ═══ PROCESS ═══ */}
       <section className="process" aria-labelledby="process-title">
         <div className="wrap">
           <div className="section-head">
-            <p className="label" data-fade>Room 03</p>
+            <p className="label" data-fade>Room 02</p>
             <h2 className="section-title" id="process-title" data-stretch-scroll>
               How a piece <em>is made</em>
             </h2>
@@ -212,6 +207,35 @@ export default function Home() {
             ))}
           </ol>
         </div>
+      </section>
+
+      {/* ═══ WORK: a modest index, previews on hover ═══ */}
+      <section className="archive wrap" id="work">
+        <div className="section-head">
+          <p className="label" data-fade>Room 03</p>
+          <h2 className="section-title" data-stretch-scroll>
+            Recent <em>work</em>
+          </h2>
+        </div>
+        <ul className="archive-list">
+          {projects.map((p, i) => (
+            <li key={p.slug} data-fade>
+              <a href={p.url} target="_blank" rel="noreferrer" className="archive-row">
+                <span className="archive-num mono">{roman[i]}.</span>
+                <span className="archive-thumb" aria-hidden="true">
+                  <Image src={p.image} alt="" fill sizes="(max-width: 700px) 96px, 280px" />
+                </span>
+                <span className="archive-name">{p.name}</span>
+                <span className="archive-type">{p.type}</span>
+                <span className="archive-year mono">{p.year}</span>
+                <span className="archive-visit mono">
+                  <RollText>Visit</RollText> <span aria-hidden="true">↗</span>
+                </span>
+                <span className="sr-only"> (opens the live site in a new tab)</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* ═══ CONTACT ═══ */}

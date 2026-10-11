@@ -412,14 +412,12 @@ html.js:not(.seen) .preloader { display: flex; }
 }
 .gallery-note { position: relative; color: var(--muted); max-width: 32ch; }
 
-/* A piece: frame on the wall, wall label to its side. Heights vary so
-   the hang feels curated rather than gridded. */
-.piece { position: relative; flex: none; }
-.piece-link { display: flex; align-items: flex-end; gap: clamp(24px, 2.6vw, 44px); }
+/* A piece: a framed typographic work, wall label to its side. Heights
+   vary so the hang feels curated rather than gridded. */
+.piece { position: relative; flex: none; display: flex; align-items: flex-end; gap: clamp(24px, 2.6vw, 44px); }
 .piece-frame {
   position: relative;
-  width: clamp(420px, 44vw, 760px);
-  padding: clamp(10px, 1vw, 16px);
+  padding: clamp(10px, 0.9vw, 14px);
   background: var(--ink);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.4) inset,
@@ -430,52 +428,58 @@ html.js:not(.seen) .preloader { display: flex; }
 }
 .piece-mat {
   position: relative;
-  padding: clamp(22px, 3vw, 52px);
+  padding: clamp(20px, 2.4vw, 40px);
   background: var(--mat);
   box-shadow: inset 0 0 0 1px rgba(11, 11, 11, 0.06), inset 0 2px 6px rgba(11, 11, 11, 0.12);
 }
-.piece-mat::before {
-  /* the bevel of the mat cut */
-  content: ''; position: absolute; inset: clamp(20px, 2.9vw, 50px);
-  box-shadow: 0 0 0 2px #fff, 0 0 0 3px rgba(11, 11, 11, 0.08);
-  pointer-events: none; z-index: 1;
-}
-.piece-shot {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: var(--wall-2);
-}
-.piece-shot-inner { position: absolute; inset: 0 -5%; }
-.piece-shot img {
-  object-fit: cover; object-position: top center;
-  transform: scale(1.12);
-  filter: grayscale(1) contrast(1.05);
-  transition: filter 1.2s var(--ease-out), transform 1.4s var(--ease-out);
-}
-.piece.is-lit .piece-shot img,
-.piece-link:hover .piece-shot img,
-.piece-link:focus-visible .piece-shot img { filter: grayscale(0) contrast(1); }
-.piece-link:hover .piece-shot img { transform: scale(1.16); }
 .piece.is-lit .piece-frame {
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.4) inset,
     0 50px 90px -24px rgba(11, 11, 11, 0.45),
     0 18px 30px -14px rgba(11, 11, 11, 0.35);
 }
+
+/* The artwork: one word, set big. It widens when it gets the light. */
+.art {
+  position: relative;
+  width: clamp(300px, 27vw, 440px);
+  aspect-ratio: 4 / 5;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 24px;
+  overflow: hidden;
+  container-type: inline-size;
+  box-shadow: 0 0 0 1px rgba(11, 11, 11, 0.08);
+}
+.art-light { background: #fff; color: var(--ink); }
+.art-dark { background: var(--ink-2); color: var(--wall); }
+.art-word {
+  /* size is set inline from the word's length, in container units */
+  font-weight: 800; line-height: 0.85; letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-stretch: 62%;
+  white-space: nowrap;
+  transition: font-stretch 1.4s var(--ease-out), letter-spacing 1.4s var(--ease-out);
+}
+.piece.is-lit .art-word, .piece:hover .art-word { font-stretch: 112%; letter-spacing: -0.04em; }
+.art-corner { position: absolute; top: 18px; left: 20px; opacity: 0.6; font-size: 0.6875rem; }
+.art-caption {
+  position: absolute; bottom: 18px; left: 20px; right: 20px;
+  font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 1rem;
+  opacity: 0.7;
+}
 .piece-placard {
   width: 230px; padding-bottom: 6px;
-  opacity: 0.55;
+  opacity: 0.5;
   transition: opacity 0.8s var(--ease-out);
 }
-.piece.is-lit .piece-placard, .piece-link:hover .piece-placard { opacity: 1; }
+.piece.is-lit .piece-placard, .piece:hover .piece-placard { opacity: 1; }
 
-.piece-0 { margin-top: -6vh; }
-.piece-1 { margin-top: 10vh; }
-.piece-1 .piece-frame { width: clamp(360px, 36vw, 620px); }
-.piece-2 { margin-top: -12vh; }
-.piece-2 .piece-link { flex-direction: row-reverse; }
-.piece-3 { margin-top: 6vh; }
+.piece-0 { margin-top: -8vh; }
+.piece-1 { margin-top: 12vh; }
+.piece-2 { margin-top: -4vh; flex-direction: row-reverse; }
+.piece-2 .art { width: clamp(340px, 34vw, 560px); aspect-ratio: 5 / 4; }
+.piece-3 { margin-top: 8vh; }
+.piece-4 { margin-top: -10vh; }
 
 .gallery-end { display: grid; justify-items: start; gap: 18px; }
 .gallery-end-title {
@@ -504,8 +508,8 @@ html.js:not(.seen) .preloader { display: flex; }
   .gallery-intro, .gallery-end { width: 100%; }
   .gallery-ghost { display: none; }
   .piece { margin: 0 !important; }
-  .piece-link, .piece-2 .piece-link { flex-direction: column; align-items: stretch; }
-  .piece-frame, .piece-1 .piece-frame { width: 100%; }
+  .piece, .piece-2 { flex-direction: column; align-items: stretch; }
+  .art, .piece-2 .art { width: 100%; aspect-ratio: 5 / 4; }
   .piece-placard { width: auto; opacity: 1; }
   .gallery-progress { display: none; }
 }
@@ -555,32 +559,61 @@ html.js:not(.seen) .preloader { display: flex; }
 }
 .section-title em { text-transform: none; font-weight: 300; letter-spacing: -0.04em; }
 
-/* ── Services (the collection) ─────────────────────────────── */
-.services { padding-bottom: var(--section); }
-.service-list { border-top: 1px solid var(--ink); }
-.service {
+/* ── Work (a modest index) ─────────────────────────────────── */
+.archive { padding-block: var(--section); }
+.archive-list { border-top: 1px solid var(--ink); }
+.archive-row {
   position: relative;
-  display: grid; grid-template-columns: 120px minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: 24px; align-items: baseline;
-  padding: clamp(24px, 3.4vw, 44px) 0;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1.4fr) minmax(0, 1fr) 80px auto;
+  align-items: center; gap: 24px;
+  padding: 22px 0;
   border-bottom: 1px solid var(--line);
+  transition: padding 0.6s var(--ease-out);
 }
-.service-num { color: var(--muted); }
-.service-title {
-  font-size: clamp(2.25rem, 5.6vw, 6rem);
-  font-weight: 700; letter-spacing: -0.03em; line-height: 0.95;
+.archive-num, .archive-year { color: var(--muted); }
+.archive-name {
+  font-size: clamp(1.5rem, 2.6vw, 2.5rem);
+  font-weight: 700; letter-spacing: -0.02em; line-height: 1;
   text-transform: uppercase;
   font-stretch: 75%;
-  transition: font-stretch 0.8s var(--ease-out), letter-spacing 0.8s var(--ease-out);
+  transition: font-stretch 0.8s var(--ease-out);
 }
-.service:hover .service-title { font-stretch: 125%; letter-spacing: -0.045em; }
-.service-body { display: grid; gap: 10px; max-width: 42ch; }
-.service-medium { font-family: var(--serif); font-style: italic; font-size: 1.125rem; color: var(--muted); }
-@media (max-width: 800px) {
-  .service { grid-template-columns: 1fr; gap: 12px; }
+.archive-type { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 1.0625rem; }
+.archive-visit { justify-self: end; display: inline-flex; gap: 6px; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.75rem; }
+.archive-thumb {
+  position: absolute; z-index: 2;
+  right: 18%; top: 50%;
+  width: 240px; aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--wall-2);
+  box-shadow: 0 0 0 6px var(--ink), 0 24px 40px -16px rgba(11, 11, 11, 0.4);
+  pointer-events: none;
+  clip-path: inset(50% 0 50% 0);
+  transform: translateY(-50%) rotate(-2deg);
+  transition: clip-path 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.archive-thumb img { object-fit: cover; object-position: top; filter: grayscale(1); transition: filter 0.8s; }
+.archive-row:hover .archive-name, .archive-row:focus-visible .archive-name { font-stretch: 112%; }
+.archive-row:hover .archive-thumb, .archive-row:focus-visible .archive-thumb {
+  clip-path: inset(0 0 0 0);
+  transform: translateY(-50%) rotate(2deg);
+}
+.archive-row:hover .archive-thumb img { filter: none; }
+@media (hover: none), (max-width: 760px) {
+  .archive-row { grid-template-columns: 88px minmax(0, 1fr) auto; gap: 6px 16px; }
+  .archive-num, .archive-year { display: none; }
+  .archive-thumb {
+    position: relative; right: auto; top: auto; grid-row: span 2;
+    width: 88px; transform: none; clip-path: none;
+    box-shadow: 0 0 0 3px var(--ink);
+  }
+  .archive-name { grid-column: 2; }
+  .archive-type { grid-column: 2; font-size: 0.9375rem; }
+  .archive-visit { grid-column: 3; grid-row: 1 / span 2; }
 }
 
-/* ── Process (Room 03) ─────────────────────────────────────── */
+/* ── Process (Room 02) ─────────────────────────────────────── */
 .process {
   padding-block: var(--section);
   background: var(--wall-2);
@@ -706,5 +739,4 @@ html.js:not(.seen) .preloader { display: flex; }
     transition-duration: 0.01ms !important;
   }
   .cursor { display: none; }
-  .piece-shot img { filter: none; }
 }

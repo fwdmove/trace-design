@@ -22,7 +22,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
  *                       compress as you scroll away (Archivo's wdth axis)
  *   data-stretch-scroll section titles widen into place as they scroll in
  *   data-gallery        pinned sideways gallery: frames sway with velocity,
- *                       the frame in the middle lights up in colour
+ *                       the piece in the middle gets the light (is-lit)
  *   data-count          number counts up on enter
  *   data-rise           characters rise as the element scrolls into view
  *   data-magnetic       element leans toward the pointer
@@ -216,19 +216,6 @@ function setup(cleanups: (() => void)[]) {
           onLeave: () => sway.forEach((s) => s(0)),
           onLeaveBack: () => sway.forEach((s) => s(0)),
         },
-      })
-
-      // Screenshots drift inside their mats against the movement.
-      gsap.utils.toArray<HTMLElement>('[data-piece-shot]', el).forEach((shot) => {
-        gsap.fromTo(
-          shot,
-          { xPercent: 4 },
-          {
-            xPercent: -4,
-            ease: 'none',
-            scrollTrigger: { trigger: shot, containerAnimation: move, start: 'left right', end: 'right left', scrub: true },
-          },
-        )
       })
 
       // The big ghost title slides slower than the wall.
