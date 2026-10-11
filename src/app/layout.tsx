@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter_Tight, Instrument_Serif, Geist_Mono } from 'next/font/google'
+import { Inter_Tight, Anybody, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import PageMotion from './components/PageMotion'
@@ -7,6 +7,7 @@ import Preloader from './components/Preloader'
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
+import FitText from './components/FitText'
 
 const sans = Inter_Tight({
   subsets: ['latin'],
@@ -14,11 +15,11 @@ const sans = Inter_Tight({
   display: 'swap',
 })
 
-const serif = Instrument_Serif({
+// Variable display face: weight 100-900 and width 50-150, both animated.
+const display = Anybody({
   subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
+  axes: ['wdth'],
+  variable: '--font-display',
   display: 'swap',
 })
 
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0f0f0e',
+  themeColor: '#2121ff',
 }
 
 // Runs before paint: marks JS + motion support so content can start hidden
@@ -67,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
+      className={`${sans.variable} ${display.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -77,6 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="skip-link">Skip to content</a>
         <Preloader />
         <SmoothScroll />
+        <FitText />
         <PageMotion />
         <Cursor />
         <Nav />
