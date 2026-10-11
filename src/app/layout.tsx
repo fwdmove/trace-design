@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter_Tight, Instrument_Serif, Geist_Mono } from 'next/font/google'
+import { Inter_Tight, Unbounded, Geist_Mono, Silkscreen } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import PageMotion from './components/PageMotion'
@@ -14,11 +14,16 @@ const sans = Inter_Tight({
   display: 'swap',
 })
 
-const serif = Instrument_Serif({
+const display = Unbounded({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const pixel = Silkscreen({
   subsets: ['latin'],
   weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
+  variable: '--font-pixel',
   display: 'swap',
 })
 
@@ -56,7 +61,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0f0f0e',
+  themeColor: '#e6e8ee',
 }
 
 // Runs before paint: marks JS + motion support so content can start hidden
@@ -67,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
+      className={`${sans.variable} ${display.variable} ${mono.variable} ${pixel.variable}`}
       suppressHydrationWarning
     >
       <head>

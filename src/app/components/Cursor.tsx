@@ -47,6 +47,7 @@ export default function Cursor() {
 
   return (
     <div ref={dot} className="cursor" aria-hidden="true">
+      <span className="cursor-star">✦</span>
       <span ref={label} className="cursor-label" />
     </div>
   )

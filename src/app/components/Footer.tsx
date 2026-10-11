@@ -29,11 +29,11 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-mark" aria-hidden="true">
-        <span data-rise>TRACE</span>
+        <span data-rise className="chrome">TRACE</span>
       </div>
       <div className="footer-base wrap">
         <span className="mono">© 2026 Trace Design</span>
-        <span className="mono">Websites that don’t blend in</span>
+        <span className="pixel">Best viewed in any browser ✦</span>
       </div>
     </footer>
   )
