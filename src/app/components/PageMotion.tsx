@@ -18,8 +18,11 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
  *   data-scrub-words    words brighten as the paragraph scrolls through
  *   data-clip           image frame opens from an inset as it scrolls in
  *   data-parallax       inner image drifts against the scroll
- *   data-reel           endless strip that speeds up and skews with scroll velocity
- *   data-hscroll        pinned horizontal scroll on wide screens
+ *   data-stretch        hero headline: letters rise and widen on load, then
+ *                       compress as you scroll away (Archivo's wdth axis)
+ *   data-stretch-scroll section titles widen into place as they scroll in
+ *   data-gallery        pinned sideways gallery: frames sway with velocity,
+ *                       the frame in the middle lights up in colour
  *   data-count          number counts up on enter
  *   data-rise           characters rise as the element scrolls into view
  *   data-magnetic       element leans toward the pointer
@@ -131,45 +134,71 @@ function setup(cleanups: (() => void)[]) {
     )
   })
 
-  // Endless reel, nudged by scroll velocity.
-  gsap.utils.toArray<HTMLElement>('[data-reel]').forEach((el) => {
-    const track = el.querySelector<HTMLElement>('[data-reel-track]')
-    if (!track) return
-    const loop = gsap.to(track, { xPercent: -50, duration: 48, ease: 'none', repeat: -1 })
-    const skew = gsap.quickTo(track, 'skewX', { duration: 0.5, ease: 'power3' })
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top bottom',
-      end: 'bottom top',
-      onUpdate: (self) => {
-        const v = self.getVelocity()
-        const boost = gsap.utils.clamp(1, 7, 1 + Math.abs(v) / 300)
-        gsap.to(loop, { timeScale: boost * (self.direction < 0 ? -1 : 1), duration: 0.25, overwrite: true })
-        gsap.to(loop, { timeScale: self.direction < 0 ? -1 : 1, duration: 1.2, delay: 0.25 })
-        skew(gsap.utils.clamp(-6, 6, v / -260))
+  // Hero headline: letters rise and stretch open on load, then squeeze
+  // narrow as the first screen scrolls away.
+  gsap.utils.toArray<HTMLElement>('[data-stretch]').forEach((el) => {
+    show(el)
+    const split = SplitText.create(el, { type: 'words,chars', charsClass: 'char' })
+    gsap.set(split.chars, { fontVariationSettings: "'wdth' 62" })
+    gsap.from(split.chars, {
+      yPercent: 105,
+      duration: 1.3,
+      ease: 'expo.out',
+      stagger: 0.035,
+      delay: 0.1,
+    })
+    gsap.to(split.chars, {
+      fontVariationSettings: "'wdth' 112",
+      duration: 1.8,
+      ease: 'expo.inOut',
+      stagger: 0.03,
+      delay: 0.35,
+      onComplete: () => {
+        gsap.fromTo(
+          split.chars,
+          { fontVariationSettings: "'wdth' 112" },
+          {
+            fontVariationSettings: "'wdth' 62",
+            ease: 'none',
+            stagger: 0.01,
+            scrollTrigger: { trigger: el, start: 'top top+=60', end: 'bottom top', scrub: true },
+          },
+        )
       },
-      onLeave: () => skew(0),
     })
   })
 
-  // Hero headline drifts up and softens as you leave the first screen.
-  gsap.utils.toArray<HTMLElement>('[data-hero-drift]').forEach((el) => {
-    gsap.to(el, {
-      yPercent: -18,
-      opacity: 0.25,
-      ease: 'none',
-      scrollTrigger: { trigger: el, start: 'top top+=80', end: 'bottom top', scrub: true },
-    })
+  // Section titles widen into place as they scroll in.
+  gsap.utils.toArray<HTMLElement>('[data-stretch-scroll]').forEach((el) => {
+    show(el)
+    const split = SplitText.create(el, { type: 'words,chars', charsClass: 'char' })
+    gsap.fromTo(
+      split.chars,
+      { fontVariationSettings: "'wdth' 62", opacity: 0.15 },
+      {
+        fontVariationSettings: "'wdth' 100",
+        opacity: 1,
+        ease: 'none',
+        stagger: 0.03,
+        scrollTrigger: { trigger: el, start: 'top 95%', end: 'top 45%', scrub: true },
+      },
+    )
   })
 
-  // Pinned horizontal process track on wide screens.
   const mm = gsap.matchMedia()
+
+  // The gallery: a pinned room that scrolls sideways on wide screens.
   mm.add('(min-width: 900px)', () => {
-    gsap.utils.toArray<HTMLElement>('[data-hscroll]').forEach((el) => {
-      const track = el.querySelector<HTMLElement>('[data-hscroll-track]')
+    gsap.utils.toArray<HTMLElement>('[data-gallery]').forEach((el) => {
+      const track = el.querySelector<HTMLElement>('[data-gallery-track]')
+      const bar = el.querySelector<HTMLElement>('[data-gallery-bar]')
+      const count = el.querySelector<HTMLElement>('[data-gallery-count]')
       if (!track) return
+      const frames = gsap.utils.toArray<HTMLElement>('.piece-frame', el)
+      const sway = frames.map((f) => gsap.quickTo(f, 'skewX', { duration: 0.8, ease: 'power3' }))
       const distance = () => track.scrollWidth - el.clientWidth
-      gsap.to(track, {
+
+      const move = gsap.to(track, {
         x: () => -distance(),
         ease: 'none',
         scrollTrigger: {
@@ -177,10 +206,61 @@ function setup(cleanups: (() => void)[]) {
           start: 'top top',
           end: () => `+=${distance()}`,
           pin: true,
-          scrub: 0.8,
+          scrub: 1,
           invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            if (bar) gsap.set(bar, { scaleX: self.progress })
+            const v = gsap.utils.clamp(-2.5, 2.5, self.getVelocity() / -900)
+            sway.forEach((s) => s(v))
+          },
+          onLeave: () => sway.forEach((s) => s(0)),
+          onLeaveBack: () => sway.forEach((s) => s(0)),
         },
       })
+
+      // Screenshots drift inside their mats against the movement.
+      gsap.utils.toArray<HTMLElement>('[data-piece-shot]', el).forEach((shot) => {
+        gsap.fromTo(
+          shot,
+          { xPercent: 4 },
+          {
+            xPercent: -4,
+            ease: 'none',
+            scrollTrigger: { trigger: shot, containerAnimation: move, start: 'left right', end: 'right left', scrub: true },
+          },
+        )
+      })
+
+      // The big ghost title slides slower than the wall.
+      const ghost = el.querySelector<HTMLElement>('.gallery-ghost')
+      if (ghost) {
+        gsap.to(ghost, {
+          xPercent: 35,
+          ease: 'none',
+          scrollTrigger: { trigger: ghost, containerAnimation: move, start: 'left left', end: 'right left', scrub: true },
+        })
+      }
+
+      // Whichever piece is in the middle of the wall gets the light.
+      gsap.utils.toArray<HTMLElement>('[data-piece]', el).forEach((piece, i) => {
+        ScrollTrigger.create({
+          trigger: piece,
+          containerAnimation: move,
+          start: 'left 60%',
+          end: 'right 40%',
+          toggleClass: 'is-lit',
+          onToggle: (self) => {
+            if (self.isActive && count) count.textContent = String(i + 1).padStart(2, '0')
+          },
+        })
+      })
+    })
+  })
+
+  // Narrow screens: the gallery stacks, and each piece lights up mid-screen.
+  mm.add('(max-width: 899px)', () => {
+    gsap.utils.toArray<HTMLElement>('[data-piece]').forEach((piece) => {
+      ScrollTrigger.create({ trigger: piece, start: 'top 65%', end: 'bottom 35%', toggleClass: 'is-lit' })
     })
   })
   cleanups.push(() => mm.revert())

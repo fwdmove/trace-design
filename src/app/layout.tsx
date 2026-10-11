@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter_Tight, Instrument_Serif, Geist_Mono } from 'next/font/google'
+import { Archivo, Newsreader, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import PageMotion from './components/PageMotion'
@@ -8,15 +8,17 @@ import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 
-const sans = Inter_Tight({
+// Archivo's width axis drives the headline motion (type stretches and
+// compresses), so load it as a variable font with wdth.
+const sans = Archivo({
   subsets: ['latin'],
+  axes: ['wdth'],
   variable: '--font-sans',
   display: 'swap',
 })
 
-const serif = Instrument_Serif({
+const serif = Newsreader({
   subsets: ['latin'],
-  weight: '400',
   style: ['normal', 'italic'],
   variable: '--font-serif',
   display: 'swap',
@@ -56,7 +58,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0f0f0e',
+  themeColor: '#f4f3f0',
 }
 
 // Runs before paint: marks JS + motion support so content can start hidden

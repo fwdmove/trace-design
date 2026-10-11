@@ -33,7 +33,7 @@ export default function Footer() {
       </div>
       <div className="footer-base wrap">
         <span className="mono">© 2026 Trace Design</span>
-        <span className="mono">Websites that don’t blend in</span>
+        <span className="mono">Websites worth framing</span>
       </div>
     </footer>
   )

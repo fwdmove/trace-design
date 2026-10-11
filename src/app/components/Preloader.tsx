@@ -50,7 +50,7 @@ export default function Preloader() {
         {'TRACE'.split('').map((c, i) => <span key={i}>{c}</span>)}
       </div>
       <div className="preloader-foot">
-        <span className="mono">Independent web studio</span>
+        <span className="mono">Exhibition No. 07, now opening</span>
         <span className="mono"><span ref={count}>000</span></span>
       </div>
       <div className="preloader-bar" />

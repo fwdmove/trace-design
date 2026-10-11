@@ -119,7 +119,7 @@ export default function Nav() {
           ))}
         </nav>
         <div className="menu-foot">
-          <p className="mono">Independent web studio, est. 2019</p>
+          <p className="mono">Exhibition No. 07, est. 2019</p>
           <p className="mono">Working worldwide</p>
         </div>
       </div>
