@@ -78,7 +78,7 @@ export default function Home() {
         </p>
         <div className="intro-note" data-fade>
           <p>
-            All we need to get started is a few lines about what you do and a link to a site you love.
+            All it takes to get started is a few lines about what you do. We’ll handle the rest.
           </p>
           <Link href="#contact" className="text-link">
             <RollText>Start a project</RollText>
