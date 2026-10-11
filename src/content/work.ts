@@ -54,13 +54,13 @@ export const projects: Project[] = [
     slug: 'wash-works-usa',
     index: '04',
     name: 'Wash Works USA',
-    type: 'Business website',
+    type: 'Full site build',
     year: '2026',
     url: 'https://www.washworksusa.com',
     image: shot('washworks.jpg'),
     alt: 'Wash Works USA website homepage',
     tone: '#121314',
-    summary: 'A service-business site for a car wash brand.',
+    summary: 'A site for a car wash brand.',
   },
 ]
 

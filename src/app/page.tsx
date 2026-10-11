@@ -7,7 +7,7 @@ import RollText from './components/RollText'
 const services = [
   {
     title: 'Web design',
-    desc: 'Visual direction, layout and type shaped around your business, so the site looks like the best in its field.',
+    desc: 'Visual direction, layout and type shaped around what you do, so the site looks like the best in its field.',
     includes: ['Art direction', 'Layout systems', 'Typography', 'Motion design'],
   },
   {
@@ -23,7 +23,7 @@ const services = [
 ]
 
 const steps = [
-  { step: 'Discover', desc: 'We learn the business, the audience and what the site has to do. You get a clear plan and scope.' },
+  { step: 'Discover', desc: 'We learn what you do, who it’s for and what the site has to do. You get a clear plan and scope.' },
   { step: 'Design', desc: 'Visual direction first, then every page designed in full, with motion and mobile considered from the start.' },
   { step: 'Build', desc: 'Hand-coded, fast and accessible. What we designed is what ships, down to the last transition.' },
   { step: 'Launch', desc: 'We handle hosting, domains and handover, and stay on hand after go-live.' },
@@ -44,7 +44,7 @@ export default function Home() {
 
           <div className="hero-foot" data-fade="stagger" data-delay="0.8">
             <p className="hero-lede">
-              Custom websites for businesses that care how they look online. Designed, built and launched by one
+              Custom websites for people who care how they look online. Designed, built and launched by one
               studio, from the first sketch to the day it goes live.
             </p>
             <div className="hero-actions">
@@ -74,7 +74,7 @@ export default function Home() {
       <section className="intro wrap" id="studio">
         <p className="label" data-fade>(Studio)</p>
         <p className="intro-statement" data-scrub-words>
-          Most small business websites look like they came from the same template. <em>Yours won’t.</em>
+          Most websites look like they came from the same template. <em>Yours won’t.</em>
         </p>
         <div className="intro-note" data-fade>
           <p>
@@ -188,7 +188,7 @@ export default function Home() {
               Let’s build your <em>next</em> website.
             </h2>
             <p className="contact-lede" data-fade>
-              Tell us about your business and what the site needs to do. We’ll reply with honest thoughts and clear
+              Tell us what you’re working on and what the site needs to do. We’ll reply with honest thoughts and clear
               next steps.
             </p>
           </div>
