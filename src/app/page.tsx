@@ -75,7 +75,7 @@ export default function Home() {
         <p className="label" data-fade>(Studio)</p>
         <p className="intro-statement" data-scrub-words>
           We make websites for people who are good at what they do. Lately that’s been a woodworker in Memphis, a tea
-          room, a car wash and a crew of contractors.
+          room, a car wash and a crew of <em>contractors.</em>
         </p>
         <div className="intro-note" data-fade>
           <p>

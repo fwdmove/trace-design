@@ -15,11 +15,10 @@ const sans = Gabarito({
   display: 'swap',
 })
 
-// Only used for the "Design" half of the wordmark.
 const serif = Instrument_Serif({
   subsets: ['latin'],
   weight: '400',
-  style: ['italic'],
+  style: ['normal', 'italic'],
   variable: '--font-serif',
   display: 'swap',
 })
