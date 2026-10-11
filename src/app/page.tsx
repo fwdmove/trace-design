@@ -43,29 +43,40 @@ export default function Home() {
           </div>
 
           <div className="hero-foot" data-fade="stagger" data-delay="0.8">
-            <p className="hero-lede">
-              Custom websites for people who care how they look online. Designed, built and launched by one
-              studio, from the first sketch to the day it goes live.
-            </p>
+            <p className="hero-lede">Custom websites, designed and built by one studio.</p>
             <div className="hero-actions">
               <Link href="#contact" className="btn btn-accent" data-magnetic>
                 <RollText>Start a project</RollText>
                 <span className="btn-arrow" aria-hidden="true">→</span>
               </Link>
-              <Link href="#work" className="text-link">
-                <RollText>See the work</RollText>
-              </Link>
             </div>
           </div>
         </div>
 
-        <div className="reel" data-reel data-fade data-delay="1" aria-hidden="true">
+        {/* The reel is the work: each site links out, and the strip pauses on hover. */}
+        <div className="reel" data-reel data-fade data-delay="1">
           <div className="reel-track" data-reel-track>
-            {[...projects, ...projects].map((p, i) => (
-              <div className="reel-item" key={i} style={{ background: p.tone }}>
-                <Image src={p.image} alt="" fill sizes="(max-width: 700px) 70vw, 34vw" priority={i < 3} />
-              </div>
-            ))}
+            {[...projects, ...projects].map((p, i) => {
+              const copy = i >= projects.length
+              return (
+                <a
+                  className="reel-item"
+                  key={i}
+                  href={p.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ background: p.tone }}
+                  aria-hidden={copy || undefined}
+                  tabIndex={copy ? -1 : undefined}
+                >
+                  <Image src={p.image} alt={copy ? '' : p.alt} fill sizes="(max-width: 700px) 70vw, 34vw" priority={i < 3} />
+                  <span className="reel-label">
+                    <span className="reel-name">{p.name}</span>
+                    <span className="reel-type">{p.type} ↗</span>
+                  </span>
+                </a>
+              )
+            })}
           </div>
         </div>
       </section>
