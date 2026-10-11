@@ -14,6 +14,7 @@
   --accent: #ff4a1c;
 
   --sans: var(--font-sans), 'Helvetica Neue', Arial, sans-serif;
+  --serif: var(--font-serif), Georgia, serif;
   --mono: var(--font-mono), ui-monospace, monospace;
 
   --gutter: clamp(16px, 3.2vw, 44px);
@@ -228,9 +229,8 @@ html.js:not(.seen) .preloader { display: flex; }
 .nav.is-open { color: var(--paper); }
 
 .nav-mark { display: inline-flex; align-items: baseline; gap: 8px; justify-self: start; }
-.nav-mark-word { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; text-transform: uppercase; }
-.nav-mark-sub { font-size: 1.125rem; font-weight: 500; letter-spacing: -0.01em; color: var(--muted); }
-.nav.is-open .nav-mark-sub { color: var(--muted-dark); }
+.nav-mark-word { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.035em; text-transform: uppercase; }
+.nav-mark-sub { font-family: var(--serif); font-style: italic; font-size: 1.3125rem; }
 
 .nav-links { display: flex; gap: 32px; }
 .nav-link { font-size: 0.9375rem; font-weight: 500; }

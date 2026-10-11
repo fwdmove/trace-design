@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Rubik, Geist_Mono } from 'next/font/google'
+import { Gabarito, Instrument_Serif, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import PageMotion from './components/PageMotion'
@@ -8,11 +8,19 @@ import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 
-// Rubik's softened corners keep the big, bold type without the hard edges.
-const sans = Rubik({
+const sans = Gabarito({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-sans',
+  display: 'swap',
+})
+
+// Only used for the "Design" half of the wordmark.
+const serif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['italic'],
+  variable: '--font-serif',
   display: 'swap',
 })
 
@@ -61,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${mono.variable}`}
+      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>
