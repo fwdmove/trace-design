@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter_Tight, Instrument_Serif, Geist_Mono } from 'next/font/google'
+import { Rubik, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import PageMotion from './components/PageMotion'
@@ -8,17 +8,11 @@ import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 
-const sans = Inter_Tight({
+// Rubik's softened corners keep the big, bold type without the hard edges.
+const sans = Rubik({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-sans',
-  display: 'swap',
-})
-
-const serif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
   display: 'swap',
 })
 
@@ -67,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
+      className={`${sans.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>

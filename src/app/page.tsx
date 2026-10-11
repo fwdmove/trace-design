@@ -35,15 +35,6 @@ export default function Home() {
       {/* ═══ HERO ═══ */}
       <section className="hero" data-hero>
         <div className="wrap hero-inner">
-          <div className="hero-meta" data-fade="stagger" data-delay="0.6">
-            <span className="label status">
-              <span className="status-dot" aria-hidden="true" />
-              Taking on new projects
-            </span>
-            <span className="label">Design + development</span>
-            <span className="label">Est. 2019</span>
-          </div>
-
           <div data-hero-drift>
             <h1 className="hero-title" data-split="hero">
               Websites that <br />
@@ -83,22 +74,17 @@ export default function Home() {
       <section className="intro wrap" id="studio">
         <p className="label" data-fade>(Studio)</p>
         <p className="intro-statement" data-scrub-words>
-          Trace is a small studio with a short list of clients. We take on a few projects at a time, so every site is
-          designed, built and launched by the same hands, and ships looking exactly like the design.
+          We make websites for people who are good at what they do. Lately that’s been a woodworker in Memphis, a tea
+          room, a car wash and a crew of contractors.
         </p>
-        <div className="stats" data-fade="stagger">
-          <div className="stat">
-            <span className="stat-num" data-count="7">7</span>
-            <span className="stat-label">Years in business</span>
-          </div>
-          <div className="stat">
-            <span className="stat-num" data-count="30" data-suffix="+">30+</span>
-            <span className="stat-label">Sites shipped</span>
-          </div>
-          <div className="stat">
-            <span className="stat-num">1</span>
-            <span className="stat-label">Team, end to end</span>
-          </div>
+        <div className="intro-note" data-fade>
+          <p>
+            Every site starts with a conversation, not a template. We ask about the business, the customers and what
+            isn’t working, then design and build something that could only be yours.
+          </p>
+          <Link href="#contact" className="text-link">
+            <RollText>Tell us about yours</RollText>
+          </Link>
         </div>
       </section>
 
