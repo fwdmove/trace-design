@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="footer-top wrap">
         <div className="footer-col">
           <p className="label">Studio</p>
-          <p className="footer-text">Independent web studio,<br />designing and building since 2019.</p>
+          <p className="footer-text">Independent web studio, designing and building since 2019.</p>
         </div>
         <div className="footer-col">
           <p className="label">Sitemap</p>
