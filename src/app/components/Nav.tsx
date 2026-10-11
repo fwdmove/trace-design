@@ -21,6 +21,16 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const menu = useRef<HTMLDivElement>(null)
   const toggle = useRef<HTMLButtonElement>(null)
+  const [clock, setClock] = useState('')
+
+  // Menu-bar clock, client only so server and client markup match.
+  useEffect(() => {
+    const fmt = new Intl.DateTimeFormat('en-US', { weekday: 'short', hour: 'numeric', minute: '2-digit' })
+    const tick = () => setClock(fmt.format(new Date()))
+    tick()
+    const id = window.setInterval(tick, 15000)
+    return () => window.clearInterval(id)
+  }, [])
 
   // Hide on scroll down, reveal on scroll up.
   useEffect(() => {
@@ -68,6 +78,7 @@ export default function Nav() {
     <>
       <header className={`nav ${hidden && !open ? 'is-hidden' : ''} ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
         <Link href="/" className="nav-mark" aria-label="Trace Design, home">
+          <span className="nav-mark-star" aria-hidden="true">✦</span>
           <span className="nav-mark-word">Trace</span>
           <span className="nav-mark-sub">Design</span>
         </Link>
@@ -81,6 +92,7 @@ export default function Nav() {
         </nav>
 
         <div className="nav-actions">
+          <span className="nav-clock pixel" aria-hidden="true">{clock}</span>
           <Link href="#contact" className="btn btn-small nav-cta" data-magnetic="0.25">
             <RollText>Start a project</RollText>
           </Link>

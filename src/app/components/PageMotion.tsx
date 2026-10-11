@@ -5,9 +5,12 @@ import { usePathname } from 'next/navigation'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
+import { Draggable } from 'gsap/Draggable'
+import { InertiaPlugin } from 'gsap/InertiaPlugin'
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin'
 import { prefersReducedMotion, whenReady } from '@/lib/motion'
 
-gsap.registerPlugin(ScrollTrigger, SplitText)
+gsap.registerPlugin(ScrollTrigger, SplitText, Draggable, InertiaPlugin, ScrambleTextPlugin)
 
 /*
  * The site's motion system. Markup opts in with data attributes; this binds
@@ -23,6 +26,11 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
  *   data-count          number counts up on enter
  *   data-rise           characters rise as the element scrolls into view
  *   data-magnetic       element leans toward the pointer
+ *   data-drag           window can be thrown around inside [data-desk]
+ *   data-spin           slow endless rotation ("-1" reverses)
+ *   data-float          gentle bob up and down
+ *   data-tilt           card tilts in 3D toward the pointer
+ *   data-scramble       label decodes like a terminal as it enters
  */
 export default function PageMotion() {
   const pathname = usePathname()
@@ -60,6 +68,7 @@ function setup(cleanups: (() => void)[]) {
     SplitText.create(el, {
       type: 'lines',
       mask: 'lines',
+      linesClass: 'line',
       autoSplit: true,
       onSplit: (self) =>
         gsap.from(self.lines, {
@@ -211,6 +220,51 @@ function setup(cleanups: (() => void)[]) {
     })
   })
 
+  // Terminal-style decode on labels.
+  gsap.utils.toArray<HTMLElement>('[data-scramble]').forEach((el) => {
+    gsap.to(el, {
+      duration: 1.2,
+      scrambleText: { text: el.textContent ?? '', chars: '01#*/<>_', revealDelay: 0.3, speed: 0.6 },
+      scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+    })
+  })
+
+  gsap.utils.toArray<HTMLElement>('[data-spin]').forEach((el) => {
+    gsap.to(el, { rotate: 360 * Number(el.dataset.spin || 1), duration: 18, ease: 'none', repeat: -1 })
+  })
+
+  gsap.utils.toArray<HTMLElement>('[data-float]').forEach((el, i) => {
+    gsap.to(el, { y: -14, rotate: '+=4', duration: 2.4 + i * 0.3, ease: 'sine.inOut', yoyo: true, repeat: -1 })
+  })
+
+  // Hero windows drop in, then can be thrown around the screen.
+  gsap.utils.toArray<HTMLElement>('[data-desk]').forEach((desk) => {
+    const wins = gsap.utils.toArray<HTMLElement>('[data-drag]', desk)
+    gsap.from(wins, {
+      yPercent: 60, scale: 0.6, autoAlpha: 0, rotate: () => gsap.utils.random(-14, 14),
+      duration: 1.1, ease: 'back.out(1.6)', stagger: 0.12, delay: 1,
+    })
+    // Touch screens keep native scrolling; the windows just sit in a row there.
+    if (!window.matchMedia('(min-width: 900px) and (pointer: fine)').matches) return
+    const bounds = desk.closest('.screen') ?? desk
+    const drags = Draggable.create(wins, {
+      bounds,
+      inertia: true,
+      edgeResistance: 0.8,
+      zIndexBoost: true,
+      onPress() { gsap.to(this.target, { scale: 1.04, duration: 0.3 }) },
+      onRelease() { gsap.to(this.target, { scale: 1, duration: 0.5, ease: 'back.out(2)' }) },
+    })
+    cleanups.push(() => drags.forEach((d) => d.kill()))
+  })
+
+  // Chrome highlights follow the pointer.
+  const shine = (e: PointerEvent) => {
+    document.documentElement.style.setProperty('--shine', `${(e.clientX / window.innerWidth) * 100}%`)
+  }
+  window.addEventListener('pointermove', shine, { passive: true })
+  cleanups.push(() => window.removeEventListener('pointermove', shine))
+
   // Magnetic buttons (fine pointers only).
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     gsap.utils.toArray<HTMLElement>('[data-magnetic]').forEach((el) => {
@@ -225,6 +279,24 @@ function setup(cleanups: (() => void)[]) {
       const leave = () => {
         gsap.to(el, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, 0.35)' })
       }
+      el.addEventListener('pointermove', move)
+      el.addEventListener('pointerleave', leave)
+      cleanups.push(() => {
+        el.removeEventListener('pointermove', move)
+        el.removeEventListener('pointerleave', leave)
+      })
+    })
+
+    gsap.utils.toArray<HTMLElement>('[data-tilt]').forEach((el) => {
+      gsap.set(el, { transformPerspective: 1200 })
+      const rx = gsap.quickTo(el, 'rotationX', { duration: 0.6, ease: 'power3' })
+      const ry = gsap.quickTo(el, 'rotationY', { duration: 0.6, ease: 'power3' })
+      const move = (e: PointerEvent) => {
+        const r = el.getBoundingClientRect()
+        ry(((e.clientX - r.left) / r.width - 0.5) * 8)
+        rx(((e.clientY - r.top) / r.height - 0.5) * -8)
+      }
+      const leave = () => { rx(0); ry(0) }
       el.addEventListener('pointermove', move)
       el.addEventListener('pointerleave', leave)
       cleanups.push(() => {

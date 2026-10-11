@@ -46,14 +46,17 @@ export default function Preloader() {
 
   return (
     <div ref={root} className="preloader" aria-hidden="true">
-      <div className="preloader-word">
+      <p className="pixel preloader-boot">Booting Trace OS…</p>
+      <div className="preloader-word chrome">
         {'TRACE'.split('').map((c, i) => <span key={i}>{c}</span>)}
       </div>
-      <div className="preloader-foot">
-        <span className="mono">Independent web studio</span>
-        <span className="mono"><span ref={count}>000</span></span>
+      <div className="preloader-meter">
+        <div className="preloader-bar" />
       </div>
-      <div className="preloader-bar" />
+      <div className="preloader-foot">
+        <span className="pixel">Independent web studio</span>
+        <span className="pixel"><span ref={count}>000</span>%</span>
+      </div>
     </div>
   )
 }
