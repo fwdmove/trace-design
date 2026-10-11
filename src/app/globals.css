@@ -258,7 +258,8 @@ html.js:not(.seen) .preloader { display: flex; }
 /* ── Hero ──────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 100svh;
+  display: flex; flex-direction: column;
   padding-top: clamp(120px, 18svh, 190px);
   overflow: hidden;
 }
@@ -294,15 +295,22 @@ html.js:not(.seen) .preloader { display: flex; }
   100% { transform: scale(3.2); opacity: 0; }
 }
 
+/* The reel takes whatever height is left in the first screen, so there is
+   no empty band above the headline or below the work row. */
 .reel {
+  flex: 1 1 auto;
+  position: relative;
+  min-height: 170px;
+  max-height: 420px;
   margin-top: clamp(24px, 3.5svh, 48px);
   padding-bottom: 20px;
   overflow: hidden;
 }
-.reel-track { display: flex; gap: 16px; width: max-content; will-change: transform; }
+.reel-track { position: absolute; top: 0; left: 0; bottom: 20px; display: flex; gap: 16px; width: max-content; will-change: transform; }
 .reel-item {
   position: relative;
-  width: clamp(240px, min(24vw, 36svh), 460px);
+  flex: none;
+  height: 100%;
   aspect-ratio: 2000 / 1140;
   border-radius: 6px;
   overflow: hidden;
@@ -314,7 +322,9 @@ html.js:not(.seen) .preloader { display: flex; }
   .hero-title { font-size: 16vw; }
   .reel { margin-top: 32px; }
   .hero-foot { grid-template-columns: 1fr; }
-  .reel-item { width: 72vw; }
+  .reel { min-height: 0; max-height: none; }
+  .reel-track { position: static; }
+  .reel-item { width: 72vw; height: auto; aspect-ratio: 2000 / 1140; }
 }
 
 /* ── Intro ─────────────────────────────────────────────────── */
