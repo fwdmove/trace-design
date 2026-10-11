@@ -10,7 +10,6 @@ import RollText from './RollText'
 const links = [
   { href: '#work', label: 'Work' },
   { href: '#services', label: 'Services' },
-  { href: '#studio', label: 'Studio' },
   { href: '#contact', label: 'Contact' },
 ]
 

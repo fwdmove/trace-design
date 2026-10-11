@@ -14,7 +14,6 @@ export default function Footer() {
           <ul className="footer-links">
             <li><Link href="#work"><RollText>Work</RollText></Link></li>
             <li><Link href="#services"><RollText>Services</RollText></Link></li>
-            <li><Link href="#studio"><RollText>Studio</RollText></Link></li>
             <li><Link href="#contact"><RollText>Contact</RollText></Link></li>
           </ul>
         </div>
@@ -33,7 +32,6 @@ export default function Footer() {
       </div>
       <div className="footer-base wrap">
         <span className="mono">© 2026 Trace Design</span>
-        <span className="mono">Websites that don’t blend in</span>
       </div>
     </footer>
   )
