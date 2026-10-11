@@ -1,8 +1,28 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 import { projects } from '@/content/work'
 import ContactForm from './components/ContactForm'
 import RollText from './components/RollText'
+import { Chars, FitLine } from './components/Kinetic'
+
+// Palette. Each block of the page names a background, text and accent; as a
+// block reaches the middle of the screen the whole page shifts to its colors.
+const C = {
+  blue: '#2121ff',
+  lime: '#d4ff2e',
+  pink: '#ff4fa3',
+  orange: '#ff5a1f',
+  ink: '#0d0d12',
+  cream: '#f5f1e8',
+}
+
+function tone(bg: string, fg: string, ac: string) {
+  return {
+    'data-tone': `${bg} ${fg} ${ac}`,
+    style: { '--t-bg': bg, '--t-fg': fg, '--t-ac': ac } as CSSProperties,
+  }
+}
 
 const services = [
   {
@@ -29,55 +49,82 @@ const steps = [
   { step: 'Launch', desc: 'We handle hosting, domains and handover, and stay on hand after go-live.' },
 ]
 
+const marquee = ['Web design', 'Development', 'Landing pages', 'Motion', 'Art direction']
+
+const host = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '')
+
 export default function Home() {
   return (
     <>
       {/* ═══ HERO ═══ */}
-      <section className="hero" data-hero>
-        <div className="wrap hero-inner">
-          <div className="hero-meta" data-fade="stagger" data-delay="0.6">
-            <span className="label">Independent web studio</span>
-            <span className="label">Design + development</span>
-            <span className="label">Est. 2019</span>
-          </div>
-
-          <div data-hero-drift>
-            <h1 className="hero-title" data-split="hero">
-              Websites that <br />
-              don’t blend <em>in.</em>
-            </h1>
-          </div>
-
-          <div className="hero-foot" data-fade="stagger" data-delay="0.8">
-            <p className="hero-lede">
-              We design and build custom websites for businesses that want to look like the best in their field.
-              One studio, from first sketch to launch.
-            </p>
-            <div className="hero-actions">
-              <Link href="#contact" className="btn btn-accent" data-magnetic>
-                <RollText>Start a project</RollText>
-                <span className="btn-arrow" aria-hidden="true">→</span>
-              </Link>
-              <Link href="#work" className="text-link">
-                <RollText>See the work</RollText>
-              </Link>
-            </div>
-          </div>
+      <section className="hero" data-hero {...tone(C.blue, C.cream, C.lime)}>
+        <div className="wrap hero-top" data-fade="stagger" data-delay="0.9">
+          <span className="label">Independent web studio</span>
+          <span className="label status"><i aria-hidden="true" />Taking on new projects</span>
+          <span className="label hide-sm">Est. 2019</span>
         </div>
 
-        <div className="reel" data-reel data-fade data-delay="1" aria-hidden="true">
-          <div className="reel-track" data-reel-track>
-            {[...projects, ...projects].map((p, i) => (
-              <div className="reel-item" key={i} style={{ background: p.tone }}>
-                <Image src={p.image} alt="" fill sizes="(max-width: 700px) 70vw, 34vw" priority={i < 3} />
-              </div>
-            ))}
+        <h1 className="hero-title wrap" data-kin="load" data-proximity>
+          <span className="sr-only">Websites that don’t blend in.</span>
+          <span className="hero-lg">
+            <FitLine text="WEBSITES" vh={0.24} exit={-1} />
+            <FitLine text="THAT DON’T" vh={0.24} exit={1} />
+            <FitLine text="BLEND IN." vh={0.24} exit={-1} className="accent" />
+          </span>
+          {/* Phones get shorter lines so each word can run bigger. */}
+          <span className="hero-sm">
+            <FitLine text="WEBSITES" exit={-1} />
+            <FitLine text="THAT" exit={1} />
+            <FitLine text="DON’T" exit={-1} />
+            <FitLine text="BLEND IN." exit={1} className="accent" />
+          </span>
+        </h1>
+
+        <div className="wrap hero-foot" data-fade="stagger" data-delay="1.2">
+          <p className="hero-lede">
+            We design and build custom websites for businesses that want to look like the best in their field.
+            One studio, from first sketch to launch.
+          </p>
+          <div className="hero-actions">
+            <Link href="#contact" className="btn btn-accent" data-magnetic>
+              <RollText>Start a project</RollText>
+              <span className="btn-arrow" aria-hidden="true">→</span>
+            </Link>
+            <Link href="#work" className="text-link">
+              <RollText>See the work</RollText>
+            </Link>
           </div>
         </div>
       </section>
 
+      {/* ═══ CROSSED BANDS ═══ */}
+      <div className="bands" aria-hidden="true">
+        <div className="band band-a" data-marquee="1">
+          <div className="band-track" data-marquee-track>
+            {[0, 1].map((k) => (
+              <span className="band-set" key={k}>
+                {marquee.map((m) => (
+                  <span key={m}>{m}<b>✺</b></span>
+                ))}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="band band-b" data-marquee="-1">
+          <div className="band-track" data-marquee-track>
+            {[0, 1].map((k) => (
+              <span className="band-set" key={k}>
+                {marquee.map((m) => (
+                  <span key={m}>{m}<b>●</b></span>
+                ))}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* ═══ INTRO ═══ */}
-      <section className="intro wrap" id="studio">
+      <section className="intro wrap" id="studio" {...tone(C.cream, C.ink, C.blue)}>
         <p className="label" data-fade>(Studio)</p>
         <p className="intro-statement" data-scrub-words>
           Trace is a small studio with a short list of clients. We take on a few projects at a time, so every site is
@@ -100,58 +147,61 @@ export default function Home() {
       </section>
 
       {/* ═══ WORK ═══ */}
-      <section className="work wrap" id="work">
-        <div className="section-head">
-          <h2 className="section-title" data-split>
-            Selected <em>work</em>
+      {/* The type leads here; screenshots stay small thumbnails beside each name. */}
+      <section className="work wrap" id="work" aria-labelledby="work-title" {...tone(C.orange, C.ink, C.cream)}>
+        <div className="work-head">
+          <p className="label" data-fade>({String(projects.length).padStart(2, '0')}) Selected work</p>
+          <h2 className="section-title" id="work-title" data-kin="scroll">
+            <span className="sr-only">Recent launches</span>
+            <FitLine text="RECENT" exit={1} />
+            <FitLine text="LAUNCHES" exit={-1} className="accent" />
           </h2>
-          <span className="label" data-fade>({String(projects.length).padStart(2, '0')}) Projects</span>
         </div>
 
-        <div className="work-grid">
+        <ul className="proj-list">
           {projects.map((p) => (
-            <article className="work-card" key={p.slug}>
-              <a href={p.url} target="_blank" rel="noreferrer" className="work-link" data-cursor="Visit">
-                <div className="work-frame" data-clip style={{ background: p.tone }}>
-                  <div className="work-shot" data-parallax="6">
-                    <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
-                  </div>
-                </div>
-                <div className="work-meta">
-                  <span className="mono work-index">{p.index}</span>
-                  <h3 className="work-name">{p.name}</h3>
-                  <span className="mono work-type">{p.type}, {p.year}</span>
-                </div>
-                <div className="work-foot">
-                  <p className="work-summary">{p.summary}</p>
-                  <span className="work-visit">
-                    <RollText>Visit site</RollText>
-                    <span aria-hidden="true">↗</span>
+            <li key={p.slug} data-fade>
+              <a href={p.url} target="_blank" rel="noreferrer" className="proj" data-wave data-cursor="Visit">
+                <span className="mono proj-index">{p.index}</span>
+                <h3 className="proj-name">
+                  <span className="sr-only">{p.name}</span>
+                  <span aria-hidden="true"><Chars text={p.name} /></span>
+                </h3>
+                <span className="proj-meta mono">
+                  <span>{p.type}</span>
+                  <span>{p.year}</span>
+                </span>
+                <span className="proj-thumb" aria-hidden="true">
+                  <span className="proj-bar"><i /><i /><i /></span>
+                  <span className="proj-shot" style={{ background: p.tone }}>
+                    <Image src={p.image} alt="" fill sizes="240px" />
                   </span>
-                </div>
-                <span className="sr-only"> (opens the live site in a new tab)</span>
+                </span>
+                <span className="proj-arrow" aria-hidden="true">↗</span>
+                <span className="sr-only"> ({p.type}, {host(p.url)}, opens the live site in a new tab)</span>
               </a>
-            </article>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       {/* ═══ SERVICES ═══ */}
-      <section className="services" id="services">
+      <section className="services" id="services" {...tone(C.ink, C.cream, C.lime)}>
         <div className="wrap">
-          <div className="section-head">
-            <h2 className="section-title" data-split>
-              What we <em>do</em>
-            </h2>
-            <span className="label" data-fade>Every project, end to end</span>
+          <div className="services-head">
+            <p className="label" data-fade>(What we do)</p>
+            <p className="services-lede" data-fade>Every project, end to end. One team from the first sketch to launch day.</p>
           </div>
 
           <ul className="service-list">
             {services.map((s, i) => (
-              <li className="service" key={s.title} data-fade>
-                <span className="mono service-num">0{i + 1}</span>
-                <h3 className="service-title">{s.title}</h3>
-                <div className="service-body">
+              <li className="service" key={s.title} data-wave>
+                <h3 className="service-title" data-kin="scroll" data-slide={i % 2 ? -1 : 1}>
+                  <span className="sr-only">{s.title}</span>
+                  <FitLine text={s.title.toUpperCase()} />
+                </h3>
+                <div className="service-body" data-fade>
+                  <span className="mono service-num">0{i + 1}</span>
                   <p>{s.desc}</p>
                   <ul className="chips">
                     {s.includes.map((item) => <li key={item}>{item}</li>)}
@@ -165,22 +215,20 @@ export default function Home() {
 
       {/* ═══ PROCESS ═══ */}
       {/* The pin wraps [data-hscroll] in a spacer, so React owns the outer section. */}
-      <section className="process-wrap" aria-labelledby="process-title">
+      <section className="process-wrap" aria-labelledby="process-title" {...tone(C.pink, C.ink, C.blue)}>
         <div className="process" data-hscroll>
           <div className="process-track" data-hscroll-track>
             <div className="process-intro">
               <p className="label">(How it works)</p>
-              <h2 className="section-title" id="process-title" data-split>
-                Four steps, <em>no hand-offs.</em>
+              <h2 className="process-title" id="process-title" data-split>
+                Four steps. <span className="accent">No hand-offs.</span>
               </h2>
             </div>
             {steps.map((p, i) => (
-              <div className="process-card" key={p.step}>
+              <div className="process-panel" key={p.step}>
                 <span className="process-num">0{i + 1}</span>
-                <div>
-                  <h3 className="process-step">{p.step}</h3>
-                  <p>{p.desc}</p>
-                </div>
+                <h3 className="process-step"><Chars text={p.step} /></h3>
+                <p>{p.desc}</p>
               </div>
             ))}
           </div>
@@ -188,19 +236,21 @@ export default function Home() {
       </section>
 
       {/* ═══ CONTACT ═══ */}
-      <section className="contact" id="contact">
-        <div className="wrap contact-inner">
-          <div>
-            <p className="label" data-fade>(Contact)</p>
-            <h2 className="contact-title" data-split>
-              Let’s build your <em>next</em> website.
-            </h2>
+      <section className="contact" id="contact" {...tone(C.lime, C.ink, C.blue)}>
+        <div className="wrap">
+          <p className="label" data-fade>(Contact)</p>
+          <h2 className="contact-title" data-kin="scroll" data-proximity>
+            <span className="sr-only">Let’s talk.</span>
+            <FitLine text="LET’S" vh={0.34} />
+            <FitLine text="TALK." vh={0.34} className="accent" />
+          </h2>
+          <div className="contact-inner">
             <p className="contact-lede" data-fade>
               Tell us a little about the project. We take on a short list of clients at a time.
             </p>
-          </div>
-          <div data-fade>
-            <ContactForm />
+            <div data-fade>
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>

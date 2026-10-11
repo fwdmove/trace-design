@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import RollText from './RollText'
+import { FitLine } from './Kinetic'
 
 export default function Footer() {
   return (
@@ -28,8 +29,8 @@ export default function Footer() {
           </a>
         </div>
       </div>
-      <div className="footer-mark" aria-hidden="true">
-        <span data-rise>TRACE</span>
+      <div className="footer-mark wrap" data-kin="scroll" data-proximity>
+        <FitLine text="TRACE" />
       </div>
       <div className="footer-base wrap">
         <span className="mono">© 2026 Trace Design</span>
