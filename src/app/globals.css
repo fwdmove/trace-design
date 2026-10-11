@@ -258,9 +258,8 @@ html.js:not(.seen) .preloader { display: flex; }
 /* ── Hero ──────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  min-height: 100svh;
   display: flex; flex-direction: column; justify-content: flex-end;
-  padding-top: clamp(96px, 13svh, 120px);
+  padding-top: clamp(120px, 18svh, 190px);
   overflow: hidden;
 }
 .hero-inner { display: flex; flex-direction: column; gap: clamp(20px, 3.5svh, 48px); }
