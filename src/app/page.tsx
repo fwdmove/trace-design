@@ -1,181 +1,80 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import { projects } from '@/content/work'
 import ContactForm from './components/ContactForm'
+import Deck from './components/Deck'
 import RollText from './components/RollText'
 
 const services = [
   {
     title: 'Web design',
-    desc: 'Visual direction, layout and type shaped around what you do, so the site looks like the best in its field.',
-    includes: ['Art direction', 'Layout systems', 'Typography', 'Motion design'],
+    desc: 'Visual direction, layout and type shaped around what you do.',
+    includes: ['Art direction', 'Typography', 'Motion'],
   },
   {
     title: 'Development',
-    desc: 'Fast, custom-coded builds that look right on every screen and stay easy to update as you grow.',
-    includes: ['Next.js builds', 'CMS setup', 'Animation', 'Performance'],
+    desc: 'Fast, custom builds that look right on every screen.',
+    includes: ['Next.js', 'CMS setup', 'Performance'],
   },
   {
     title: 'Landing pages',
-    desc: 'Single pages with one job: turn visitors into customers. Strategy, copy direction, design and build.',
-    includes: ['Conversion strategy', 'Copy direction', 'Design + build', 'Launch'],
+    desc: 'One page with one job: turn visitors into customers.',
+    includes: ['Strategy', 'Design + build', 'Launch'],
   },
-]
-
-const steps = [
-  { step: 'Discover', desc: 'We learn what you do, who it’s for and what the site has to do. You get a clear plan and scope.' },
-  { step: 'Design', desc: 'Visual direction first, then every page designed in full, with motion and mobile considered from the start.' },
-  { step: 'Build', desc: 'Hand-coded, fast and accessible. What we designed is what ships, down to the last transition.' },
-  { step: 'Launch', desc: 'We handle hosting, domains and handover, and stay on hand after go-live.' },
 ]
 
 export default function Home() {
   return (
     <>
       {/* ═══ HERO ═══ */}
-      <section className="hero" data-hero>
-        <div className="wrap hero-inner">
-          <div data-hero-drift>
-            <h1 className="hero-title" data-split="hero">
-              Websites that <br />
-              don’t blend <em>in.</em>
-            </h1>
-          </div>
-
+      <section className="hero wrap" data-hero id="work">
+        <div className="hero-copy">
+          <p className="label" data-fade data-delay="0.6">(Independent web studio, est. 2019)</p>
+          <h1 className="hero-title" data-split="hero">
+            Websites that don’t blend <em>in.</em>
+          </h1>
           <div className="hero-foot" data-fade="stagger" data-delay="0.8">
             <p className="hero-lede">
-              Custom websites for people who care how they look online. Designed, built and launched by one
-              studio, from the first sketch to the day it goes live.
+              Custom websites, designed and built from the first sketch to the day they go live.
             </p>
             <div className="hero-actions">
               <Link href="#contact" className="btn btn-accent" data-magnetic>
                 <RollText>Start a project</RollText>
                 <span className="btn-arrow" aria-hidden="true">→</span>
               </Link>
-              <Link href="#work" className="text-link">
-                <RollText>See the work</RollText>
+              <Link href="#services" className="text-link">
+                <RollText>What we do</RollText>
               </Link>
             </div>
           </div>
         </div>
 
-        <div className="reel" data-reel data-fade data-delay="1" aria-hidden="true">
-          <div className="reel-track" data-reel-track>
-            {[...projects, ...projects].map((p, i) => (
-              <div className="reel-item" key={i} style={{ background: p.tone }}>
-                <Image src={p.image} alt="" fill sizes="(max-width: 700px) 70vw, 34vw" priority={i < 3} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ INTRO ═══ */}
-      <section className="intro wrap" id="studio">
-        <p className="label" data-fade>(Studio)</p>
-        <p className="intro-statement" data-scrub-words>
-          Most websites look like they came from the same template. <em>Yours won’t.</em>
-        </p>
-        <div className="intro-note" data-fade>
-          <p>
-            All it takes to get started is a few lines about what you do. We’ll handle the rest.
-          </p>
-          <Link href="#contact" className="text-link">
-            <RollText>Start a project</RollText>
-          </Link>
-        </div>
-      </section>
-
-      {/* ═══ WORK ═══ */}
-      <section className="work wrap" id="work">
-        <div className="section-head">
-          <h2 className="section-title" data-split>
-            Recent sites, <em>live</em> and working.
-          </h2>
-          <span className="label" data-fade>(Selected work) {String(projects.length).padStart(2, '0')}</span>
-        </div>
-
-        <div className="work-grid">
-          {projects.map((p) => (
-            <article className="work-card" key={p.slug}>
-              <a href={p.url} target="_blank" rel="noreferrer" className="work-link" data-cursor="Visit">
-                <div className="work-frame" data-clip style={{ background: p.tone }}>
-                  <div className="work-bar" aria-hidden="true">
-                    <span className="work-dots"><i /><i /><i /></span>
-                    <span className="work-url">{new URL(p.url).host.replace(/^www\./, '')}</span>
-                  </div>
-                  <div className="work-shot">
-                    <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
-                  </div>
-                </div>
-                <div className="work-meta">
-                  <span className="mono work-index">{p.index}</span>
-                  <h3 className="work-name">{p.name}</h3>
-                  <span className="mono work-type">{p.type}, {p.year}</span>
-                </div>
-                <div className="work-foot">
-                  <p className="work-summary">{p.summary}</p>
-                  <span className="work-visit">
-                    <RollText>Visit site</RollText>
-                    <span aria-hidden="true">↗</span>
-                  </span>
-                </div>
-                <span className="sr-only"> (opens the live site in a new tab)</span>
-              </a>
-            </article>
-          ))}
+        <div className="hero-deck" data-fade data-delay="0.5">
+          <Deck />
         </div>
       </section>
 
       {/* ═══ SERVICES ═══ */}
-      <section className="services" id="services">
-        <div className="wrap">
-          <div className="section-head">
-            <h2 className="section-title" data-split>
-              Everything a site needs, <em>under one roof.</em>
-            </h2>
-            <span className="label" data-fade>(What we do)</span>
-          </div>
+      <section className="services wrap" id="services">
+        <div className="section-head">
+          <h2 className="section-title" data-split>
+            Everything a site needs, <em>under one roof.</em>
+          </h2>
+          <span className="label" data-fade>(What we do)</span>
+        </div>
 
-          <ul className="service-list">
-            {services.map((s, i) => (
-              <li className="service" key={s.title} data-fade>
-                <span className="mono service-num">0{i + 1}</span>
+        <ul className="service-grid" data-fade="stagger">
+          {services.map((s, i) => (
+            <li className="service-card" key={s.title}>
+              <span className="mono service-num">0{i + 1}</span>
+              <div className="service-body">
                 <h3 className="service-title">{s.title}</h3>
-                <div className="service-body">
-                  <p>{s.desc}</p>
-                  <ul className="chips">
-                    {s.includes.map((item) => <li key={item}>{item}</li>)}
-                  </ul>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* ═══ PROCESS ═══ */}
-      {/* The pin wraps [data-hscroll] in a spacer, so React owns the outer section. */}
-      <section className="process-wrap" aria-labelledby="process-title">
-        <div className="process" data-hscroll>
-          <div className="process-track" data-hscroll-track>
-            <div className="process-intro">
-              <p className="label">(How it works)</p>
-              <h2 className="section-title" id="process-title" data-split>
-                Four steps, <em>no hand-offs.</em>
-              </h2>
-            </div>
-            {steps.map((p, i) => (
-              <div className="process-card" key={p.step}>
-                <span className="process-num">0{i + 1}</span>
-                <div>
-                  <h3 className="process-step">{p.step}</h3>
-                  <p>{p.desc}</p>
-                </div>
+                <p>{s.desc}</p>
+                <ul className="chips">
+                  {s.includes.map((item) => <li key={item}>{item}</li>)}
+                </ul>
               </div>
-            ))}
-          </div>
-        </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* ═══ CONTACT ═══ */}

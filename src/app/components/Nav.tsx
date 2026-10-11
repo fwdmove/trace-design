@@ -10,7 +10,6 @@ import RollText from './RollText'
 const links = [
   { href: '#work', label: 'Work' },
   { href: '#services', label: 'Services' },
-  { href: '#studio', label: 'Studio' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -73,7 +72,7 @@ export default function Nav() {
         </Link>
 
         <nav className="nav-links" aria-label="Primary">
-          {links.slice(0, 3).map((l) => (
+          {links.slice(0, 2).map((l) => (
             <Link key={l.href} href={l.href} className="nav-link">
               <RollText>{l.label}</RollText>
             </Link>
