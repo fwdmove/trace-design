@@ -51,7 +51,7 @@ export default function ContactForm() {
         <textarea name="message" rows={4} required placeholder="A new site, a redesign, a landing page…" />
       </label>
       <div className="form-foot">
-        <button className="btn btn-accent" type="submit" disabled={status === 'sending'} data-magnetic="0.2">
+        <button className="btn btn-primary" type="submit" disabled={status === 'sending'} data-magnetic="0.2">
           <span>{status === 'sending' ? 'Sending…' : 'Send message'}</span>
           <span className="btn-arrow" aria-hidden="true">→</span>
         </button>

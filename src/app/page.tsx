@@ -34,172 +34,150 @@ export default function Home() {
     <>
       {/* ═══ HERO ═══ */}
       <section className="hero" data-hero>
-        <div className="wrap hero-inner">
-          <div className="hero-meta" data-fade="stagger" data-delay="0.6">
-            <span className="label">Independent web studio</span>
-            <span className="label">Design + development</span>
-            <span className="label">Est. 2019</span>
-          </div>
-
-          <div data-hero-drift>
-            <h1 className="hero-title" data-split="hero">
-              Websites that <br />
-              don’t blend <em>in.</em>
-            </h1>
-          </div>
-
-          <div className="hero-foot" data-fade="stagger" data-delay="0.8">
-            <p className="hero-lede">
-              We design and build custom websites for businesses that want to look like the best in their field.
-              One studio, from first sketch to launch.
-            </p>
-            <div className="hero-actions">
-              <Link href="#contact" className="btn btn-accent" data-magnetic>
-                <RollText>Start a project</RollText>
-                <span className="btn-arrow" aria-hidden="true">→</span>
-              </Link>
-              <Link href="#work" className="text-link">
-                <RollText>See the work</RollText>
-              </Link>
-            </div>
-          </div>
+        <div className="orb-field" aria-hidden="true">
+          <span className="orb" data-orb />
         </div>
 
-        <div className="reel" data-reel data-fade data-delay="1" aria-hidden="true">
-          <div className="reel-track" data-reel-track>
-            {[...projects, ...projects].map((p, i) => (
-              <div className="reel-item" key={i} style={{ background: p.tone }}>
-                <Image src={p.image} alt="" fill sizes="(max-width: 700px) 70vw, 34vw" priority={i < 3} />
-              </div>
-            ))}
+        <div className="wrap hero-inner">
+          <div className="hero-meta" data-fade="stagger" data-delay="0.5">
+            <span>Independent web studio</span>
+            <span>Design + development</span>
+            <span>Est. 2019</span>
+          </div>
+
+          <h1 className="hero-title" data-split="hero">
+            Websites that <br />
+            don’t blend <span className="accent-word">in.</span>
+          </h1>
+
+          <div className="hero-foot" data-fade="stagger" data-delay="0.75">
+            <p className="hero-lede">
+              We design and build custom websites for businesses that want to look like the best in their field. One
+              studio, from first sketch to launch.
+            </p>
+            <div className="hero-actions">
+              <Link href="#contact" className="btn btn-primary" data-magnetic>
+                <RollText>Start a project</RollText>
+                <span className="btn-dot" aria-hidden="true" />
+              </Link>
+              <span className="availability">
+                <span className="availability-dot" aria-hidden="true" />
+                Taking on new projects
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══ INTRO ═══ */}
-      <section className="intro wrap" id="studio">
-        <p className="label" data-fade>(Studio)</p>
-        <p className="intro-statement" data-scrub-words>
+      {/* ═══ STUDIO ═══ */}
+      <section className="studio wrap" id="studio">
+        <p className="kicker" data-fade>The studio</p>
+        <p className="statement" data-scrub-words>
           Trace is a small studio with a short list of clients. We take on a few projects at a time, so every site is
           designed, built and launched by the same hands, and ships looking exactly like the design.
         </p>
-        <div className="stats" data-fade="stagger">
-          <div className="stat">
-            <span className="stat-num" data-count="7">7</span>
-            <span className="stat-label">Years in business</span>
+        <dl className="facts" data-fade="stagger">
+          <div>
+            <dt>Years in business</dt>
+            <dd data-count="7">7</dd>
           </div>
-          <div className="stat">
-            <span className="stat-num" data-count="30" data-suffix="+">30+</span>
-            <span className="stat-label">Sites shipped</span>
+          <div>
+            <dt>Sites shipped</dt>
+            <dd data-count="30" data-suffix="+">30+</dd>
           </div>
-          <div className="stat">
-            <span className="stat-num">1</span>
-            <span className="stat-label">Team, end to end</span>
+          <div>
+            <dt>Team, end to end</dt>
+            <dd>1</dd>
           </div>
+        </dl>
+      </section>
+
+      {/* ═══ SERVICES ═══ */}
+      <section className="services wrap" id="services">
+        <div className="section-head">
+          <p className="kicker" data-fade>What we do</p>
+          <h2 className="section-title" data-split>Every project, end to end.</h2>
         </div>
+
+        <ul className="service-list">
+          {services.map((s, i) => (
+            <li className="service" key={s.title} tabIndex={0} data-fade>
+              <span className="service-num">0{i + 1}</span>
+              <h3 className="service-title">{s.title}</h3>
+              <span className="service-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+              <div className="service-more">
+                <div>
+                  <p>{s.desc}</p>
+                  <ul className="tags">
+                    {s.includes.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* ═══ WORK ═══ */}
       <section className="work wrap" id="work">
-        <div className="section-head">
-          <h2 className="section-title" data-split>
-            Selected <em>work</em>
-          </h2>
-          <span className="label" data-fade>({String(projects.length).padStart(2, '0')}) Projects</span>
+        <div className="section-head section-head-split">
+          <div>
+            <p className="kicker" data-fade>Selected work</p>
+            <h2 className="section-title" data-split>Recently launched.</h2>
+          </div>
+          <p className="section-note" data-fade>Each one opens the live site.</p>
         </div>
 
-        <div className="work-grid">
+        <div className="work-grid" data-fade="stagger">
           {projects.map((p) => (
-            <article className="work-card" key={p.slug}>
-              <a href={p.url} target="_blank" rel="noreferrer" className="work-link" data-cursor="Visit">
-                <div className="work-frame" data-clip style={{ background: p.tone }}>
-                  <div className="work-shot" data-parallax="6">
-                    <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
-                  </div>
-                </div>
-                <div className="work-meta">
-                  <span className="mono work-index">{p.index}</span>
-                  <h3 className="work-name">{p.name}</h3>
-                  <span className="mono work-type">{p.type}, {p.year}</span>
-                </div>
-                <div className="work-foot">
-                  <p className="work-summary">{p.summary}</p>
-                  <span className="work-visit">
-                    <RollText>Visit site</RollText>
-                    <span aria-hidden="true">↗</span>
-                  </span>
-                </div>
-                <span className="sr-only"> (opens the live site in a new tab)</span>
-              </a>
-            </article>
+            <a key={p.slug} href={p.url} target="_blank" rel="noreferrer" className="work-card">
+              <span className="work-shot">
+                <Image src={p.image} alt={p.alt} fill sizes="(max-width: 700px) 46vw, 24vw" />
+              </span>
+              <span className="work-meta">
+                <span className="work-name">{p.name}</span>
+                <span className="work-type">{p.type}</span>
+              </span>
+              <span className="work-arrow" aria-hidden="true">↗</span>
+              <span className="sr-only"> (opens the live site in a new tab)</span>
+            </a>
           ))}
         </div>
       </section>
 
-      {/* ═══ SERVICES ═══ */}
-      <section className="services" id="services">
-        <div className="wrap">
-          <div className="section-head">
-            <h2 className="section-title" data-split>
-              What we <em>do</em>
-            </h2>
-            <span className="label" data-fade>Every project, end to end</span>
-          </div>
-
-          <ul className="service-list">
-            {services.map((s, i) => (
-              <li className="service" key={s.title} data-fade>
-                <span className="mono service-num">0{i + 1}</span>
-                <h3 className="service-title">{s.title}</h3>
-                <div className="service-body">
-                  <p>{s.desc}</p>
-                  <ul className="chips">
-                    {s.includes.map((item) => <li key={item}>{item}</li>)}
-                  </ul>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       {/* ═══ PROCESS ═══ */}
-      {/* The pin wraps [data-hscroll] in a spacer, so React owns the outer section. */}
-      <section className="process-wrap" aria-labelledby="process-title">
-        <div className="process" data-hscroll>
-          <div className="process-track" data-hscroll-track>
-            <div className="process-intro">
-              <p className="label">(How it works)</p>
-              <h2 className="section-title" id="process-title" data-split>
-                Four steps, <em>no hand-offs.</em>
-              </h2>
-            </div>
-            {steps.map((p, i) => (
-              <div className="process-card" key={p.step}>
-                <span className="process-num">0{i + 1}</span>
-                <div>
-                  <h3 className="process-step">{p.step}</h3>
-                  <p>{p.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <section className="process wrap" id="process" aria-labelledby="process-title">
+        <div className="section-head">
+          <p className="kicker" data-fade>How it works</p>
+          <h2 className="section-title" id="process-title" data-split>Four steps, no hand-offs.</h2>
         </div>
+        <ol className="steps" data-progress>
+          <span className="steps-line" aria-hidden="true"><span /></span>
+          {steps.map((s, i) => (
+            <li className="step" key={s.step} style={{ '--i': i } as React.CSSProperties}>
+              <span className="step-num">{i + 1}</span>
+              <h3>{s.step}</h3>
+              <p>{s.desc}</p>
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* ═══ CONTACT ═══ */}
-      <section className="contact" id="contact">
-        <div className="wrap contact-inner">
-          <div>
-            <p className="label" data-fade>(Contact)</p>
+      <section className="contact wrap" id="contact">
+        <div className="contact-inner">
+          <div className="contact-copy">
+            <p className="kicker" data-fade>Start a project</p>
             <h2 className="contact-title" data-split>
-              Let’s build your <em>next</em> website.
+              Let’s build your next <span className="accent-word">website.</span>
             </h2>
             <p className="contact-lede" data-fade>
               Tell us a little about the project. We take on a short list of clients at a time.
             </p>
           </div>
-          <div data-fade>
+          <div className="contact-form" data-fade>
             <ContactForm />
           </div>
         </div>
