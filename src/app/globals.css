@@ -329,21 +329,10 @@ html.js:not(.seen) .preloader { display: flex; }
   max-width: 22ch;
   text-indent: 18%;
 }
-.intro-note {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 48px;
-  max-width: 900px;
-  margin-top: clamp(16px, 3vw, 40px);
-  margin-left: auto;
-  padding: clamp(24px, 3vw, 40px);
-  background: var(--paper-2);
-  border-radius: clamp(18px, 2vw, 28px);
-}
-.intro-note p { font-size: clamp(1.0625rem, 1.4vw, 1.25rem); line-height: 1.5; max-width: 52ch; }
-.intro-note .text-link { white-space: nowrap; justify-self: start; }
+.intro-link { justify-self: start; }
 @media (max-width: 700px) {
   .intro-statement div { text-indent: 0; }
   .intro-statement { text-indent: 0; }
-  .intro-note { grid-template-columns: 1fr; }
 }
 
 /* ── Section heads ─────────────────────────────────────────── */

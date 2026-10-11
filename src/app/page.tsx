@@ -76,14 +76,9 @@ export default function Home() {
         <p className="intro-statement" data-scrub-words>
           Most websites look like they came from the same template. <em>Yours won’t.</em>
         </p>
-        <div className="intro-note" data-fade>
-          <p>
-            When someone compares you to the next tab over, your site should be the reason they pick you.
-          </p>
-          <Link href="#contact" className="text-link">
-            <RollText>Start a project</RollText>
-          </Link>
-        </div>
+        <Link href="#contact" className="text-link intro-link" data-fade>
+          <RollText>Start a project</RollText>
+        </Link>
       </section>
 
       {/* ═══ WORK ═══ */}
