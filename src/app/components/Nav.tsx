@@ -8,7 +8,7 @@ import { getLenis } from '@/lib/motion'
 import RollText from './RollText'
 
 const links = [
-  { href: '#work', label: 'Work' },
+  { href: '#difference', label: 'Approach' },
   { href: '#services', label: 'Services' },
   { href: '#studio', label: 'Studio' },
   { href: '#contact', label: 'Contact' },

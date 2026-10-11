@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { projects } from '@/content/work'
+import Compare from './components/Compare'
 import ContactForm from './components/ContactForm'
 import RollText from './components/RollText'
 
@@ -52,8 +53,8 @@ export default function Home() {
                 <RollText>Start a project</RollText>
                 <span className="btn-arrow" aria-hidden="true">→</span>
               </Link>
-              <Link href="#work" className="text-link">
-                <RollText>See the work</RollText>
+              <Link href="#difference" className="text-link">
+                <RollText>See the difference</RollText>
               </Link>
             </div>
           </div>
@@ -86,44 +87,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ WORK ═══ */}
-      <section className="work wrap" id="work">
+      {/* ═══ DIFFERENCE ═══ */}
+      <section className="difference wrap" id="difference">
         <div className="section-head">
           <h2 className="section-title" data-split>
-            Recent sites, <em>live</em> and working.
+            Same words, <em>different</em> website.
           </h2>
-          <span className="label" data-fade>(Selected work) {String(projects.length).padStart(2, '0')}</span>
+          <p className="difference-note" data-fade>
+            <span className="label">(An example)</span>
+            One made-up bakery, built twice. Drag to compare.
+          </p>
         </div>
-
-        <div className="work-grid">
-          {projects.map((p) => (
-            <article className="work-card" key={p.slug}>
-              <a href={p.url} target="_blank" rel="noreferrer" className="work-link" data-cursor="Visit">
-                <div className="work-frame" data-clip style={{ background: p.tone }}>
-                  <div className="work-bar" aria-hidden="true">
-                    <span className="work-dots"><i /><i /><i /></span>
-                    <span className="work-url">{new URL(p.url).host.replace(/^www\./, '')}</span>
-                  </div>
-                  <div className="work-shot">
-                    <Image src={p.image} alt={p.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
-                  </div>
-                </div>
-                <div className="work-meta">
-                  <span className="mono work-index">{p.index}</span>
-                  <h3 className="work-name">{p.name}</h3>
-                  <span className="mono work-type">{p.type}, {p.year}</span>
-                </div>
-                <div className="work-foot">
-                  <p className="work-summary">{p.summary}</p>
-                  <span className="work-visit">
-                    <RollText>Visit site</RollText>
-                    <span aria-hidden="true">↗</span>
-                  </span>
-                </div>
-                <span className="sr-only"> (opens the live site in a new tab)</span>
-              </a>
-            </article>
-          ))}
+        <div data-fade>
+          <Compare />
         </div>
       </section>
 
