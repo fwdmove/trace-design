@@ -78,8 +78,7 @@ export default function Home() {
         </p>
         <div className="intro-note" data-fade>
           <p>
-            Every page starts from a blank canvas and is coded by hand, so it looks exactly like the design. And we
-            stick around after launch.
+            When someone compares you to the next tab over, your site should be the reason they pick you.
           </p>
           <Link href="#contact" className="text-link">
             <RollText>Start a project</RollText>
