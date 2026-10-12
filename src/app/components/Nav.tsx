@@ -8,9 +8,7 @@ import { getLenis } from '@/lib/motion'
 import RollText from './RollText'
 
 const links = [
-  { href: '#work', label: 'Work' },
-  { href: '#services', label: 'Services' },
-  { href: '#studio', label: 'Studio' },
+  { href: '#services', label: 'What we do' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -73,7 +71,7 @@ export default function Nav() {
         </Link>
 
         <nav className="nav-links" aria-label="Primary">
-          {links.slice(0, 3).map((l) => (
+          {links.map((l) => (
             <Link key={l.href} href={l.href} className="nav-link">
               <RollText>{l.label}</RollText>
             </Link>

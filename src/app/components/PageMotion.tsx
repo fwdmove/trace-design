@@ -23,6 +23,8 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
  *   data-count          number counts up on enter
  *   data-rise           characters rise as the element scrolls into view
  *   data-magnetic       element leans toward the pointer
+ *   data-panel          rounded panel grows into place as it scrolls in
+ *   data-tilt           card tilts gently toward the pointer
  */
 export default function PageMotion() {
   const pathname = usePathname()
@@ -222,6 +224,20 @@ function setup(cleanups: (() => void)[]) {
     })
   })
 
+  // Soft panels settle into place as they scroll in.
+  gsap.utils.toArray<HTMLElement>('[data-panel]').forEach((el) => {
+    gsap.fromTo(
+      el,
+      { scale: 0.94, y: 60 },
+      {
+        scale: 1,
+        y: 0,
+        ease: 'none',
+        scrollTrigger: { trigger: el, start: 'top bottom', end: 'top 35%', scrub: 0.6 },
+      },
+    )
+  })
+
   // Magnetic buttons (fine pointers only).
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     gsap.utils.toArray<HTMLElement>('[data-magnetic]').forEach((el) => {
@@ -236,6 +252,27 @@ function setup(cleanups: (() => void)[]) {
       const leave = () => {
         gsap.to(el, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, 0.35)' })
       }
+      el.addEventListener('pointermove', move)
+      el.addEventListener('pointerleave', leave)
+      cleanups.push(() => {
+        el.removeEventListener('pointermove', move)
+        el.removeEventListener('pointerleave', leave)
+      })
+    })
+
+    // Cards tilt a few degrees toward the pointer and lift slightly.
+    gsap.utils.toArray<HTMLElement>('[data-tilt]').forEach((el) => {
+      gsap.set(el, { transformPerspective: 900 })
+      const rx = gsap.quickTo(el, 'rotationX', { duration: 0.8, ease: 'power3' })
+      const ry = gsap.quickTo(el, 'rotationY', { duration: 0.8, ease: 'power3' })
+      const lift = gsap.quickTo(el, 'y', { duration: 0.8, ease: 'power3' })
+      const move = (e: PointerEvent) => {
+        const r = el.getBoundingClientRect()
+        ry(((e.clientX - r.left) / r.width - 0.5) * 6)
+        rx(((e.clientY - r.top) / r.height - 0.5) * -6)
+        lift(-6)
+      }
+      const leave = () => { rx(0); ry(0); lift(0) }
       el.addEventListener('pointermove', move)
       el.addEventListener('pointerleave', leave)
       cleanups.push(() => {
